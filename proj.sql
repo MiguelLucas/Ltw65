@@ -21,9 +21,10 @@ idUser INTEGER REFERENCES User(idUser),
 idEvent INTEGER REFERENCES Event(idEvent),
 creator BOOLEAN);
 
-CREATE Table Commentary(
-idCommentary INTEGER PRIMARY KEY,
-comentary VARCHAR,
+
+CREATE Table Comment(
+idComment INTEGER PRIMARY KEY,
+comment VARCHAR,
 idEvent INTEGER,
 idUser INTEGER,
 FOREIGN KEY(idEvent) REFERENCES Event(idEvent),
