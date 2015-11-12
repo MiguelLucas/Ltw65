@@ -12,7 +12,7 @@ private BOOLEAN);
 CREATE Table User(
 idUser INTEGER PRIMARY KEY,
 name VARCHAR,
-age INTEGER,
+birthDate DATE,
 username VARCHAR,
 password VARCHAR,
 email VARCHAR);
