@@ -14,7 +14,8 @@ idUser INTEGER PRIMARY KEY,
 name VARCHAR,
 age INTEGER,
 username VARCHAR,
-password VARCHAR);
+password VARCHAR,
+email VARCHAR);
 
 CREATE Table Registration(
 idUser INTEGER REFERENCES User(idUser),
@@ -30,6 +31,20 @@ idUser INTEGER,
 FOREIGN KEY(idEvent) REFERENCES Event(idEvent),
 FOREIGN KEY(idUser) REFERENCES User(idUser),
 date DATETIME);
+
+CREATE Table Invite(
+idInvite INTEGER PRIMARY KEY,
+idSender INTEGER REFERENCES User(idUser),
+idReceiver INTEGER REFERENCES User(idUser),
+idEvent INTEGER REFERENCES Event(idEvent),
+status INTEGER DEFAULT 0);
+
+CREATE Table PendingInvite(
+idPendingInvite INTEGER PRIMARY KEY,
+idSender INTEGER REFERENCES User(idUser),
+receiverEmail VARCHAR,
+idEvent INTEGER REFERENCES Event(idEvent));
+
 
 INSERT INTO User (name, age,username,password) VALUES ('Joaquim', 45,'jquim','1234');
 INSERT INTO Event (name, date,type,description,private) VALUES ('Evento','1968-04-19 15:48:15','Tipo de Evento','O maior deles todos', 0);
