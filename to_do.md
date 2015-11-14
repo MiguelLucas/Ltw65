@@ -1,7 +1,9 @@
-# TO DO
+TO DO
+=========
 
-## Pages
-## Different pages and its elements
+Pages
+---------
+Different pages and its elements
 
 ### Main page
 * Header
@@ -30,7 +32,6 @@
 Actions
 ---------
 Creating, editing, deleting and fetching info from database.
----------
 
 ### User
 * User registration
@@ -86,35 +87,38 @@ Creating, editing, deleting and fetching info from database.
 
 
 
-# DONE
-
+DONE
+=========
 * ...
 
 
 
-# VERIFICATIONS / PERMISSIONS
-
-## Required by project brief
+VERIFICATIONS / PERMISSIONS
+=========
+Required by project brief
+---------
 * Only the registered event owner can manage (edit, delete) the event
 * A user can't register to the same event twice
 * Only event owners and users registered to an event may comment on it
 * Private events only show for the owner, registered users and invitied users
 * Private events do not show on searches
 
-## Recommended / Makes sense / Just so we don't forget this
+Recommended / Makes sense / Just so we don't forget this
+---------
 * Verify that required fields are filled (with useful info)
 	* Check for unique username
 	* Check for unique email
 	* ...
 * Validate email
 
-## Security stuff
+Security stuff
+---------
 * ...
 
 
 
-# IDEAS FOR EXTRAS
-
+IDEAS FOR EXTRAS
+=========
 * Confirm emails after registration
 
 * Users registered in public event may invite other users to event
