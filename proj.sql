@@ -1,49 +1,59 @@
 .mode column
 .headers on
 
+/* Verify that Foreign keys are enabled:
+PRAGMA foreign_keys = ON;
+*/
+
+CREATE Table User(
+idUser INTEGER PRIMARY KEY,
+firstName VARCHAR NOT NULL,
+lastName VARCHAR,
+birthDate DATE,
+email VARCHAR NOT NULL,
+username VARCHAR NOT NULL,
+password VARCHAR NOT NULL,
+profilePhoto VARCHAR DEFAULT NULL);
+
 CREATE Table Event(
 idEvent INTEGER PRIMARY KEY,
 name VARCHAR NOT NULL,
 date DATETIME,
-type VARCHAR,
 description VARCHAR,
-private BOOLEAN);
-
-CREATE Table User(
-idUser INTEGER PRIMARY KEY,
-name VARCHAR,
-birthDate DATE,
-username VARCHAR,
-password VARCHAR,
-email VARCHAR);
+type VARCHAR,
+address VARCHAR,
+private BOOLEAN DEFAULT 0,
+eventPhoto VARCHAR DEFAULT NULL);
 
 CREATE Table Registration(
-idUser INTEGER REFERENCES User(idUser),
-idEvent INTEGER REFERENCES Event(idEvent),
-creator BOOLEAN);
+idUser INTEGER REFERENCES User(idUser) ON DELETE CASCADE ON UPDATE CASCADE,
+idEvent INTEGER REFERENCES Event(idEvent) ON DELETE CASCADE ON UPDATE CASCADE,
+creator BOOLEAN DEFAULT 0,
+PRIMARY KEY (idUser, idEvent));
+
+CREATE Table Invite(
+idSender INTEGER REFERENCES User(idUser) ON DELETE CASCADE ON UPDATE CASCADE,
+idReceiver INTEGER REFERENCES User(idUser) ON DELETE CASCADE ON UPDATE CASCADE,
+idEvent INTEGER REFERENCES Event(idEvent) ON DELETE CASCADE ON UPDATE CASCADE,
+status INTEGER DEFAULT 0,
+PRIMARY KEY (idSender, idReceiver, idEvent));
+
+CREATE Table PendingInvite(
+idSender INTEGER REFERENCES User(idUser) ON DELETE CASCADE ON UPDATE CASCADE,
+emailReceiver VARCHAR,
+idEvent INTEGER REFERENCES Event(idEvent) ON DELETE CASCADE ON UPDATE CASCADE,
+PRIMARY KEY (idSender, emailReceiver, idEvent));
 
 
 CREATE Table Comment(
 idComment INTEGER PRIMARY KEY,
-comment VARCHAR,
-idEvent INTEGER,
-idUser INTEGER,
-FOREIGN KEY(idEvent) REFERENCES Event(idEvent),
-FOREIGN KEY(idUser) REFERENCES User(idUser),
-date DATETIME);
+content VARCHAR,
+photo VARCHAR,
+date DATETIME,
+idUser INTEGER REFERENCES User(idUser) ON DELETE CASCADE ON UPDATE CASCADE,
+idEvent INTEGER REFERENCES Event(idEvent) ON DELETE CASCADE ON UPDATE CASCADE,
+parentComment INTEGER REFERENCES Comment(idComment) ON DELETE CASCADE ON UPDATE CASCADE);
 
-CREATE Table Invite(
-idInvite INTEGER PRIMARY KEY,
-idSender INTEGER REFERENCES User(idUser),
-idReceiver INTEGER REFERENCES User(idUser),
-idEvent INTEGER REFERENCES Event(idEvent),
-status INTEGER DEFAULT 0);
-
-CREATE Table PendingInvite(
-idPendingInvite INTEGER PRIMARY KEY,
-idSender INTEGER REFERENCES User(idUser),
-receiverEmail VARCHAR,
-idEvent INTEGER REFERENCES Event(idEvent));
 
 
 INSERT INTO User (name, age,username,password) VALUES ('Joaquim', 45,'jquim','1234');
