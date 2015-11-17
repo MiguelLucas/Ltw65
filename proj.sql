@@ -10,7 +10,6 @@ CREATE TABLE User(
 	lastName VARCHAR,
 	birthDate DATE NOT NULL CHECK((date('now')-birthDate) > 13),
 	email VARCHAR NOT NULL UNIQUE,
-	username VARCHAR NOT NULL UNIQUE,
 	password VARCHAR NOT NULL,
 	profilePhoto VARCHAR DEFAULT NULL
 );
@@ -57,7 +56,7 @@ CREATE TABLE Comment(
 	idComment INTEGER PRIMARY KEY,
 	content VARCHAR,
 	photo VARCHAR,
-	date NOT NULL DATETIME DEFAULT CURRENT_TIMESTAMP,
+	date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	idUser INTEGER REFERENCES User(idUser) ON DELETE CASCADE ON UPDATE CASCADE,
 	idEvent INTEGER REFERENCES Event(idEvent) ON DELETE CASCADE ON UPDATE CASCADE,
 	parentComment INTEGER REFERENCES Comment(idComment) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -66,6 +65,13 @@ CREATE TABLE Comment(
 
 
 /* To do: review and update inserts */
-INSERT INTO User (name, age,username,password) VALUES ('Joaquim', 45,'jquim','1234');
-INSERT INTO Event (name, date,type,description,private) VALUES ('Evento','1968-04-19 15:48:15','Tipo de Evento','O maior deles todos', 0);
+
+INSERT INTO User (firstName,lastName,birthDate,email,password,profilePhoto) VALUES ('Joaquim', 'da Silva','1968-04-19','jquim@gmail.com','1234','uma foto');
+INSERT INTO User (firstName,lastName,birthDate,email,password,profilePhoto) VALUES ('Manuel', 'da Gertrudes','1965-07-19','o.manel@gmail.com','4321','uma outra foto');
+INSERT INTO EventType(type) VALUES ('Concerto');
+INSERT INTO EventType(type) VALUES ('Teatro');
+INSERT INTO Event (name,date,description,type,address,private,eventPhoto) VALUES ('Muse','2015-12-19 21:00:00','Concerto dos Muse do seu último albúm, Drones',1,'Porto',0,'Uma foto do concerto');
+INSERT INTO Event (name,date,description,type,address,private,eventPhoto) VALUES ('Quizoola','2015-12-21 20:00:00','Performance com a duração de 6 horas',2,'Porto',0,'Uma foto do teatro');
+
 INSERT INTO Registration (idUser, idEvent,creator) VALUES (1,1,1);
+INSERT INTO Registration (idUser, idEvent,creator) VALUES (2,2,1);
