@@ -17,11 +17,11 @@ function eventsLoaded(data) {
   //savedLine = $("#products .line:first-child").clone();
 }
 
-function insertEvent(key, name, description) {
+function insertEvent(key, event) {
   // Create the option tag for the product
   var event = $("<option></option>");
-  event.text(name);
-  event.val(description);
+  event.text(event.name);
+  event.val(event.description);
   
   // Insert the option tag in the select
   $("#events .line:first-child select").append(event);
