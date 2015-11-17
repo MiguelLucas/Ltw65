@@ -11,5 +11,5 @@
 	
 
 
-	getAllEvents();
+	getAllEvents($dbh);
 ?>
