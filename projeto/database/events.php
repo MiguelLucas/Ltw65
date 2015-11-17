@@ -9,8 +9,7 @@
   		echo json_encode($events);
 	}
 	
-	
-	if ( $_SERVER['REQUEST_METHOD'] == 'GET' ) {
-		getAllEvents();
-	}
+
+
+	getAllEvents();
 ?>
