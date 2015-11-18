@@ -1,32 +1,28 @@
-
-$().ready(loadDocument);
+$(document).ready(loadDocument);
 
 function loadDocument() {
   loadEvents();
  
 }
 
+// Fuction that requests events and loads them onto the page
 function loadEvents() {
-	alert('Hello 3');
-  $.getJSON("events.php", eventsLoaded);
-}
+	$.ajax({
+    dataType: "json",
+    url: "events.php",
+    success: function(data) {
+      console.log(data);
 
-function eventsLoaded(data) {
-	alert('Hello 2');
-  $.each(data, insertEvent);
-  
-  // Saves the first line for easy cloning
-  //savedLine = $("#products .line:first-child").clone();
-}
+      // for each object, creates a div .event and fills each field
+      for (var i = 0; i < data.length; i++) {
+        $event = $('#hidden .event').clone(true);
+        $event.find(".event_name").text(data[i].name);
+        $event.find(".event_desc").text(data[i].description);
+        $event.find(".event_date").text(data[i].date);
+        $event.find(".event_img").attr("src", 'thisfolder/' + data[i].eventPhoto);
 
-function insertEvent(key, evento) {
-  // Create the option tag for the product
-  var event = $("<option></option>");
-  alert('Hello');
-  //console.log(event.text(evento));
-  event.text(evento);
-  event.val(evento);
-  
-  // Insert the option tag in the select
-  $("#events .line:first-child select").append(event);
+        $('#events').append($event);
+      }
+    }
+  });
 }

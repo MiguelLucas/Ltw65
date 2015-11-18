@@ -1,16 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Javscript Exercise</title>
+	<title>Eventbook</title>
 	<meta charset='UTF-8'>
   <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
   <script type="text/javascript" src="script.js"></script>
 	<!-- <link rel="stylesheet" href="style.css"> -->
 </head>
 <body>
-	<form id="events">
-		<div class="line">Event:<select></select> Description:<input type="text" value=""></div>
-		<input type="button" value="Add"/>
-	</form>
+	<section id="events">
+		
+	</section>
+
+	<!-- Hidden div containing the templates -->
+	<div id="hidden" style="display: none;">
+		<!-- Template for Event -->
+		<div class="event">
+			<p><strong>Name: </strong><span class="event_name"></span></p>
+			<p><span class="event_date"></span></p>
+			<p><span class="event_desc"></span></p>
+			<p><span class="event_type"></span></p>
+			<img class="event_img" src="">
+		</div>
+	</div>
+
 </body>
 </html>
