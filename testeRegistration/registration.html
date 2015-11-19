@@ -3,8 +3,10 @@
 <head>
 	<title>Registration</title>
 	<meta charset='UTF-8'>
+	<!--
 	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 	<script type="text/javascript" src="script.js"></script>
+	-->
 </head>
 <body>
 <?php
@@ -21,7 +23,7 @@
 		<label for='email' >Email Address*:</label>
 		<input type='text' name='email' id='email' maxlength="50" />
 		<label for='birthDate' name='birthDate' id='birthDate'>Birth Date*:</label>
-		<select name="Day">
+		<select name="day" id="day">
 			<option>Day</option>
 			<option value="1">1</option>
 			<option value="2">2</option>
@@ -55,22 +57,22 @@
 			<option value="30">30</option>
 			<option value="31">31</option>
 		</select>
-		<select name="Month">
+		<select name="month" id="month">
 			<option>Month</option>
-			<option value="January">January</option>
-			<option value="February">February</option>
-			<option value="March">March</option>
-			<option value="April">April</option>
-			<option value="May">May</option>
-			<option value="June">June</option>
-			<option value="July">July</option>
-			<option value="August">August</option>
-			<option value="September">September</option>
-			<option value="October">October</option>
-			<option value="November">November</option>
-			<option value="December">December</option>
+			<option value="01">January</option>
+			<option value="02">February</option>
+			<option value="03">March</option>
+			<option value="04">April</option>
+			<option value="05">May</option>
+			<option value="06">June</option>
+			<option value="07">July</option>
+			<option value="08">August</option>
+			<option value="09">September</option>
+			<option value="10">October</option>
+			<option value="11">November</option>
+			<option value="12">December</option>
 		</select>
-		<select name="Year">
+		<select name="year" id="year">
 			<option>Year</option>
 			<option value="2015">2015</option>
 			<option value="2014">2014</option>
