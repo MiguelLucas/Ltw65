@@ -1,3 +1,3 @@
 # Ltw65
 
-tipo cenas
+Projeto de LTW, grupo 65
