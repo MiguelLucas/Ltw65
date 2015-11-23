@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Eventbook</title>
+	<title>Eventful</title>
 	<meta charset='UTF-8'>
   <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
   <script type="text/javascript" src="script.js"></script>
 	<!-- <link rel="stylesheet" href="style.css"> -->
 </head>
 <body>
+	<button class="create_event">Create Event</button>
+
 	<section id="events">
 		
 	</section>
@@ -16,12 +18,44 @@
 	<div id="hidden" style="display: none;">
 		<!-- Template for Event -->
 		<div class="event">
-			<p><strong>Name: </strong><span class="event_name"></span></p>
+			<p><a href="" class="event_name"></a></p>
 			<p><span class="event_date"></span></p>
-			<p><span class="event_desc"></span></p>
+			<p><span class="event_address"></span></p>
 			<p><span class="event_type"></span></p>
 			<img class="event_img" src="">
 		</div>
+
+		<!-- Form for Event creation -->
+		<form action="" method ="post" class="event_form">
+			<input type="hidden" name="idEvent" value="">
+			<label>Name:
+				<input type="text" name="name" value="Name your event">
+			</label>
+			<label>Description:
+				<input type="text" name="name" value="Write a description of your event">
+			</label>
+			<label>Date:
+				<input type="datetime" name="date" value="">
+			</label>
+			<label>Location:
+				<input type="text" name="address" value="Where will the event take place?">
+			</label>
+			<label>Type:
+				<select name="type">
+					<option value="Concerto">Concerto</option>
+					<option value="Teatro">Teatro</option>
+				</select>
+			</label>
+			<label>Privacy
+				<input type="radio" name="private" value="1">Private
+				<input type="radio" name="private" value="0">Public
+			</label>
+			<label>Photo:
+				<input type="text" name="eventPhoto" value="fake a url">
+			</label>
+			<input type="submit">
+		</form>
+
 	</div>
 
 </body>
