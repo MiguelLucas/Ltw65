@@ -137,8 +137,8 @@ function verify_if_email_exists($email,$db){
 	$allUsers = $stmt->fetchAll();
 	
 	foreach ($allUsers as $User){
-		var_dump($User);
-		die;
+		//var_dump($User);
+		//die;
 		if( $User.email == $email)
 			return true;
 	}
