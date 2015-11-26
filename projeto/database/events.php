@@ -29,13 +29,41 @@ function getEvent() {
 	echo json_encode($events);
 }
 
-// function createEvent() {
-// 	global $db;
+function editEvent() {
+	global $db;
 
-// 	$stmt = $db->prepare($query);
-// 	$stmt->execute();
-// 	$
-// }
+	parse_str(file_get_contents("php://input"), $putVars);
+
+	
+
+	$query = "UPDATE Event SET ";
+	if (isset($putVars['name'])) {
+		$query .= "name = " . $putVars['name'];
+	}
+	if (isset($putVars['description'])) {
+		$query .= "description = " . $putVars['description'];
+	}
+	if (isset($putVars['date'])) {
+		$query .= "date = " . $putVars['date'];
+	}
+	if (isset($putVars['address'])) {
+		$query .= "address = " . $putVars['address'];
+	}
+	if (isset($putVars['type'])) {
+		$query .= "type = " . $putVars['type'];
+	}
+	if (isset($putVars['private'])) {
+		$query .= "private = " . $putVars['private'];
+	}
+	// if (isset($putVars['eventPhoto'])) {
+	// 	$query .= "eventPhoto = " . ['eventPhoto'];
+	// }
+
+	$query .= " WHERE idEvent = " . $putVars['idEvent'];
+
+	$stmt = $db->prepare($query);
+	$stmt->execute();
+}
 
 function getEventTypes() {
 	global $db;
