@@ -1,0 +1,48 @@
+<?php
+ session_start();
+    
+  if(!isset($_SESSION["emailUser"])){
+  	header( "Location: login.html" );
+  }
+ 
+?>
+<html>
+<head>
+	<title>Registration</title>
+	<meta charset='UTF-8'>
+	<!--
+	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script type="text/javascript" src="script.js"></script>
+	-->
+</head>
+<body>
+<header>
+
+</header>
+
+<aside id="userInfo">
+  <h4>Epcot Center</h4>
+  <p>The Epcot Center is a theme park in Disney World, Florida.</p>
+</aside>
+
+<section id="userEvents">
+
+
+	<!-- Hidden div containing the templates -->
+	<div id="hidden" style="display: none;">
+		<!-- Template for Event -->
+		<div class="event">
+			<p><strong>Name: </strong><span class="event_name"></span></p>
+			<p><span class="event_date"></span></p>
+			<p><span class="event_desc"></span></p>
+			<p><span class="event_type"></span></p>
+			<img class="event_img" src="">
+		</div>
+	</div>
+
+
+
+</section>
+	
+</body>
+</html>

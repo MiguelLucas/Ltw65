@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Nome do site</title>
+	<meta charset='UTF-8'>
+	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script type='text/javascript' src='scripts/gen_validatorv31.js'></script>
+	<script type="text/javascript" src="script.js"></script>
+	<!-- <link rel="stylesheet" href="style.css"> -->
+</head>
+<body>
+<form id='loginUser' action='login.php?action=check' method='post' accept-charset='UTF-8'>
+		<fieldset >
+			<div class='short_explanation'>* required fields</div>
+			<legend>Login</legend>
+			<input type='hidden' name='submitted' id='submitted' value='1'/>
+
+			<label for='email' >E-mail:*:</label>
+			<input type='email' name='email' id='email'  maxlength="50" />
+			<label for='password' >Password*:</label>
+			<input type='password' name='password' id='password' maxlength="50" />
+			<br><br>
+			<input type='submit' name='Submit' value='Submit' />
+
+		</fieldset>
+	</form>
+
+</body>
+</html>

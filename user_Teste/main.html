@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<title>Eventbook</title>
+	<meta charset='UTF-8'>
+	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script type="text/javascript" src="script.js"></script>
+	<!-- <link rel="stylesheet" href="style.css"> -->
+</head>
+<body>
+
+	<header>
+		<h1>Friends Ahoy!</h1>
+
+			<?php
+				echo "aaa";
+				if(!isset($_SESSION["emailUser"])) {
+					echo "entrei";
+					include('header_loggedin.php'); // will include header_loggedin.php
+				} else {
+					echo "ora_bolas";
+					include('header_notloggedin.php'); // will include header_notloggedin.php
+				}
+			?>
+	
+     </header>
+      
+	<img src="images/logo.png" alt="Site Logo" height="100" width="100">
+	<nav id="menu">
+		<ul>
+			<li><a href="messages.php">Messages</a></li>
+			<li><a href="about.php">About</a></li>
+		</ul>
+	</nav>
+	
+
+	<section id="events">
+		
+	</section>
+
+	<!-- Hidden div containing the templates -->
+	<div id="hidden" style="display: none;">
+		<!-- Template for Event -->
+		<div class="event">
+			<p><strong>Name: </strong><span class="event_name"></span></p>
+			<p><span class="event_date"></span></p>
+			<p><span class="event_desc"></span></p>
+			<p><span class="event_type"></span></p>
+			<img class="event_img" src="">
+		</div>
+	</div>
+
+</body>
+</html>
