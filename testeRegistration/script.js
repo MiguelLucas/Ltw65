@@ -1,6 +1,6 @@
 
 function detectFirstName(name){
-	if(/[a-zA-Z]+('|-|.|)[a-zA-Z]+/.test(name)){
+	if(/^([^0-9]*)$/.test(name)){
 		var newdiv = document.getElementById('firstNameErr');
 		newdiv.innerHTML = "";
 		newdiv.style.display = "none";
@@ -14,7 +14,7 @@ function detectFirstName(name){
 }
 
 function detectLastName(name){
-	if(/[^0-9]+/.test(name)){
+	if(/^([^0-9]*)$/.test(name)){
 		var newdiv = document.getElementById('lastNameErr');
 		newdiv.innerHTML = "";
 		newdiv.style.display = "none";
@@ -127,7 +127,6 @@ function validateNewUser(form,firstName,lastName,email,day,month,year,password){
 		swal("Error!", "The password is not according to security parameters!", "error");
 		return false;
 	}
-	swal("Congratulations!", "You have been successfully registered. ", "success");
 	form.submit();
 	return true;
 }

@@ -1,6 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Registration</title>
+	<meta charset='UTF-8'>
+	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script type="text/javascript" src="script.js"></script>
+	<script type="text/javascript" src="sweetalert/dist/sweetalert.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="sweetalert/dist/sweetalert.css">
+</head>
+<body>
+</body>
+</html>
+
 <?php
 
 require_once('connection.php');
+require_once('user.php');
+require_once("phpmailer/class.phpmailer.php");
 
 function createUser() {
 	global $db;
@@ -15,7 +31,11 @@ function createUser() {
 		$email = $_POST['email'];
 		$password = $_POST['password'];
 		
-		//VERIFICAR SE EMAIL JA EXISTE
+		if(isRegisted($email)){
+			echo "<script>swal('Error!', 'The user already exists!', 'error');</script>";
+			header("location:registration.html?action=no");
+			return false;
+		}
 		
 		$password_hashed = sha1($password);
 		
@@ -26,7 +46,14 @@ function createUser() {
 		$result = $stmt->execute();  
 		
 		if ($result){
-			header("location:index.php?action=yes");
+			if (sendMail($first_name,$last_name,$email)){
+				echo "<script>swal('Congratulations!', 'You have been successfully registered.', 'success');</script>";
+				header("location:index.php?action=yes");
+			} else {
+				echo "<script>swal('There was an error sending you an email.', 'But you are already registed!');</script>";
+				header("location:index.php?action=yes");
+			}
+				
         } else {
 			//houve algum erro
             header("location:registration.html?action=no");
@@ -34,6 +61,36 @@ function createUser() {
 	} else if (isset($_POST['canceled'])){
 		header("location:index.php?action=no");
 	}
+}
+
+
+define('GUSER', 'ltw.team65@gmail.com'); // GMail username
+define('GPWD', 'inesmarianamiguel');
+
+function sendMail($first_name,$last_name,$email){
+	$mail = new PHPMailer();
+	$mail->CharSet = 'UTF-8';	//UTF-8 necessary for accented characters like 'António'
+	$mail->IsSMTP();		// Activate SMTP
+	$mail->SMTPDebug = 0;		// debugging: 1 = errors and messages, 2 = only messages
+	$mail->SMTPAuth = true;		// authentication activated
+	$mail->SMTPSecure = 'ssl';	// SSL required by Gmail
+	$mail->Host = 'smtp.gmail.com';	// SMTP used
+	$mail->Port = 465;  		// Port 465 must be opened for SSL
+	$mail->Username = GUSER;
+	$mail->Password = GPWD;
+	$mail->From = 'ltw.team65@gmail.com';
+	$mail->FromName = 'LTW - Team 65';
+	$mail->Subject = 'Congratulations on registering!';
+	$mail->Body = 'Hello ' . $first_name . ' ' . $last_name . '!' . "\r\n" . "\r\n" . 'You have just registered on the most beautiful event management website in the world :)';
+	$mail->AddAddress($email);
+	if(!$mail->Send()) {
+		echo 'Mail error: '.$mail->ErrorInfo; 
+		return false;
+	} else {
+		echo 'Mensagem enviada!';
+		return true;
+	}
+	
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
