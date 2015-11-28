@@ -1,14 +1,14 @@
-.mode column
-.headers on
-/* Enable foreign keys. Default is OFF. We'll likely need this in the connection */
+﻿/* Enable foreign keys. Default is OFF. We'll likely need this in the connection */
 PRAGMA foreign_keys = ON;
+.mode columns
+.headers on
 
 
 CREATE TABLE User(
 	idUser INTEGER PRIMARY KEY,
 	firstName VARCHAR NOT NULL,
 	lastName VARCHAR,
-	birthDate DATE NOT NULL CHECK((date('now')-birthDate) > 13),
+	birthDate DATE NOT NULL,
 	email VARCHAR NOT NULL UNIQUE,
 	password VARCHAR NOT NULL,
 	profilePhoto VARCHAR DEFAULT NULL
@@ -66,8 +66,6 @@ CREATE TABLE Comment(
 
 /* To do: review and update inserts */
 
-INSERT INTO User (firstName,lastName,birthDate,email,password,profilePhoto) VALUES ('Joaquim', 'da Silva','1968-04-19','jquim@gmail.com','1234','uma foto');
-INSERT INTO User (firstName,lastName,birthDate,email,password,profilePhoto) VALUES ('Manuel', 'da Gertrudes','1965-07-19','o.manel@gmail.com','4321','uma outra foto');
 INSERT INTO EventType(type) VALUES ('Concerto');
 INSERT INTO EventType(type) VALUES ('Teatro');
 INSERT INTO Event (name,date,description,type,address,private,eventPhoto) VALUES ('Muse','2015-12-19 21:00:00','Concerto dos Muse do seu último albúm, Drones',1,'Porto',0,'Uma foto do concerto');

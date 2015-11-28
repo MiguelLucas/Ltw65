@@ -3,37 +3,29 @@
 <head>
 	<title>Registration</title>
 	<meta charset='UTF-8'>
-	<!--
 	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 	<script type="text/javascript" src="script.js"></script>
-	-->
+	<script type="text/javascript" src="sweetalert/dist/sweetalert.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="sweetalert/dist/sweetalert.css">
 </head>
 <body>
-<?php
-  if ( empty( $_POST ) ) {
-?>
 	<form id="register" action="registration.php" method="post">
 	<fieldset>
 		<legend>Register</legend>
 		<input type='hidden' name='submitted' id='submitted' value='1'/>
 		<label for='name' >First Name*: </label>
-		<input type='text' name='firstName' id='firstName' maxlength="50" />
+		<input type='text' name='firstName' id='firstName' maxlength="50" onchange='detectFirstName(this.value)' />
+		<div id="firstNameErr" style="display: none"></div>
 		<label for='name' >Last Name: </label>
-		<input type='text' name='lastName' id='lastName' maxlength="50" />
+		<input type='text' name='lastName' id='lastName' maxlength="50" onchange='detectLastName(this.value)' />
+		<div id="lastNameErr" style="display: none"></div>
 		<label for='email' >Email Address*:</label>
-		<input type='email' name='email' id='email' maxlength="50" />
+		<input type='text' name='email' id='email' maxlength="50" onchange='detectEmail(this.value)' />
+		<div id="emailErr" style="display: none"></div>
 		<label for='birthDate' name='birthDate' id='birthDate'>Birth Date*:</label>
 		<select name="day" id="day">
 			<option>Day</option>
-			<script>
-			for (i=1;i<=31;i++){
-				var txt1 = "<option value='";
-				var txt2 = "'>";
-				var txt3 = "</option>";
-				var finaltxt = txt1 + i + txt2 + i + txt3;
-				document.write(finaltxt);
-			}
-			</script>
+			<script>listDays();</script>
 		</select>
 		<select name="month" id="month">
 			<option>Month</option>
@@ -52,26 +44,17 @@
 		</select>
 		<select name="year" id="year">
 			<option>Year</option>
-			<script>
-			for (i=2015;i>=1915;i--){
-				var txt1 = "<option value='";
-				var txt2 = "'>";
-				var txt3 = "</option>";
-				var finaltxt = txt1 + i + txt2 + i + txt3;
-				document.write(finaltxt);
-			}
-			</script>
+			<script>listYears();</script>
 		</select>
 		<!--<input type='date' name='birthDate' id='birthDate' /> serve para selecionar a partir do calendario-->
 		<label for='password' >Password*:</label>
-		<input type='password' name='password' id='password' maxlength="50" />
-		<input type='submit' name='register' value='register' />
+		<input type='password' name='password' id='password' maxlength="50" onchange='detectPassword(this.value)' />
+		<div id="passwordErr" style="display: none"></div>
+		<input type='button' value='Register' onclick='validateNewUser(this.form,this.form.firstName.value,this.form.lastName.value,this.form.email.value,
+		this.form.day.value,this.form.month.value,this.form.year.value,this.form.password.value)' />
+		<input type='hidden' name='register' />
+		<input type='submit' name='canceled' value='Cancel' />
 	</fieldset>
 	</form>
-	<?php
-} else {
-  print_r( $_POST );
-}
-?>
 </body>
 </html>
