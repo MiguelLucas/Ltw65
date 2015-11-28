@@ -70,6 +70,7 @@ function loadEvent(id)
     data: { action : "event" , idEvent : id },
     success: function(data) {
 
+      $('#event').empty();
       // Saves event on lastEvent var for future use
       // Fills in each field
       for (var i = 0; i < data.length; i++) {
@@ -94,8 +95,9 @@ function loadEvent(id)
 
 /* Function that loads event edit form and sets the inputs default values to the event's current values */
 function editEvent() {
-  $('#event .event').remove();
-  var edit_event = $('#hidden .event_edit').clone(true);
+  $('#comments').hide();
+  $('#event').empty();
+  var edit_event = $('#hidden .event_form').clone(true);
 
   edit_event.find(".event_id").val(lastEvent.idEvent);
   edit_event.find(".event_name").val(lastEvent.name);
@@ -124,9 +126,15 @@ function editEvent() {
 
     edit_event.find(".event_type").append(new_option);
 }
+
   $('#event').prepend(edit_event);
 
-  edit_event.submit(function() {
+// function send data
+  $('.save_button').click(function() {
+    // //Verification
+    // if (SOMETHING_BAD_HAPPENED)
+    //   return false;
+
     $.ajax(
       {
         method: "PUT",
@@ -144,13 +152,30 @@ function editEvent() {
             private: $('select[name="private"]').val(),
             eventPhoto: $('input[name="eventPhoto"]').val() },
         success: function() {
-          alert('sucess!');
           loadEvent(lastEvent.idEvent);
+          $('#comments').show();
         },
         error: function(data) {
           console.log(data.responseText);
         }
       });
+  });
+}
+
+function deleteEvent() {
+  $.ajax(
+  {
+    method: "DELETE",
+    url: "database/events.php",
+    data: { idEvent : lastEvent['idEvent'] },
+    success: function(data) {
+      if (data.redirect !== undefined && data.redirect) {
+        window.location.href = data.redirect_url;
+      }
+    },
+    error: function(data) {
+      console.log(data.responseText);
+    }
   });
 }
 
@@ -187,7 +212,109 @@ function loadButtons() {
       editEvent();
     });
 
+
+/* Clicking Delete triggers a confirmation dialog.
+If the user chooses to delete the event, a message is displayed confirming the event's deletion.
+When the user clicks OK, they're redirected to the index. */
     $('button.delete_event').click(function(){
-      alert('let\'s delete this shit!');
+
+      swal({
+        title: null,
+        text: "Are you sure you want to delete this event?",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Yes",
+        closeOnConfirm: false,
+        html: true
+      }, function(isConfirm) {
+        if (isConfirm) {
+          deleteEvent();
+          swal({
+            title: null,
+            text: "Your event has been deleted.",
+            type: "success",
+            html: true,
+            allowEscapeKey: false,
+          }, function(isConfirm){
+            if (isConfirm) {
+              window.location.href = 'main.html';
+            } else {
+              return false;
+            }
+          });
+        } else {
+          return false;
+        }
+      });
     });
 }
+
+
+function createEvent_submit() {
+  // $('.save_button').click(function() {
+  //   alert('send data!');
+  // });
+    $.ajax(
+      {
+        method: "POST",
+        dataType: "json",
+        url: "database/events.php",
+        data: {
+          action: "create_news",
+          name: $('input[name="name"]').val(),
+          description: $('input[name="description"]').val(),
+          date: $('input[name="date"]').val(),
+          time: $('input[name="time"]').val(),
+          address: $('input[name="address"]').val(),
+          type: $('select[name="type"]').val(),
+          private: $('select[name="private"]').val(),
+        },
+        success: function(data) {
+          // if (data.redirect !== undefined && data.redirect)
+          //   window.location.href = data.redirect_url;
+          console.log('successfully created event!');
+        },
+        error: function(data) {
+          console.log(data.responseText);
+        }
+      });
+}
+
+
+
+/*
+function createEvent_submit_teste() {
+  $('.save_button').click(function() {
+    // function() {
+    // //Verification
+    // if (SOMETHING_BAD_HAPPENED)
+    //   return false; }
+
+    $.ajax(
+      {
+        method: "POST",
+        dataType: "json",
+        url: "database/events.php",
+        data: {
+            action: "create_event",
+            // idEvent: $('input[name="idEvent"]').val(),
+            name: $('input[name="name"]').val(),
+            description: $('input[name="description"]').val(),
+            date: $('input[name="date"]').val(),
+            time: $('input[name="time"]').val(),
+            address: $('input[name="address"]').val(),
+            type: $('select[name="type"]').val(),
+            private: $('select[name="private"]').val(),
+            eventPhoto: $('input[name="eventPhoto"]').val() },
+        success: function(data) {
+          if (data.redirect !== undefined && data.redirect)
+            window.location.href = data.redirect_url;
+        },
+        error: function(data) {
+          console.log(data.responseText);
+        }
+      })
+  }); 
+}
+} */

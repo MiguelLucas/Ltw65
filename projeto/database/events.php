@@ -34,9 +34,6 @@ function editEvent() {
 
 	parse_str(file_get_contents("php://input"), $putVars);
 
-	var_dump($putVars);
-	//die();
-
 	$query = "UPDATE Event SET ";
 	if (isset($putVars['name']))
 		$query .= "name = \"" . $putVars['name'] . "\"";
@@ -50,13 +47,62 @@ function editEvent() {
 		$query .= ", type = " . $putVars['type'];
 	if (isset($putVars['private']))
 		$query .= ", private = " . $putVars['private'];
-	if (isset($putVars['eventPhoto']))
-		$query .= ", eventPhoto = \"" . $putVars['eventPhoto'] . "\"";
 
 	$query .= " WHERE idEvent = " . $putVars['idEvent'];
-	echo $query;
+
 	$stmt = $db->prepare($query);
 	$stmt->execute();
+
+	header("Content-Type: application/json");
+	echo json_encode(array('success' => true));
+}
+
+function deleteEvent() {
+	global $db;
+
+	parse_str(file_get_contents("php://input"), $deleteVars);
+
+	$query = "DELETE FROM Event WHERE ";
+	if (isset($deleteVars['idEvent']))
+		$query .= "idEvent = " . $deleteVars['idEvent'];
+
+	$stmt = $db->prepare($query);
+	$stmt->execute();
+
+	//header("Content-Type: application/json");
+	//echo '{"redirect":true,"redirect_url":"main.html"}';
+}
+
+function createEvent() {
+	global $db;
+
+var_dump($_POST);
+
+	$query = "INSERT INTO Event (name, description, date, address, type, private) VALUES (";
+	if (isset($_POST['name']))
+		$query .= $_POST['name'] . ", ";
+	if (isset($_POST['description']))
+		$query .= $_POST['description'] . ", ";
+	if ((isset($_POST['date'])) AND (isset($_POST['time'])))
+		$query .= $_POST['date'] . " " . $_POST['time'] . ", ";
+	if (isset($_POST['address']))
+		$query .= $_POST['address'] . ", ";
+	// if (isset($_POST['type']))
+	// 	$query .= $_POST['type'] . ", ";
+	$query .= "1, ";
+	if (isset($_POST['private']))
+		$query .= $_POST['private'];
+
+	$query .= ")";
+echo $query;
+
+	$stmt = $db->prepare($query);
+	$stmt->execute();
+
+	$last_id = $db->lastInsertID();
+
+	header("Content-Type: application/json");
+	echo '{"redirect":true,"redirect_url":"view-event.php?idEvent="' . $last_id . '}';
 }
 
 function getEventTypes() {
@@ -99,6 +145,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
 	editEvent();
+	die;
 }
 if ($_SERVER['REQUEST_METHOD'] == "DELETE") {
 	deleteEvent();

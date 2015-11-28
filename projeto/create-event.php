@@ -22,43 +22,7 @@
 		</ul>
 	</nav>
 </header>
-<section id="event"></section>
-<section id="comments">
-	<h2>Comments</h2>
-	<ol>
-		<form>
-			<input class="idUser" type="hidden" name="idUser" value="">
-			<input class="comment_content" type="text" name="content" value="" placeholder="Write a comment...">
-		</form>
-	</ol>
-</section>
-
-<!-- Hidden div containing the templates -->
-<div id="hidden" style="display: none;">
-	<!-- Template for Event -->
-	<article class="event">
-	<header>
-		<button class="edit_event">Edit</button>
-		<h1 class="event_name"></h1>
-		<p><span class="event_date"></span></p>
-		<p><span class="event_time"></span></p>
-		<p><span class="event_address"></span></p>
-	</header>
-		<div><img class="event_img" src=""></div>
-		<p><span class="event_desc"></span></p>
-		<p><span class="event_type"></span></p>
-		<p><span class="event_privacy"></span></p>
-	</article>
-
-	<!-- Template for Comments -->
-	<li>
-		<header>
-			<span class="author"></span>
-			<span class="publish_date"></span>
-		</header>
-		<p class="comment_text"></p>
-	</li>
-
+<section id="event">
 	<!-- Form for Event creation/edit -->
 	<div class="event_form">
 		<form>
@@ -92,12 +56,14 @@
 			<label>Photo:
 				<input class="event_img" type="text" name="eventPhoto" value="" placeholder="fake a url">
 			</label>
-			<button class="save_button" type="button">Save</button>
+			<button class="save_button" type="button">Teste</button>
 			<a class="cancel" href="">Cancel</a>
 		</form>
-		<button class="delete_event">Delete</button>
 	</div>
+</section>
 
+<!-- Hidden div containing the templates -->
+<div id="hidden" style="display: none;">
 	<!-- Form for Event's photo edit -->
 	<form>
 		<input class="event_photo" type="file" name="eventPhoto">
@@ -105,16 +71,28 @@
 </div>
 
 </body>
-
+<!-- 
 <script type="text/javascript">
 	$(document).ready(function()
 	{
-		loadEvent(<?php echo $_GET['idEvent']; ?>);
-		loadButtons();
-		getEventTypes();
+		// console.log('hello');
+		// loadEvent(<?php echo $_GET['idEvent']; ?>);
+		// loadButtons();
+		// getEventTypes();
+		// createEvent_submit();
 
 	});
+</script>
 
-
+ -->
+<script type="text/javascript">
+	$(document).ready(function()
+	{
+		console.log('hello!!!!');
+		$('.save_button').click(function() {
+    		// alert('send data!');
+    		createEvent_submit();
+  		});
+	});
 </script>
 </html>
