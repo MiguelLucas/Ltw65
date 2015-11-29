@@ -41,8 +41,7 @@ function loadEvents()
         var event = $('#hidden .event').clone(true);
         event.find(".event_img").attr("src", 'thisfolder/' + data[i].eventPhoto);
         event.find(".event_name").text(data[i].name);
-        event.find(".event_date").text(formatDate(data[i].date));
-        event.find(".event_time").text(formatTime(data[i].date));
+        event.find(".event_date_time").text(moment(data[i].date).format('MMM D, YYYY') + ' at ' + moment(data[i].date).format('h:mm A'));
         event.find(".event_address").text(data[i].address);
         event.find(".event_type").text(data[i].type);
         event.find(".event_more").attr("href", 'view-event.php?idEvent=' + data[i].idEvent);
@@ -81,8 +80,7 @@ function loadEvent(id)
         event.find(".event_name").text(data[i].name);
         event.find(".event_desc").text(data[i].description);
         event.find(".event_address").text(data[i].address);
-        event.find(".event_date").text(formatDate(data[i].date));
-        event.find(".event_time").text(formatTime(data[i].date));
+        event.find(".event_date_time").text(moment(data[i].date).format('dddd, MMMM Do, YYYY') + ' at ' + moment(data[i].date).format('h:mm A'));
         event.find(".event_type").text(data[i].type);
         event.find(".event_privacy").text(event_privacy);
         event.find(".event_img").attr("src", 'thisfolder/' + data[i].eventPhoto);
@@ -112,8 +110,8 @@ function editEvent() {
   } else {
     edit_event.find('.event_privacy option[value="0"]').attr("selected", "selected");
   };
-
-  edit_event.find(".event_img").val(lastEvent.eventPhoto);
+  //  TO REMOVE:
+  // edit_event.find(".event_img").val(lastEvent.eventPhoto);
   // edit_event.find(".event_img").attr("src", 'thisfolder/' + lastEvent.eventPhoto);
 
   $('#event').prepend(edit_event);
@@ -135,13 +133,14 @@ function editEvent() {
             action: "edit_event",
             idEvent: $('input[name="idEvent"]').val(),
             name: $('input[name="name"]').val(),
-            description: $('input[name="description"]').val(),
+            description: $('textarea[name="description"]').val(),
             date: $('input[name="date"]').val(),
             time: $('input[name="time"]').val(),
             address: $('input[name="address"]').val(),
             type: $('select[name="type"]').val(),
-            private: $('select[name="private"]').val(),
-            eventPhoto: $('input[name="eventPhoto"]').val() },
+            private: $('select[name="private"]').val() },
+            // TO REMOVE:
+            // eventPhoto: $('input[name="eventPhoto"]').val() },
         success: function() {
           loadEvent(lastEvent.idEvent);
           $('#comments').show();
@@ -181,9 +180,9 @@ function loadEventTypeOptions(el) {
       success: function(data) {
         for (var i = 0; i < data.length; i++) {
           if (lastEvent !== null && lastEvent.type == data[i].type) {
-            el.append("<option value=\"" + data[i].idEvent + "\" selected=\"selected\">" + data[i].type + "</option>");
+            el.append("<option value=\"" + data[i].idEventType + "\" selected=\"selected\">" + data[i].type + "</option>");
           } else {
-            el.append("<option value=\"" + data[i].idEvent + "\">" + data[i].type + "</option>");
+            el.append("<option value=\"" + data[i].idEventType + "\">" + data[i].type + "</option>");
           }
         }
       },
@@ -242,10 +241,7 @@ When the user clicks OK, they're redirected to the index. */
 }
 
 
-function createEvent_submit() {
-  // $('.save_button').click(function() {
-  //   alert('send data!');
-  // });
+function createEvent() {
     $.ajax(
       {
         method: "POST",
@@ -254,7 +250,7 @@ function createEvent_submit() {
         data: {
           action: "create_news",
           name: $('input[name="name"]').val(),
-          description: $('input[name="description"]').val(),
+          description: $('textarea[name="description"]').val(),
           date: $('input[name="date"]').val(),
           time: $('input[name="time"]').val(),
           address: $('input[name="address"]').val(),
@@ -264,7 +260,6 @@ function createEvent_submit() {
         success: function(data) {
           if (data.redirect !== undefined && data.redirect)
             window.location.href = data.redirect_url;
-          // console.log('successfully created event!');
         },
         error: function(data) {
           console.log(data.responseText);

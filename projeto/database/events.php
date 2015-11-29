@@ -83,9 +83,8 @@ function createEvent() {
 		$query .= "\"" . $_POST['date'] . " " . $_POST['time'] . "\", ";
 	if (isset($_POST['address']))
 		$query .= "\"" . $_POST['address'] . "\", ";
-	// if (isset($_POST['type']))
-	// 	$query .= $_POST['type'] . ", ";
-	$query .= "1, ";
+	if (isset($_POST['type']))
+		$query .= $_POST['type'] . ", ";
 	if (isset($_POST['private']))
 		$query .= $_POST['private'];
 

@@ -1,27 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Eventful</title>
-	<meta charset='UTF-8'>
-  <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-  <!-- Sweet Alert library -->
-  <script src="include/swal/sweetalert.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="include/swal/sweetalert.css">
-  <script type="text/javascript" src="script.js"></script>
-	<!-- <link rel="stylesheet" href="style.css"> -->
-	<style type="text/css"> form input, form select {display: block;}</style>
-</head>
-<body>
-<header>
-	<h1>Eventful</h1>
-	<nav>
-		<ul>
-			<li><a href="">Browse</a></li>
-			<li><a href="">My Events</a></li>
-			<li><a href="">Something else</a></li>
-		</ul>
-	</nav>
-</header>
+<?php require_once('templates/header.php'); ?>
 <section id="event"></section>
 <section id="comments">
 	<h2>Comments</h2>
@@ -40,14 +17,16 @@
 	<header>
 		<button class="edit_event">Edit</button>
 		<h1 class="event_name"></h1>
-		<p><span class="event_date"></span></p>
-		<p><span class="event_time"></span></p>
+		<p><span class="event_date_time"></span></p>
 		<p><span class="event_address"></span></p>
 	</header>
-		<div><img class="event_img" src=""></div>
-		<p><span class="event_desc"></span></p>
+		<div>
+			<img class="event_img" src="">
+			<button class="change_photo" type="button">Change Photo</button>
+		</div>
 		<p><span class="event_type"></span></p>
 		<p><span class="event_privacy"></span></p>
+		<p><span class="event_desc"></span></p>
 	</article>
 
 	<!-- Template for Comments -->
@@ -76,7 +55,7 @@
 				<input class="event_address" type="text" name="address" value="" placeholder="Where will the event take place?">
 			</label>
 			<label>Description:
-				<input class="event_desc" type="text" name="description" value="" placeholder="Give a brief description of your event">
+				<textarea class="event_desc" name="description" value="" placeholder="Give a brief description of your event"></textarea>
 			</label>
 			<label>Type:
 				<select class="event_type" name="type"></select>
@@ -86,9 +65,6 @@
 					<option value="1">Private</option>
 					<option value="0">Public</option>
 				</select>
-			</label>
-			<label>Photo:
-				<input class="event_img" type="text" name="eventPhoto" value="" placeholder="fake a url">
 			</label>
 			<button class="save_button" type="button">Save</button>
 			<a class="cancel" href="">Cancel</a>
