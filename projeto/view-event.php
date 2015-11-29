@@ -9,6 +9,11 @@
 		</form>
 	</ol>
 </section>
+<aside>
+	<button class="going" type="button">Go to event</button>
+	<button class="invite" type="button">Invite</button>
+	<button class="share" type="button">Share</button>
+</aside>
 
 <!-- Hidden div containing the templates -->
 <div id="hidden" style="display: none;">

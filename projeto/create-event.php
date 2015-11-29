@@ -1,3 +1,11 @@
+<!-- 
+IF HTTP REFERRER NOT INDEX
+	REDIRECT TO INDEX
+
+IF USER NOT LOGGED IN	
+	REDIRECT TO INDEX
+
+ -->
 <?php require_once('templates/header.php'); ?>
 <section id="event">
 	<!-- Form for Event creation/edit -->
