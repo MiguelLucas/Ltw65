@@ -1,2 +1,3 @@
 - Verificações de input. Php ou javascript? Ou ambos?
 - Conexões à db não funcionam em alguns casos (Miguel). Porquê?
+- Comentários. Segundo descrição, um user tem que estar registado no evento para o poder comentar. Não seria melhor qualquer user poder comentar um evento público, desde que esteja logged in?
