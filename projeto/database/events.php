@@ -68,7 +68,7 @@ function deleteEvent() {
 	$stmt->execute();
 
 	//header("Content-Type: application/json");
-	//echo '{"redirect":true,"redirect_url":"main.html"}';
+	//echo '{"redirect":true,"redirect_url":"index.php"}';
 }
 
 function createEvent() {

@@ -229,7 +229,7 @@ When the user clicks OK, they're redirected to the index. */
             allowEscapeKey: false,
           }, function(isConfirm){
             if (isConfirm) {
-              window.location.href = 'main.html';
+              window.location.href = 'index.php';
             } else {
               return false;
             }
