@@ -49,7 +49,7 @@
 		loadEventTypeOptions($('.event_type'));
 
 		$('.save_button').click(function() {
-    		createEvent();
+    		verifyCreateEventData();
   		});
 	});
 </script>

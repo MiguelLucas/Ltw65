@@ -84,7 +84,9 @@
 	$(document).ready(function()
 	{
 		loadEvent(<?php echo $_GET['idEvent']; ?>);
-		loadButtons();
+		$('button.edit_event').click(function(){
+			fillEditEventForm();
+		});
 
 	});
 </script>

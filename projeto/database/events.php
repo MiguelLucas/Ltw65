@@ -27,6 +27,7 @@ function getEvent() {
 	echo json_encode($events);
 }
 
+/* Event Edition */
 function editEvent() {
 	global $db;
 
@@ -55,6 +56,7 @@ function editEvent() {
 	echo json_encode(array('success' => true));
 }
 
+/* Event deletion */
 function deleteEvent() {
 	global $db;
 
@@ -71,6 +73,7 @@ function deleteEvent() {
 	//echo '{"redirect":true,"redirect_url":"index.php"}';
 }
 
+/* Event creation */
 function createEvent() {
 	global $db;
 
@@ -99,6 +102,7 @@ function createEvent() {
 	echo '{"redirect":true,"redirect_url":"view-event.php?idEvent=' . $last_id . '"}';
 }
 
+/* Get event types */
 function getEventTypes() {
 	global $db;
 
@@ -116,8 +120,7 @@ function getEventTypes() {
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 	/* According to the value of var action, a different function is called */
 	if (!array_key_exists("action", $_GET)) {
-		/* throw an error or choose a default */
-		echo "action not a key in GET array";
+		echo "An error has occurred";
 	} else {
 		switch ($_GET['action']) {
 			case 'event':
@@ -127,8 +130,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 				getEventTypes();
 				break;
 			default:
-				/* throw an error or choose a default */
-				echo "action is defined to unexpected value";
+				echo "Unexpected action";
 				break;
 			}
 	}
@@ -139,7 +141,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
 	editEvent();
-	die;
 }
 if ($_SERVER['REQUEST_METHOD'] == "DELETE") {
 	deleteEvent();
