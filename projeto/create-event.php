@@ -43,9 +43,7 @@
 				<input class="event_desc" type="text" name="description" value="" placeholder="Give a brief description of your event">
 			</label>
 			<label>Type:
-				<select class="event_type" name="type">
-					<option value=""></option>
-				</select>
+				<select class="event_type" name="type"></select>
 			</label>
 			<label>Privacy:
 				<select class="event_privacy" name="private">
@@ -71,26 +69,12 @@
 </div>
 
 </body>
-<!-- 
 <script type="text/javascript">
 	$(document).ready(function()
 	{
-		// console.log('hello');
-		// loadEvent(<?php echo $_GET['idEvent']; ?>);
-		// loadButtons();
-		// getEventTypes();
-		// createEvent_submit();
-
-	});
-</script>
-
- -->
-<script type="text/javascript">
-	$(document).ready(function()
-	{
+		loadEventTypeOptions($('.event_type'));
 		console.log('hello!!!!');
 		$('.save_button').click(function() {
-    		// alert('send data!');
     		createEvent_submit();
   		});
 	});

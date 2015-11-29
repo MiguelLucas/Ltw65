@@ -79,9 +79,7 @@
 				<input class="event_desc" type="text" name="description" value="" placeholder="Give a brief description of your event">
 			</label>
 			<label>Type:
-				<select class="event_type" name="type">
-					<option value=""></option>
-				</select>
+				<select class="event_type" name="type"></select>
 			</label>
 			<label>Privacy:
 				<select class="event_privacy" name="private">
@@ -111,10 +109,7 @@
 	{
 		loadEvent(<?php echo $_GET['idEvent']; ?>);
 		loadButtons();
-		getEventTypes();
 
 	});
-
-
 </script>
 </html>

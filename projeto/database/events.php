@@ -25,8 +25,6 @@ function getEvent() {
 	/* Content-Type must be defined, otherwise the output is seen as plain text */
 	header("Content-Type: application/json");
 	echo json_encode($events);
-
-
 }
 
 function editEvent() {
@@ -76,17 +74,15 @@ function deleteEvent() {
 function createEvent() {
 	global $db;
 
-var_dump($_POST);
-
 	$query = "INSERT INTO Event (name, description, date, address, type, private) VALUES (";
 	if (isset($_POST['name']))
-		$query .= $_POST['name'] . ", ";
+		$query .= "\"" . $_POST['name'] . "\", ";
 	if (isset($_POST['description']))
-		$query .= $_POST['description'] . ", ";
+		$query .= "\"" . $_POST['description'] . "\", ";
 	if ((isset($_POST['date'])) AND (isset($_POST['time'])))
-		$query .= $_POST['date'] . " " . $_POST['time'] . ", ";
+		$query .= "\"" . $_POST['date'] . " " . $_POST['time'] . "\", ";
 	if (isset($_POST['address']))
-		$query .= $_POST['address'] . ", ";
+		$query .= "\"" . $_POST['address'] . "\", ";
 	// if (isset($_POST['type']))
 	// 	$query .= $_POST['type'] . ", ";
 	$query .= "1, ";
@@ -94,7 +90,6 @@ var_dump($_POST);
 		$query .= $_POST['private'];
 
 	$query .= ")";
-echo $query;
 
 	$stmt = $db->prepare($query);
 	$stmt->execute();
@@ -102,13 +97,13 @@ echo $query;
 	$last_id = $db->lastInsertID();
 
 	header("Content-Type: application/json");
-	echo '{"redirect":true,"redirect_url":"view-event.php?idEvent="' . $last_id . '}';
+	echo '{"redirect":true,"redirect_url":"view-event.php?idEvent=' . $last_id . '"}';
 }
 
 function getEventTypes() {
 	global $db;
 
-	$query = "SELECT * FROM EventType";
+	$query = "SELECT * FROM EventType ORDER BY type ASC";
 
 	$stmt = $db->prepare($query);
 	$stmt->execute();  

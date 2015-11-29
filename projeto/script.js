@@ -116,21 +116,12 @@ function editEvent() {
   edit_event.find(".event_img").val(lastEvent.eventPhoto);
   // edit_event.find(".event_img").attr("src", 'thisfolder/' + lastEvent.eventPhoto);
 
-  for (i in event_type_list) {
-    var new_option = edit_event.find('.event_type option:first-child').clone(true);
-    new_option.val(event_type_list[i].idEventType);
-    new_option.text(event_type_list[i].type);
-    if (event_type_list[i].type == lastEvent.type) {
-      new_option.attr("selected", "selected");
-    }
-
-    edit_event.find(".event_type").append(new_option);
-}
-
   $('#event').prepend(edit_event);
+  loadEventTypeOptions($('#event .event_type'));
 
 // function send data
   $('.save_button').click(function() {
+    // function() {
     // //Verification
     // if (SOMETHING_BAD_HAPPENED)
     //   return false;
@@ -179,27 +170,27 @@ function deleteEvent() {
   });
 }
 
-var event_type_list = [];
-
-/* Function that gets all event types from database */
-function getEventTypes() {
-  // var event_type_list = [];
-  if (event_type_list.length > 0) { event_type_list.length = 0; }
-
+// Function gets event types from database, loads each type onto an option, and appends them onto the element passed to the function
+function loadEventTypeOptions(el) {
   $.ajax(
     {
-      // async: false,
       method:"GET",
       dataType: "json",
       url: "database/events.php",
       data: { action : "event_types" },
       success: function(data) {
         for (var i = 0; i < data.length; i++) {
-          event_type_list.push(data[i]);
+          if (lastEvent !== null && lastEvent.type == data[i].type) {
+            el.append("<option value=\"" + data[i].idEvent + "\" selected=\"selected\">" + data[i].type + "</option>");
+          } else {
+            el.append("<option value=\"" + data[i].idEvent + "\">" + data[i].type + "</option>");
+          }
         }
-      }
-    });
-  // return event_type_list;
+      },
+        error: function(data) {
+          console.log(data.responseText);
+        }
+      });
 }
 
 /* Function that loads button events */
@@ -271,50 +262,12 @@ function createEvent_submit() {
           private: $('select[name="private"]').val(),
         },
         success: function(data) {
-          // if (data.redirect !== undefined && data.redirect)
-          //   window.location.href = data.redirect_url;
-          console.log('successfully created event!');
+          if (data.redirect !== undefined && data.redirect)
+            window.location.href = data.redirect_url;
+          // console.log('successfully created event!');
         },
         error: function(data) {
           console.log(data.responseText);
         }
       });
 }
-
-
-
-/*
-function createEvent_submit_teste() {
-  $('.save_button').click(function() {
-    // function() {
-    // //Verification
-    // if (SOMETHING_BAD_HAPPENED)
-    //   return false; }
-
-    $.ajax(
-      {
-        method: "POST",
-        dataType: "json",
-        url: "database/events.php",
-        data: {
-            action: "create_event",
-            // idEvent: $('input[name="idEvent"]').val(),
-            name: $('input[name="name"]').val(),
-            description: $('input[name="description"]').val(),
-            date: $('input[name="date"]').val(),
-            time: $('input[name="time"]').val(),
-            address: $('input[name="address"]').val(),
-            type: $('select[name="type"]').val(),
-            private: $('select[name="private"]').val(),
-            eventPhoto: $('input[name="eventPhoto"]').val() },
-        success: function(data) {
-          if (data.redirect !== undefined && data.redirect)
-            window.location.href = data.redirect_url;
-        },
-        error: function(data) {
-          console.log(data.responseText);
-        }
-      })
-  }); 
-}
-} */
