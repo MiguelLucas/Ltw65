@@ -1,0 +1,2 @@
+- Verificações de input. Php ou javascript? Ou ambos?
+- Conexões à db não funcionam em alguns casos (Miguel). Porquê?
