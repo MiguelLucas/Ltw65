@@ -53,6 +53,7 @@ function loadEvent(id)
         lastEvent = data[i];
 
         var event_privacy = (data[i].private == "1") ? "Private event" : "Public event";
+        var userFullName = data[i].userFirstName + ' ' + data[i].userLastName;
         var event = $('#hidden .event').clone(true);
         event.find(".event_name").text(data[i].name);
         event.find(".event_desc").text(data[i].description);
@@ -60,6 +61,7 @@ function loadEvent(id)
         event.find(".event_date_time").text(moment(data[i].date).format('dddd, MMMM Do, YYYY [at] h:mm A'));
         event.find(".event_type").text(data[i].type);
         event.find(".event_privacy").text(event_privacy);
+        event.find(".event_owner").text(userFullName);
         event.find(".event_img").attr("src", 'thisfolder/' + data[i].eventPhoto);
 
         $('#event').append(event);
@@ -78,6 +80,7 @@ function fillEditEventForm() {
   $('#event').empty();
   var edit_event = $('#hidden .event_form').clone(true);
 
+  edit_event.find(".user_id").val(lastEvent.idUserCreator);
   edit_event.find(".event_id").val(lastEvent.idEvent);
   edit_event.find(".event_name").val(lastEvent.name);
   edit_event.find(".event_desc").val(lastEvent.description);
@@ -93,17 +96,69 @@ function fillEditEventForm() {
 
   $('#event').prepend(edit_event);
   loadEventTypeOptions($('#event .event_type'));
-  verifyEditEventData();
+  verifyEditEventDataLive();
+  verifyEditEventDataOnSave();
 
   $('button.delete_event').click(function(){
       deleteEventDialog();
   });
-
 }
 
-// Verifies data on edit event form
-function verifyEditEventData() {
+// As the user changes fields, data is verified
+function verifyEditEventDataLive() {
+  // name verification
+  // $('input[name="name"]').change(function() {
+  //   isEmpty($('input[name="name"]'), $('#event_name_error'));
+  // });
+
+  // $('input[name="name"]').blur(function() {
+  //   isEmpty($('input[name="name"]'), $('#event_name_error'));
+  // });
+  
+  verifyFieldOnChangeAndBlur(isEmpty, $('input[name="name"]'), $('#event_name_error'));
+
+  onFocusRemoveErrorMsgs($('input[name="name"]'), $('#event_name_error'));
+
+  // date verification
+  $('input[name="date"]').focusout(function() {
+    isDateValid($('input[name="date"]'), $('#event_date_error'));
+    isDatePast($('input[name="date"]'), $('#event_date_error'));
+  });
+
+  onFocusRemoveErrorMsgs($('input[name="date"]'), $('#event_date_error'));
+
+  // address verification
+  $('input[name="address"]').change(function() {
+    hasNotLetters($('input[name="address"]'), $('#event_address_error'));
+  });
+
+  $('input[name="address"]').blur(function() {
+    hasNotLetters($('input[name="address"]'), $('#event_address_error'));
+  });
+  
+  onFocusRemoveErrorMsgs($('input[name="address"]'), $('#event_address_error'));
+}
+
+// On clicking Save, verifies data on edit event form
+function verifyEditEventDataOnSave() {
   $('.save_button').click(function() {
+
+    if (!$('input[name="name"]').val()) {
+      $('.err_name').text('Name your event.');
+      $('.err_name').show();
+      return false;
+    } else if ($('input[name="name"]').val().length > 150) {
+      $('input[name="name"]').val().slice(0, 150);
+    }
+    if (!moment($('input[name="date"]').val()).isValid()) {
+      $('.err_date').text('Insert a valid date.');
+      $('.err_date').show();
+      return false;
+    } else if (moment($('input[name="date"]').val()).diff(moment(), 'days') < 0) {
+      $('.err_date').text('You must choose a date in the future.');
+      $('.err_date').show();
+      return false;
+    }
 
     //Verification
     // if (SOMETHING_BAD_HAPPENED)
@@ -114,6 +169,7 @@ function verifyEditEventData() {
       console.log('somehting bad happened');
       return false;
     }
+    // Actual request is only called if there are no errors
     editEvent();
 });
 }
@@ -206,7 +262,6 @@ function deleteEvent() {
 
 // Verifies data on create event form
 function verifyCreateEventData() {
-  $('.save_button').click(function() {
 
     //Verification
     // if (SOMETHING_BAD_HAPPENED)
@@ -217,8 +272,8 @@ function verifyCreateEventData() {
       console.log('somehting bad happened');
       return false;
     }
+    console.log('everything good');
     createEvent();
-});
 }
 
 // AJAX request to create Event
@@ -230,6 +285,7 @@ function createEvent() {
         url: "database/events.php",
         data: {
           action: "create_news",
+          user_id: $('input[name="idUser"]').val(),
           name: $('input[name="name"]').val(),
           description: $('textarea[name="description"]').val(),
           date: $('input[name="date"]').val(),
@@ -239,6 +295,7 @@ function createEvent() {
           private: $('select[name="private"]').val(),
         },
         success: function(data) {
+          console.log(data);
           if (data.redirect !== undefined && data.redirect)
             window.location.href = data.redirect_url;
         },
@@ -273,4 +330,65 @@ function loadEventTypeOptions(el) {
           console.log(data.responseText);
         }
       });
+}
+
+/*
+  VERIFICATION FUNCTIONS
+  Receive field to be checked and div to insert the error message in.
+  If TRUE {display error}
+*/
+
+// If input has focus, remove error messages
+function onFocusRemoveErrorMsgs(field, error_div) {
+  $(field).focus(function() {
+    if ($(field).hasClass('invalid')) {
+      $(field).removeClass('invalid');
+      $(error_div).empty();
+    }
+  });
+}
+
+// Verifies if field is empty. (empty string == false)
+function isEmpty(field, error_div) {
+  if (!field.val()) {
+    field.addClass('invalid');
+    error_div.text('You can\'t leave this empty.');
+  }
+}
+
+// Verifies if date is valid (returns bool).
+function isDateValid(field, error_div) {
+  if (!moment(field.val()).isValid()) {
+    field.addClass('invalid');
+    $(error_div).text('Insert a valid date.');
+  }
+}
+
+// Verifies if date is in the past.
+function isDatePast(field, error_div) {
+  if (moment(field.val()).diff(moment(), 'days') < 0) {
+    field.addClass('invalid');
+    $(error_div).text('The date can\'t be in the past.');
+  }
+}
+
+// Verifies if field contains anything other than letters. (if (not any kind of letter) {input is invalid})
+function hasNotLetters(field, error_div) {
+  if (/[^\p{L}]+/i.test(field.val())) {
+    field.addClass('invalid');
+    error_div.text('This field only accepts letters.');
+  }
+}
+
+/*
+  Meta Verification Functions
+*/
+function verifyFieldOnChangeAndBlur(fnName, field, error_div) {
+  field.change(function() {
+    fnName(field, error_div);
+  });
+
+  field.blur(function() {
+    fnName(field, error_div);
+  });
 }

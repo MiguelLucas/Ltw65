@@ -12,7 +12,7 @@
 	<!-- Our own scripts and styles -->
 	<script type="text/javascript" src="script.js"></script>
 	<!-- <link rel="stylesheet" href="style.css"> -->
-	<style type="text/css"> form input, form select {display: block;}</style>
+	<style type="text/css"> form input, textarea, form select {display: block;} .hidden {display: none;}</style>
 </head>
 <body>
 <header>

@@ -4,7 +4,9 @@
 	<h2>Comments</h2>
 	<ol>
 		<form>
-			<input class="idUser" type="hidden" name="idUser" value="">
+			<input class="parent_comment" type="hidden" name="parentComment" value="">
+			<!-- CHANGE INPUT TO HIDDEN AFTER LOGIN -->
+			<input class="user_id" type="text" name="idUser" value="">
 			<input class="comment_content" type="text" name="content" value="" placeholder="Write a comment...">
 		</form>
 	</ol>
@@ -30,7 +32,7 @@
 			<button class="change_photo" type="button">Change Photo</button>
 		</div>
 		<p><span class="event_type"></span></p>
-		<p><span class="event_privacy"></span></p>
+		<p><span class="event_privacy"></span> hosted by <span class="event_owner"></span>.</p>
 		<p><span class="event_desc"></span></p>
 	</article>
 
@@ -43,24 +45,29 @@
 		<p class="comment_text"></p>
 	</li>
 
-	<!-- Form for Event creation/edit -->
+	<!-- Form for Event edit -->
 	<div class="event_form">
 		<form>
 			<input class="event_id" type="hidden" name="idEvent" value="">
+			<input class="user_id" type="hidden" name="idUser" value="">
 			<label>Name:
-				<input class="event_name" type="text" name="name" value="" placeholder="Name your event">
+				<input class="event_name" type="text" name="name" value="" placeholder="Name your event" maxlength="150">
 			</label>
+				<div id="event_name_error" class="error_msg"></div>
 			<label>Date:
 				<input class="event_date" type="date" name="date" value="">
 			</label>
+				<div id="event_date_error" class="error_msg"></div>
 			<label>Time:
 				<input class="event_time" type="time" name="time" value="">
 			</label>
+				<div id="event_time_error" class="error_msg"></div>
 			<label>Location:
 				<input class="event_address" type="text" name="address" value="" placeholder="Where will the event take place?">
 			</label>
+				<div id="event_address_error" class="error_msg"></div>
 			<label>Description:
-				<textarea class="event_desc" name="description" value="" placeholder="Give a brief description of your event"></textarea>
+				<textarea class="event_desc" name="description" value="" placeholder="Write a brief description of your event."></textarea>
 			</label>
 			<label>Type:
 				<select class="event_type" name="type"></select>

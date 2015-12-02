@@ -8,10 +8,12 @@ IF USER NOT LOGGED IN
  -->
 <?php require_once('templates/header.php'); ?>
 <section id="event">
-	<!-- Form for Event creation/edit -->
+	<!-- Form for Event creation -->
 	<div class="event_form">
 		<form>
 			<input class="event_id" type="hidden" name="idEvent" value="">
+			<!-- CHANGE INPUT TO HIDDEN AFTER LOGIN -->
+			<input class="user_id" type="text" name="idUser" value="">
 			<label>Name:
 				<input class="event_name" type="text" name="name" value="" placeholder="Name your event">
 			</label>
@@ -25,7 +27,7 @@ IF USER NOT LOGGED IN
 				<input class="event_address" type="text" name="address" value="" placeholder="Where will the event take place?">
 			</label>
 			<label>Description:
-				<textarea class="event_desc" name="description" value="" placeholder="Give a brief description of your event"></textarea>
+				<textarea class="event_desc" name="description" value="" placeholder="Write a brief description of your event."></textarea>
 			</label>
 			<label>Type:
 				<select class="event_type" name="type"></select>

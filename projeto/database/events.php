@@ -9,7 +9,8 @@ If other parameters are given, they will be added to the query */
 function getEvent() {
 	global $db;
 
-	$query = "SELECT idEvent, name, date, description, EventType.type, address, private, eventPhoto FROM Event, EventType WHERE Event.type = EventType.idEventType";
+	// $query = "SELECT idEvent, name, date, description, EventType.type, address, private, eventPhoto FROM Event, EventType WHERE Event.type = EventType.idEventType";
+	$query = "SELECT idEvent, name, date, description, EventType.type, address, private, eventPhoto, idUserCreator, firstName AS userFirstName, lastName AS userLastName FROM Event, EventType, User WHERE Event.type = idEventType AND idUserCreator = idUser";
 	if (isset($_GET['idEvent']))
 		$query .= " AND idEvent = " . $_GET['idEvent'];
 	if (isset($_GET['name']))
@@ -77,7 +78,9 @@ function deleteEvent() {
 function createEvent() {
 	global $db;
 
-	$query = "INSERT INTO Event (name, description, date, address, type, private) VALUES (";
+	$query = "INSERT INTO Event (idUserCreator, name, description, date, address, type, private) VALUES (";
+	if (isset($_POST['user_id']))
+		$query .= $_POST['user_id'] . ", ";
 	if (isset($_POST['name']))
 		$query .= "\"" . $_POST['name'] . "\", ";
 	if (isset($_POST['description']))

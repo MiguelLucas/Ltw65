@@ -23,7 +23,6 @@
 	$(document).ready(function()
 	{
 		loadEvents();
-		loadButtons();
 
 	});
 </script>
