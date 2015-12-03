@@ -53,19 +53,18 @@
 			<label>Name:
 				<input class="event_name" type="text" name="name" value="" placeholder="Name your event" maxlength="150">
 			</label>
-				<div id="event_name_error" class="error_msg"></div>
+			<div id="event_name_error" class="error_msg"></div>
 			<label>Date:
 				<input class="event_date" type="date" name="date" value="">
 			</label>
-				<div id="event_date_error" class="error_msg"></div>
+			<div id="event_date_error" class="error_msg"></div>
 			<label>Time:
 				<input class="event_time" type="time" name="time" value="">
 			</label>
-				<div id="event_time_error" class="error_msg"></div>
 			<label>Location:
 				<input class="event_address" type="text" name="address" value="" placeholder="Where will the event take place?">
 			</label>
-				<div id="event_address_error" class="error_msg"></div>
+			<div id="event_address_error" class="error_msg"></div>
 			<label>Description:
 				<textarea class="event_desc" name="description" value="" placeholder="Write a brief description of your event."></textarea>
 			</label>
