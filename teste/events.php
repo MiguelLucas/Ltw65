@@ -1,5 +1,4 @@
 <?php
-
 require_once('connection.php');
 
 /* Function that fetches events from the database and returns a JSON object.
@@ -11,8 +10,8 @@ function getEvent() {
 	global $db;
 
 	$query = "SELECT * FROM Event WHERE 1=1";
-	if (isset($_GET['id'])) {
-		$query .= " AND idEvent = " . $_GET['id'];
+	if (isset($_GET['idEvent'])) {
+		$query .= " AND idEvent = " . $_GET['idEvent'];
 	}
 	if (isset($_GET['name'])) {
 		$query .= " AND name LIKE '%" . $_GET['name'] . "%'";
@@ -29,6 +28,16 @@ function getEvent() {
 	header("Content-Type: application/json");
 	echo json_encode($events);
 }
+
+// function createEvent() {
+// 	global $db;
+
+// 	$stmt = $db->prepare($query);
+// 	$stmt->execute();
+// 	$
+// }
+
+
 
 /* Depending on the type of request (GET, POST, PUT, DELETE), execute the corresponding function */
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
