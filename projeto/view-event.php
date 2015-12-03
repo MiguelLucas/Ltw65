@@ -1,4 +1,4 @@
-<?php require_once('templates/header.php'); ?>
+<?php require_once('templates/head.php'); ?>
 <section id="event"></section>
 <section id="comments">
 	<h2>Comments</h2>

@@ -12,17 +12,16 @@
 	<!-- Our own scripts and styles -->
 	<script type="text/javascript" src="scripts/events.js"></script>
 	<script type="text/javascript" src="scripts/registration.js"></script>
-	<!-- <link rel="stylesheet" href="style.css"> -->
+	<link rel="stylesheet" href="styles/style.css">
 	<style type="text/css"> form input, textarea, form select {display: block;} .hidden {display: none;}</style>
 </head>
 <body>
 <header>
-	<h1>Eventful</h1>
-	<nav>
-		<ul>
-			<li><a href="">Browse</a></li>
-			<li><a href="">My Events</a></li>
-			<li><a href="">Something else</a></li>
-		</ul>
-	</nav>
+	<?php
+		if(!isset($_SESSION["emailUser"])) {
+			include('header_notloggedin.php'); // will include header_notloggedin.php
+		} else {
+			include('header_loggedin.php'); // will include header_loggedin.php
+		}
+	?>
 </header>

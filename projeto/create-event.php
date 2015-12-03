@@ -6,7 +6,7 @@ IF USER NOT LOGGED IN
 	REDIRECT TO INDEX
 
  -->
-<?php require_once('templates/header.php'); ?>
+<?php require_once('templates/head.php'); ?>
 <section id="event">
 	<!-- Form for Event creation -->
 	<div class="event_form">

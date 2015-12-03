@@ -1,9 +1,16 @@
-<?php require_once('templates/header.php'); ?>
+<?php
+
+	session_start();
+	
+
+	require_once('templates/head.php'); 
+  
+?>
+
 <body>
 <!-- IF USER IS LOGGED IN
 		SHOW CREATE EVENT ANCHOR -->
 	<a href="create-event.php" class="create_event">Create Event</a>
-
 	<section id="events"></section>
 
 	<!-- Hidden div containing the templates -->
