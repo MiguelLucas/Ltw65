@@ -9,7 +9,7 @@ If other parameters are given, they will be added to the query */
 function getEvent() {
 	global $db;
 
-	$query = "SELECT idEvent, name, date, description, EventType.type, address, private, eventPhoto FROM Event, EventType WHERE Event.type = EventType.idEventType";
+	$query = "SELECT idEvent, name, date, description, EventType.type, address, private, eventPhoto, idUserCreator, firstName AS userFirstName, lastName AS userLastName FROM Event, EventType, User WHERE Event.type = idEventType AND idUserCreator = idUser";
 	if (isset($_GET['idEvent']))
 		$query .= " AND idEvent = " . $_GET['idEvent'];
 	if (isset($_GET['name']))
