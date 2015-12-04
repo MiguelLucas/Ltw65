@@ -1,4 +1,5 @@
 <?php require_once('templates/head.php'); ?>
+<div id="wrapper_main">
 <section id="event"></section>
 <section id="comments">
 	<h2>Comments</h2>
@@ -16,7 +17,7 @@
 	<button class="invite" type="button">Invite</button>
 	<button class="share" type="button">Share</button>
 </aside>
-
+</div>
 <!-- Hidden div containing the templates -->
 <div id="hidden" style="display: none;">
 	<!-- Template for Event -->

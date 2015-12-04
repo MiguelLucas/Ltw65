@@ -9,11 +9,12 @@
 	<link rel="stylesheet" type="text/css" href="libs/swal/sweetalert.css">
 	<!-- Moments.js library (available at: http://momentjs.com/) -->
 	<script type="text/javascript" src="libs/moment.min.js"></script>
+	<!-- Fonts -->
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,800,600,700' rel='stylesheet' type='text/css'>
 	<!-- Our own scripts and styles -->
 	<script type="text/javascript" src="scripts/events.js"></script>
 	<script type="text/javascript" src="scripts/registration.js"></script>
 	<link rel="stylesheet" href="styles/style.css">
-	<style type="text/css"> form input, textarea, form select {display: block;} .hidden {display: none;}</style>
 </head>
 <body>
 <header>
