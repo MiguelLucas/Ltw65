@@ -1,11 +1,3 @@
-<!-- 
-IF HTTP REFERRER NOT INDEX
-	REDIRECT TO INDEX
-
-IF USER NOT LOGGED IN	
-	REDIRECT TO INDEX
-
- -->
 <?php 
 
 	session_start();
@@ -13,7 +5,11 @@ IF USER NOT LOGGED IN
 		header( "Location: index.php" );
 	}
 
-	require_once('templates/head.php'); 
+	$PATH_OVERRIDE = 'database/';
+	require_once('templates/head.php');
+	require_once('database/user.php');
+	
+	list ($idUser) = getUserInfo();
 
 ?>
 <section id="event">
@@ -21,8 +17,7 @@ IF USER NOT LOGGED IN
 	<div class="event_form">
 		<form>
 			<input class="event_id" type="hidden" name="idEvent" value="">
-			<!-- CHANGE INPUT TO HIDDEN AFTER LOGIN -->
-			<input class="user_id" type="text" name="idUser" value="">
+			<input class="user_id" type="hidden" name="idUser" value="<?php echo $idUser ?>">
 			<label>Name:
 				<input class="event_name" type="text" name="name" value="" placeholder="Name your event" maxlength="150">
 			</label>

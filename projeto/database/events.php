@@ -75,6 +75,98 @@ function deleteEvent() {
 	//echo '{"redirect":true,"redirect_url":"index.php"}';
 }
 
+
+/*
+ * Sees if user created the event
+ */
+function userIsCreator($idEvent, $idUser){
+	global $db;
+
+	$query = "SELECT idUserCreator FROM Event WHERE idEvent =".$idEvent;
+	
+	$stmt = $db->prepare($query);
+	$stmt->execute();
+	$user = $stmt->fetchAll();
+	if($user[0]['idUserCreator'] == $idUser)
+		return true;
+	
+	return false;
+}
+
+/*
+ * Sees if user is registered in the event
+ */
+function userIsRegistered($idEvent, $idUser){
+	global $db;
+
+	$query = "SELECT * FROM Registration WHERE idUser =".$idUser." AND idEvent = ".$idEvent;
+	
+	$stmt = $db->prepare($query);
+	$stmt->execute();
+	$register = $stmt->fetchAll();
+	if($register != NULL)
+		return true;
+	return false;
+}
+
+/*
+ * Registration of user in event
+ */
+function eventRegisterUser(){
+	global $db;
+
+	$query = "INSERT INTO Registration (idUser, idEvent) VALUES (";
+	if (isset($_POST['user_id']))
+		$query .= $_POST['user_id'] . ", ";
+	if (isset($_POST['event_id']))
+		$query .= $_POST['event_id'];
+
+	$query .= ")";
+
+	$stmt = $db->prepare($query);
+	$stmt->execute();
+
+	$last_id = $db->lastInsertID();
+
+	header("Content-Type: application/json");
+	echo '{"redirect":true,"redirect_url":"view-event.php?idEvent=' . $last_id . '"}';
+}
+
+/*
+ * Cancel registration of user in event
+ */
+function cancelEventRegisterUser(){
+	global $db;
+
+	$query = "DELETE FROM Registration WHERE idUser =".$_POST['user_id']." AND idEvent = ".$_POST['event_id'];
+	echo $query;
+	$stmt = $db->prepare($query);
+	$stmt->execute();
+
+	$last_id = $_POST['event_id'];
+
+	header("Content-Type: application/json");
+	echo '{"redirect":true,"redirect_url":"view-event.php?idEvent=' . $last_id . '"}';
+}
+
+/*
+ * Sees if event is public
+ */
+function eventIsPublic($idEvent){
+	global $db;
+
+	$query = "SELECT private FROM Event WHERE idEvent =".$idEvent;
+	
+	$stmt = $db->prepare($query);
+	$stmt->execute();
+	$state = $stmt->fetchAll();
+	if($state[0]['private'] == 0)
+		return true;
+	
+	return false;
+}
+ 
+
 /* Event creation */
 function createEvent() {
 	global $db;
@@ -151,7 +243,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 			case 'event_types':
 				getEventTypes();
 				break;
-			case 'registration':
+			case 'attending':
 				getAttendingEvents();
 				break;
 			default:
@@ -164,7 +256,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-	createEvent();
+	var_dump($_POST);
+	if (!array_key_exists("action", $_POST)) {
+		echo "An error has occurred";
+	} else {
+		switch ($_POST['action']) {
+			case 'create_event':
+				createEvent();
+				break;
+			case 'user_register_event':
+				echo 'registo';
+				eventRegisterUser();
+				break;
+			case 'user_cancel_register_event':
+				echo 'cancel';
+				cancelEventRegisterUser();
+				break;	
+				
+			default:
+				echo "Unexpected action";
+				break;
+			}
+	}
+	
+	
+
 }
 if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
 	editEvent();

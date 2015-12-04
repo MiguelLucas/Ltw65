@@ -1,5 +1,6 @@
 <?php
 
+	
 	require_once('connection.php');
 
 	function getUserByEmail($email) {
@@ -39,8 +40,6 @@
 	function isRegisted($email){
 		return getUserByEmail($email);
 	}
-
-
 	
 	function getUserInfo(){
 		global $db;

@@ -116,7 +116,7 @@ function loadAttendingEventsByUser(idUser)
 		method: "GET",
 		dataType: "json",
 		url: "database/events.php",
-		data: { action : "registration" , idAttendingUser : idUser },
+		data: { action : "attending" , idAttendingUser : idUser },
 		success: function(data) {
 			console.log(data);
 			//  $('#event').empty();
@@ -143,7 +143,55 @@ function loadAttendingEventsByUser(idUser)
 	});
 }
 
+/*
+ * Register user in event
+*/
+function registerUserEvent(idEvent, idUser){
+	$.ajax({
+		method: "POST",
+		dataType: "json",
+		url: "database/events.php",
+		data: {
+		  action: "user_register_event",
+		  user_id: idUser,
+		  event_id: idEvent,
 
+		},
+	success: function(data) {
+	if (data.redirect !== undefined && data.redirect)
+		window.location.href = data.redirect_url;
+	},
+	
+	error: function(data) {
+	  console.log(data.responseText);
+	}
+	});
+}
+
+/*
+ * Register user in event
+*/
+function cancelUserEventRegistration(idEvent, idUser){
+	$.ajax({
+		method: "POST",
+		dataType: "json",
+		url: "database/events.php",
+		data: {
+		  action: "user_cancel_register_event",
+		  user_id: idUser,
+		  event_id: idEvent,
+
+		},
+	success: function(data) {
+	if (data.redirect !== undefined && data.redirect)
+		window.location.href = data.redirect_url;
+	},
+	
+	error: function(data) {
+	  console.log(data.responseText);
+	}
+	});
+}
 
 
 
@@ -268,31 +316,31 @@ function deleteEvent() {
 
 // AJAX request to create Event
 function createEvent() {
-    $.ajax(
-      {
-        method: "POST",
-        dataType: "json",
-        url: "database/events.php",
-        data: {
-          action: "create_news",
-          user_id: $('input[name="idUser"]').val(),
-          name: $('input[name="name"]').val(),
-          description: $('textarea[name="description"]').val(),
-          date: $('input[name="date"]').val(),
-          time: $('input[name="time"]').val(),
-          address: $('input[name="address"]').val(),
-          type: $('select[name="type"]').val(),
-          private: $('select[name="private"]').val(),
-        },
-        success: function(data) {
-          console.log(data);
-          if (data.redirect !== undefined && data.redirect)
-            window.location.href = data.redirect_url;
-        },
-        error: function(data) {
-          console.log(data.responseText);
-        }
-      });
+	$.ajax({
+		method: "POST",
+		dataType: "json",
+		url: "database/events.php",
+		data: {
+		  action: "create_event",
+		  user_id: $('input[name="idUser"]').val(),
+		  name: $('input[name="name"]').val(),
+		  description: $('textarea[name="description"]').val(),
+		  date: $('input[name="date"]').val(),
+		  time: $('input[name="time"]').val(),
+		  address: $('input[name="address"]').val(),
+		  type: $('select[name="type"]').val(),
+		  private: $('select[name="private"]').val(),
+		},
+	success: function(data) {
+	console.log(data);
+	if (data.redirect !== undefined && data.redirect)
+		window.location.href = data.redirect_url;
+	},
+	
+	error: function(data) {
+	  console.log(data.responseText);
+	}
+	});
 }
 
 /*

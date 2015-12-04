@@ -1,7 +1,17 @@
 <?php 
 
-session_start();
-require_once('templates/head.php'); 
+	session_start();
+	
+	$PATH_OVERRIDE = 'database/';
+	require_once('templates/head.php');
+	require_once('database/user.php');
+	require_once('database/events.php');
+	
+	if(!isset($_SESSION["emailUser"]))
+		$idUser = 0;
+	else
+		list ($idUser) = getUserInfo();
+	
 
 ?>
 
@@ -19,8 +29,21 @@ require_once('templates/head.php');
 	</ol>
 </section>
 <aside>
-	<button class="going" type="button">Go to event</button>
-	<button class="invite" type="button">Invite</button>
+	<?php
+		//User is not creator
+		if($idUser != 0 && !userIsCreator($_GET['idEvent'], $idUser)){  
+			if(!userIsRegistered($_GET['idEvent'], $idUser))
+				echo '<button class="registration" type="button">Going</button>';
+			else echo '<button class="registration going" type="button">Cancel</button>';
+		}
+		//User is creator
+		if(userIsCreator($_GET['idEvent'], $idUser) || eventIsPublic($_GET['idEvent'])){
+			echo '<button class="invite" type="button">Invite</button>';
+			
+		}
+		
+	?>
+	
 	<button class="share" type="button">Share</button>
 </aside>
 </div>
@@ -29,7 +52,12 @@ require_once('templates/head.php');
 	<!-- Template for Event -->
 	<article class="event">
 	<header>
-		<button class="edit_event">Edit</button>
+		<?php 
+		if($idUser != 0 && userIsCreator($_GET['idEvent'], $idUser)){
+			echo '<button class="edit_event">Edit</button>';
+		}
+		?>
+		
 		<h1 class="event_name"></h1>
 		<p><span class="event_date_time"></span></p>
 		<p><span class="event_address"></span></p>
@@ -104,6 +132,19 @@ require_once('templates/head.php');
 		loadEvent(<?php echo $_GET['idEvent']; ?>);
 		$('button.edit_event').click(function(){
 			fillEditEventForm();
+		});
+		$('button.registration').click(function(){
+			if($(this).hasClass('going')){
+				cancelUserEventRegistration(<?php echo $_GET['idEvent']; ?>, <?php echo $idUser; ?>);
+				$(this).removeClass('going');
+				window.location.reload();
+			}
+			else{
+				registerUserEvent(<?php echo $_GET['idEvent']; ?>, <?php echo $idUser; ?>);
+				$(this).addClass('going');
+				window.location.reload();
+			}
+	
 		});
 
 	});

@@ -2,12 +2,13 @@
 
 	session_start();
 	if(!isset($_SESSION["emailUser"])){
-	header( "Location: index.php" );
+		header( "Location: index.php" );
 	}
 
+	$PATH_OVERRIDE = 'database/';
 	require_once('templates/head.php');
-	require_once('database/user.php');
-
+	require_once ('database/user.php');
+	
 	list ($idUser, $emailUser, $firstName, $lastName, $birthDate, $age) = getUserInfo();
 	
 	$photoURL = getUserPhoto();
@@ -41,9 +42,10 @@
 	
 	<nav id="userMenu">
 		<ul>
-			<li><a href="#myEvents" class="sel">My Events</a></li>
-			<li><a href="#attendingEvents">Attending Events</a></li>
-			<li><a href="#myInvites">My Invites</a></li>
+			<li class = 'userPagetab'><a href="#myEvents" class="sel">My Events</a></li>
+			<li class = 'userPagetab'><a href="#attendingEvents">Attending Events</a></li>
+			<li class = 'userPagetab'><a href="#myInvites">My Invites</a></li>
+			<li><a href="create-event.php" class="create_event">Create Event</a></li>
 		</ul>
 	</nav>
 	
@@ -63,14 +65,15 @@
 
 <content id= "userContent">
 	<section id="myEvents">
+		<h3>My Events</h3>
 	</section>
 	  
 	<section id="attendingEvents" class="hidden">
-		<p>Most recent actions:</p>
+		<h3>Attending Events</h3>
 	</section>
 	  
 	<section id="myInvites" class="hidden">
-		<p>Friends list:</p>
+		<h3>My Invites</h3>
 	</section>
 </content>
 <script type="text/javascript">
@@ -81,7 +84,7 @@
 
 	});
 	$(function(){
-		$('#userMenu ul li a').on('click', function(e){
+		$('#userMenu ul li.userPagetab a').on('click', function(e){
 		e.preventDefault();
 		var newcontent = $(this).attr('href');
 

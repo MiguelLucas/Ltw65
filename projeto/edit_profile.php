@@ -5,10 +5,9 @@
 		header( "Location: index.php" );
 	}
 
+	$PATH_OVERRIDE = 'database/';
 	require_once('templates/head.php');
 	require_once('database/user.php');
-
-
 
 	list ($idUser, $emailUser, $firstName, $lastName, $birthDate) = getUserInfo();
 
