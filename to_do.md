@@ -39,11 +39,11 @@ TO DO
 * Comments: add Event ID to form
 * User page:
 	* List events:
-		* Attending
+		~~* Attending~~
 		* Invites
-		* Hosting
+		~~* Hosting~~
 * Registration in Event
-	* User Attends event
+	~~* User Attends event~~
 	* User decides not to attend anymore
 * Index: list all Public Events
 * Search (requests are handled by events.php, functions at events.js) [NOTE: only returns Public Events]
