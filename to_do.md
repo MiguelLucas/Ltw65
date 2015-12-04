@@ -1,5 +1,19 @@
 TO DO
 =========
+* Add/verify session_start() on all pages 
+* Permission checks on all pages (User X CAN do Y)
+	* Guest:
+		* View public events
+	* Logged user:
+		* View private events IF they are invited
+		* Register to event
+		* Comment on event (any event)
+		* Create Event
+	* Event Owner:
+		* Edit own Event
+		* Delete own Event
+
+* Event Create / Edit: add 
 
 Pages
 ---------
@@ -36,7 +50,6 @@ Creating, editing, deleting and fetching info from database.
 ### User
 * User registration
 	* by email
-	* by username
 * User login / logout
 
 ### Event
