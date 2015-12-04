@@ -7,8 +7,8 @@ TO DO
 * Add/verify session_start() on all pages 
 * Permission checks on all pages (User X CAN do Y)
 	* __Guest user__:
-		* Sign up
-		* Log in
+		* ~~Sign up~~
+		* ~~Log in~~
 		* Search, Browse and View Public Events
 	* __Logged user__:
 		* ~~Create Event~~
@@ -16,7 +16,7 @@ TO DO
 		* Comment on Public Event
 		* Share Public Event
 		* __ User NOT registered in event__:
-			* Register to Public Event
+			* ~~Register to Public Event~~
 		* __User Invited to Private Event__, but hasn't accepted ):
 			* View
 			* Accept Invitation (Register to Event)
@@ -30,12 +30,12 @@ TO DO
 			* Invite people
 * ~~Event Create / Edit: add User ID to hidden form~~
 * Events.PHP:
-	* only return active items
-	* Delete: set bool active to 0
-	* add User ID (from session or wherever it's stored)
-	* get Events user is attending
+	* ~~only return active items~~ ---> conferir
+	* ~~Delete: set bool active to 0~~
+	* ~~add User ID (from session or wherever it's stored)~~
+	* ~~get Events user is attending~~
 	* get Events user is Invited to 
-	* get Events user is hosting
+	* ~~get Events user is hosting~~
 * Comments: add Event ID to form
 * User page:
 	* List events:
