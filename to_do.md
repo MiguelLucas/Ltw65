@@ -11,7 +11,7 @@ TO DO
 		* Log in
 		* Search, Browse and View Public Events
 	* __Logged user__:
-		* Create Event
+		* ~~Create Event~~
 		* Share Event IF Public
 		* Comment on Public Event
 		* Share Public Event
