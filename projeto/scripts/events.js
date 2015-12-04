@@ -11,7 +11,6 @@ function loadEvents()
     url: "database/events.php",
     data: { action : "event" },
     success: function(data) {
-      console.log(data);
 
       // For each object, creates a div .event and fills each field
       for (var i = 0; i < data.length; i++) {
@@ -100,7 +99,8 @@ function loadEventsCreatedByUser(idUser)
         event.find(".event_privacy").text(event_privacy);
         event.find(".event_owner").text(userFullName);
         event.find(".event_img").attr("src", 'img/events/' + data[i].eventPhoto);
-
+		event.find(".event_more").attr("href", 'view-event.php?idEvent=' + data[i].idEvent);
+		
         $('#myEvents').append(event);
       }
     }
@@ -136,7 +136,8 @@ function loadAttendingEventsByUser(idUser)
 				event.find(".event_privacy").text(event_privacy);
 				event.find(".event_owner").text(userFullName);
 				event.find(".event_img").attr("src", 'img/events/' + data[i].eventPhoto);
-
+				event.find(".event_more").attr("href", 'view-event.php?idEvent=' + data[i].idEvent);
+				
 				$('#attendingEvents').append(event);
 			}
 		}
@@ -300,11 +301,13 @@ function deleteEvent() {
     url: "database/events.php",
     data: { idEvent : lastEvent['idEvent'] },
     success: function(data) {
-      if (data.redirect !== undefined && data.redirect) {
-        window.location.href = data.redirect_url;
+		console.log(data);
+		if (data.redirect !== undefined && data.redirect) {
+			window.location.href = data.redirect_url;
       }
     },
     error: function(data) {
+		console.log('sou parvo');
       console.log(data.responseText);
     }
   });

@@ -9,7 +9,7 @@ If other parameters are given, they will be added to the query */
 function getEvent() {
 	global $db;
 
-	$query = "SELECT idEvent, name, date, description, EventType.type, address, private, eventPhoto, idUserCreator, firstName AS userFirstName, lastName AS userLastName FROM Event, EventType, User WHERE Event.type = idEventType AND idUserCreator = idUser";
+	$query = "SELECT idEvent, name, date, description, EventType.type, address, private, eventPhoto, idUserCreator, firstName AS userFirstName, lastName AS userLastName FROM Event, EventType, User WHERE Event.type = idEventType AND idUserCreator = idUser AND Event.active = 1";
 	if (isset($_GET['idEvent']))
 		$query .= " AND idEvent = " . $_GET['idEvent'];
 	if (isset($_GET['name']))
@@ -63,10 +63,12 @@ function deleteEvent() {
 	global $db;
 
 	parse_str(file_get_contents("php://input"), $deleteVars);
+	echo 'delete';
+	echo $deleteVars['idEvent'];
+	
+	$query = "UPDATE Event SET active = 0";
 
-	$query = "DELETE FROM Event WHERE ";
-	if (isset($deleteVars['idEvent']))
-		$query .= "idEvent = " . $deleteVars['idEvent'];
+	$query .= " WHERE idEvent = " . $deleteVars['idEvent'];
 
 	$stmt = $db->prepare($query);
 	$stmt->execute();
@@ -219,7 +221,7 @@ function getAttendingEvents() {
 	
 	//FALTA CONFIRMAR SE ESTA ISSET ************************************************************************************************
 	
-	$query = "SELECT * FROM Event WHERE idEvent IN(SELECT idEvent FROM Registration WHERE idUser = ". $_GET['idAttendingUser'].")";
+	$query = "SELECT * FROM Event WHERE active = 1 AND idEvent IN(SELECT idEvent FROM Registration WHERE idUser = ". $_GET['idAttendingUser'].")";
 
 	$stmt = $db->prepare($query);
 	$stmt->execute();  
