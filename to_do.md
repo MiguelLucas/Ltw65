@@ -3,7 +3,7 @@ TO DO
 # High priority
 * Database:
 	* add 'active' collumn to any relevant table (Event, Registration, Invite, User(?))
-	* add default value to userPhoto (default.png)
+	* ~~add default value to userPhoto (default.png)~~
 * Add/verify session_start() on all pages 
 * Permission checks on all pages (User X CAN do Y)
 	* __Guest user__:
