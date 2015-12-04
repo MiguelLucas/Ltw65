@@ -14,6 +14,7 @@
 	<!-- Our own scripts and styles -->
 	<script type="text/javascript" src="scripts/events.js"></script>
 	<script type="text/javascript" src="scripts/registration.js"></script>
+	<script type="text/javascript" src="scripts/profile.js"></script>
 	<link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
