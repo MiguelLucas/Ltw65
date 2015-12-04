@@ -25,8 +25,8 @@ TO DO
 		* __User Registered to Private Event__:
 			* 'DeRegister from Event' (decide not to go to event)
 		* __Event Owner__:
-			* Edit
-			* Delete
+			* ~~Edit~~
+			* ~~Delete~~
 			* Invite people
 * ~~Event Create / Edit: add User ID to hidden form~~
 * Events.PHP:
