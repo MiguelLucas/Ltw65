@@ -16,6 +16,8 @@ function getEvent() {
 		$query .= " AND name LIKE '%" . $_GET['name'] . "%'";
 	if (isset($_GET['type']))
 		$query .= " AND type = " . $_GET['type'];
+	if (isset($_GET['idUserCreator']))
+		$query .= " AND idUserCreator = " . $_GET['idUserCreator'];
 
 				
 	$stmt = $db->prepare($query);
@@ -118,6 +120,24 @@ function getEventTypes() {
 	echo json_encode($event_types);
 }
 
+
+/* Get events attend by a user */
+function getAttendingEvents() {
+	global $db;
+	
+	//FALTA CONFIRMAR SE ESTA ISSET ************************************************************************************************
+	
+	$query = "SELECT * FROM Event WHERE idEvent IN(SELECT idEvent FROM Registration WHERE idUser = ". $_GET['idAttendingUser'].")";
+
+	$stmt = $db->prepare($query);
+	$stmt->execute();  
+	$events = $stmt->fetchAll();
+	/* Content-Type must be defined, otherwise the output is seen as plain text */
+	header("Content-Type: application/json");
+	echo json_encode($events);
+}
+
+
 /* Depending on the type of request (GET, POST, PUT, DELETE), execute the corresponding function */
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 	/* According to the value of var action, a different function is called */
@@ -131,12 +151,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 			case 'event_types':
 				getEventTypes();
 				break;
+			case 'registration':
+				getAttendingEvents();
+				break;
 			default:
 				echo "Unexpected action";
 				break;
 			}
 	}
 }
+
+
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	createEvent();

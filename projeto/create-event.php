@@ -6,7 +6,16 @@ IF USER NOT LOGGED IN
 	REDIRECT TO INDEX
 
  -->
-<?php require_once('templates/head.php'); ?>
+<?php 
+
+	session_start();
+	if(!isset($_SESSION["emailUser"])){
+		header( "Location: index.php" );
+	}
+
+	require_once('templates/head.php'); 
+
+?>
 <section id="event">
 	<!-- Form for Event creation -->
 	<div class="event_form">

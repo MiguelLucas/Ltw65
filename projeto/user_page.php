@@ -5,24 +5,32 @@
 	header( "Location: index.php" );
 	}
 
-	require_once('templates/head.php'); 
+	require_once('templates/head.php');
+	require_once('database/user.php');
+
+	list ($idUser, $emailUser, $firstName, $lastName, $birthDate, $age) = getUserInfo();
+	
+	$photoURL = getUserPhoto();
   
 ?>
 
 <body>
 
 <aside id="userAside">
-
+	
 	<section id="userInfo">
+		
 		<div id="userphoto">
-			<img src="images/user_image.png" alt="User profile image" height="128" width="128">
+			<img src="<?php echo $photoURL; ?>" alt="User profile image" height="128" width="128">
 		</div>
 
-		  <section id="bio">
-			<p>Can't a guy call his mother pretty without it seeming strange? Amen. I think that's one of Mom's little fibs, you know, like I'll sacrifice anything for my children.</p>
-
-			<p>She's always got to wedge herself in the middle of us so that she can control everything. Yeah. Mom's awesome. I run a pretty tight ship around here. With a pool table.</p>
-		  </section>
+		<div id="name">
+			<p> <?php echo $firstName . ' ' . $lastName; ?></p>
+		</div>
+		
+		<div id="age">
+			<p> <?php echo $birthDate; ?> </p>
+		</div>
 
 
 		<form method="get" action="./edit_profile.php">
@@ -30,28 +38,66 @@
 		</form>
 		
 	</section>
-
-	<section id="selectEvents" class="hidden">
-
-     </section>
-
+	
+	<nav id="userMenu">
+		<ul>
+			<li><a href="#myEvents" class="sel">My Events</a></li>
+			<li><a href="#attendingEvents">Attending Events</a></li>
+			<li><a href="#myInvites">My Invites</a></li>
+		</ul>
+	</nav>
+	
 </aside>
 
-<section id="userEvents">
-
-	<!-- Hidden div containing the templates -->
-	<div id="hidden" style="display: none;">
-		<!-- Template for Event -->
-		<div class="event">
-			<p><strong>Name: </strong><span class="event_name"></span></p>
-			<p><span class="event_date"></span></p>
-			<p><span class="event_desc"></span></p>
-			<p><span class="event_type"></span></p>
-			<img class="event_img" src="">
-		</div>
+<!-- Hidden div containing the templates -->
+<div id="hidden" style="display: none;">
+	<!-- Template for Event -->
+	<div class="event">
+		<a href="" class="event_more"><img class="event_img" src=""></a>
+		<p><span class="event_name"></span></p>
+		<p><span class="event_date_time"></span></p>
+		<p><span class="event_address"></span></p>
+		<a href="" class="event_more">View more</a>
 	</div>
-	
-</section>
-	
+</div>
+
+<content id= "userContent">
+	<section id="myEvents">
+	</section>
+	  
+	<section id="attendingEvents" class="hidden">
+		<p>Most recent actions:</p>
+	</section>
+	  
+	<section id="myInvites" class="hidden">
+		<p>Friends list:</p>
+	</section>
+</content>
+<script type="text/javascript">
+	$(document).ready(function()
+	{
+		loadEventsCreatedByUser(<?php echo $idUser ?>);
+		loadAttendingEventsByUser(<?php echo $idUser ?>);
+
+	});
+	$(function(){
+		$('#userMenu ul li a').on('click', function(e){
+		e.preventDefault();
+		var newcontent = $(this).attr('href');
+
+		$('#userMenu ul li a').removeClass('sel');
+		$(this).addClass('sel');
+
+		$('#userContent section').each(function(){
+		  if(!$(this).hasClass('hidden')) { $(this).addClass('hidden'); }
+		});
+
+		$(newcontent).removeClass('hidden');
+
+
+		});
+	});
+</script>
+
 </body>
 </html>

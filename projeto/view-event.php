@@ -1,4 +1,10 @@
-<?php require_once('templates/head.php'); ?>
+<?php 
+
+session_start();
+require_once('templates/head.php'); 
+
+?>
+
 <div id="wrapper_main">
 <section id="event"></section>
 <section id="comments">
