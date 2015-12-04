@@ -42,7 +42,7 @@ TO DO
 		* ~~Attending~~
 		* Invites
 		* ~~Hosting~~
-* Registration in Event
+* ~~Registration in Event~~
 	* ~~User Attends event~~
 	* ~~User decides not to attend anymore~~
 * Index: list all Public Events
