@@ -170,7 +170,7 @@ function registerUserEvent(idEvent, idUser){
 }
 
 /*
- * Register user in event
+ * Cancel registration of user in event
 */
 function cancelUserEventRegistration(idEvent, idUser){
 	$.ajax({
@@ -321,7 +321,7 @@ function deleteEvent() {
 function createEvent() {
 	$.ajax({
 		method: "POST",
-		dataType: "json",
+		dataType: "text json",
 		url: "database/events.php",
 		data: {
 		  action: "create_event",
@@ -340,11 +340,88 @@ function createEvent() {
 		window.location.href = data.redirect_url;
 	},
 	
-	error: function(data) {
-	  console.log(data.responseText);
+	error: function(jqXHR, textStatus, errorThrown) {
+	
+	  console.log(errorThrown);
 	}
 	});
 }
+
+
+//AJAX request to send invite
+function sendInviteDialog(idUser, emailUser, idEvent){
+	swal({
+		title: "Send Invite",
+		//text: "Write something interesting:",
+		type: "input",
+		inputType: 'text',
+		imageUrl: "img/icons/mail.png",
+		showCancelButton: true,
+		closeOnConfirm: false,
+		animation: "slide-from-top",
+		inputPlaceholder: "User e-mail",
+		
+		}, 
+		function(inputValue) {
+			if (inputValue === false) return false;
+			
+			//email not valid
+			if ( !(/\S+@\S+\.\S+/.test(inputValue))){     
+
+				swal.showInputError("Please enter valid email");     
+
+				return false   
+			}
+			
+			//cannot invite self
+			if ( inputValue == emailUser ){     
+
+				swal.showInputError("You cannot invite yourself");     
+
+				return false   
+			}
+			
+			if(!sendInvite(idUser, idEvent, inputValue)){
+				swal.showInputError("This person is already invited");     
+
+				return false  
+			}
+			
+			swal("Invite sent to", " " + inputValue);
+		});
+	
+	
+}
+
+
+
+// AJAX request to create Event
+function sendInvite(idUser, idEvent, inviteUserEmail) {
+	$.ajax({
+		method: "POST",
+		dataType: "json",
+		url: "database/events.php",
+		data: {
+		  action: "send_invite",
+		  user_id: idUser,
+		  id_event: idEvent,
+		  invite_user_email: "ines.sousacaldas@gmail.com"//inviteUserEmail
+		},
+		success: function(data) {
+			console.log('sou idiota');
+			console.log(data);
+			return true;
+		},
+		error: function(jqXHR, textStatus, errorThrown) {
+			console.log(textStatus);
+			console.log(jqXHR);
+			console.log(errorThrown);
+			console.log('sou super idiota');
+			return false;
+		}
+	});
+}
+
 
 /*
     OTHER FUNCTIONS

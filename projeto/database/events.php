@@ -232,6 +232,55 @@ function getAttendingEvents() {
 }
 
 
+/*
+ * Send invite to private event
+ */
+function sendInvite(){
+	
+	global $db;
+	
+	//sees if invited user is registred
+	$query = "SELECT idUser FROM User WHERE active = 1 AND email = '" . $_POST['invite_user_email'] . "'";
+	$stmt = $db->prepare($query);
+	$stmt->execute();  
+	$user = $stmt->fetchAll();
+	
+	
+	//invited user is registred
+	if($user != NULL){
+		
+		//get invited user id
+		$invitedUserId = $user[0]['idUser'];
+	
+		$query = "SELECT * FROM Invite WHERE idReceiver = " . $invitedUserId . " AND idEvent = " . $_POST['id_event'];
+		$stmt = $db->prepare($query);
+		$stmt->execute(); 
+		$invite = $stmt->fetchAll();
+		
+		//Invite already exists
+		if($invite != NULL){
+			echo 'nononononononono\n';
+			$response = array('error'=> true);
+			header("Content-Type: application/json");
+			echo json_encode($response);
+			die();
+		}
+		
+		$query = "INSERT INTO Invite (idSender, idReceiver, idEvent) VALUES (" . $_POST['user_id'] . "," .  $invitedUserId . "," .  $_POST['id_event'] . ")";	
+		$stmt = $db->prepare($query);
+		$stmt->execute();
+	
+		$response = array('success'=> true);
+		header("Content-Type: application/json");
+		//echo json_encode($response);
+		echo json_encode('success');
+
+		
+	}
+	
+}
+
+
 /* Depending on the type of request (GET, POST, PUT, DELETE), execute the corresponding function */
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 	/* According to the value of var action, a different function is called */
@@ -267,12 +316,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				createEvent();
 				break;
 			case 'user_register_event':
-				echo 'registo';
 				eventRegisterUser();
 				break;
 			case 'user_cancel_register_event':
-				echo 'cancel';
 				cancelEventRegisterUser();
+				break;	
+			case 'send_invite':
+				sendInvite();
 				break;	
 				
 			default:

@@ -20,7 +20,8 @@
 	<section id="userInfo">
 		
 		<div id="userphoto">
-			<img src="<?php echo $photoURL; ?>" alt="User profile image" height="128" width="128">
+			<img class = 'userImage' src="<?php echo $photoURL; ?>" alt="User profile image" height="128" width="128">
+			<div class = 'changePhoto' style="display: none;"> Change Photo </div>
 		</div>
 
 		<div id="name">
@@ -79,8 +80,30 @@
 	{
 		loadEventsCreatedByUser(<?php echo $idUser ?>);
 		loadAttendingEventsByUser(<?php echo $idUser ?>);
+		
+		$('img.userImage').mouseover(function(){
+			 $( this ).animate({
+				opacity: 0.4,
+				borderWidth: "10px"
+			} );
+			$('.changePhoto').show();
+			console.log('sou completamente parvo');
+			$(this).toggleClass("hover");
+		});
+		$('img.userImage').mouseout(function(){
+			 $( this ).animate({
+				opacity: 1,
+				borderWidth: "10px"
+			} );
+			$('.changePhoto').hide();
+			console.log('sou completamente parvo');
+			$(this).toggleClass("hover");
+		});
 
 	});
+	
+	
+	
 	$(function(){
 		$('#userMenu ul li.userPagetab a').on('click', function(e){
 		e.preventDefault();

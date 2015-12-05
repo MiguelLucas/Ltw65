@@ -10,7 +10,7 @@
 	if(!isset($_SESSION["emailUser"]))
 		$idUser = 0;
 	else
-		list ($idUser) = getUserInfo();
+		list ($idUser, $emailUser) = getUserInfo();
 	
 
 ?>
@@ -147,9 +147,19 @@
 	$(document).ready(function()
 	{
 		loadEvent(<?php echo $_GET['idEvent']; ?>);
+		
+		//edit event
 		$('button.edit_event').click(function(){
 			fillEditEventForm();
 		});
+		
+		//send invite
+		$('button.invite').click(function(){
+			var emailUser = "<?php echo $emailUser; ?>";
+			
+			sendInviteDialog(<?php echo $idUser; ?>, emailUser , <?php echo $_GET['idEvent']; ?>);
+  		});
+		
 		$('button.registration').click(function(){
 			if($(this).hasClass('going')){
 				cancelUserEventRegistration(<?php echo $_GET['idEvent']; ?>, <?php echo $idUser; ?>);
