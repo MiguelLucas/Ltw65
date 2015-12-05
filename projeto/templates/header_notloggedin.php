@@ -1,4 +1,3 @@
-<h1><a href="index.php"> Nome do Site </a></h1>
 <div id="login_container">
 	<form id='loginUser' action='database/session.php' method='post' accept-charset='UTF-8'>
 	    <input type='hidden' name='submitted' id='submitted' value='1'/>

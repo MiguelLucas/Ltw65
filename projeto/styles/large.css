@@ -105,15 +105,17 @@ font-family: normal, normal, bold, 1.4rem/3rem, 'Noto Sans', sans-serif;
 	display: none;
 }
 
-
+/* By doing this, 1rem == 10px */
 html { font-size: 62.5%; } 
 
 body {
-	/*width: 100%;*/
-	/*margin: 0 auto;*/
 	font-size: 1.4rem;
 }
 
+/*
+	Header
+*/
+/* General */
 body>header {
 	height: 7rem;
 	color: #fff;
@@ -123,8 +125,6 @@ body>header {
 
 body>header h1 {
 	display: inline;
-	position: relative;
-	top: 2.5rem;
 	font-size: 2rem;
 }
 
