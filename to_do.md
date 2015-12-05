@@ -13,7 +13,7 @@ TO DO
 	* __Logged user__:
 		* ~~Create Event~~
 		* Share Event IF Public
-		* Comment on Public Event
+		* ~~Comment on Public Event~~
 		* Share Public Event
 		* __ User NOT registered in event__:
 			* ~~Register to Public Event~~
