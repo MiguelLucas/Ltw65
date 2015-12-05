@@ -67,6 +67,7 @@ TO DO
 		* Events in Porto
 		* Parties
 		* ...
+
 # Low Priority
 * Responsive design
 * Share
