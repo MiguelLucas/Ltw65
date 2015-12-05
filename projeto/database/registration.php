@@ -1,19 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Registration</title>
-	<meta charset='UTF-8'>
-	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-	<script type="text/javascript" src="scripts/registration.js"></script>
-	<script type="text/javascript" src="libs/swal/sweetalert.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="libs/swal/sweetalert.css">
-</head>
-<body>
-</body>
-</html>
-
 <?php
-
+require_once('../templates/head.php')
 require_once('connection.php');
 require_once('user.php');
 require_once('../libs/phpmailer/class.phpmailer.php');
@@ -33,7 +19,7 @@ function createUser() {
 		
 		if(isRegisted($email)){
 			echo "<script>swal('Error!', 'The user already exists!', 'error');</script>";
-			header("location:../registration.html?action=no");
+			header("location:../signup.php?action=no");
 			return false;
 		}
 		
@@ -56,7 +42,7 @@ function createUser() {
 				
         } else {
 			//houve algum erro
-            header("location:../registration.html?action=no");
+            header("location:../signup.php.html?action=no");
         }
 	} else if (isset($_POST['canceled'])){
 		header("location:../index.php?action=no");
@@ -99,3 +85,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 
 ?>
+</body>
+</html>
