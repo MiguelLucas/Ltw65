@@ -1,3 +1,4 @@
+<body>
 <?php
 
 	session_start();
@@ -14,8 +15,6 @@
 	$photoURL = getUserPhoto();
   
 ?>
-
-<body>
 <div id="wrapper_main">
 <aside id="userAside">
 	
