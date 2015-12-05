@@ -16,7 +16,7 @@
 ?>
 
 <body>
-
+<div id="wrapper_main">
 <aside id="userAside">
 	
 	<section id="userInfo">
@@ -101,6 +101,6 @@
 		});
 	});
 </script>
-
+</div>
 </body>
 </html>
