@@ -101,6 +101,10 @@ style | variant | weight | size/line-height | family
 font-family: normal, normal, bold, 1.4rem/3rem, 'Noto Sans', sans-serif;
 */
 
+
+/*
+	General
+*/
 #hidden, .hidden {
 	display: none;
 }
@@ -112,49 +116,46 @@ body {
 	font-size: 1.4rem;
 }
 
+a {
+	text-decoration: none;
+}
+
 /*
 	Header
 */
 /* General */
 body>header {
-	height: 7rem;
+	position: relative;
+	height: 8rem;
 	color: #fff;
-	padding: .8rem 10rem;
 	background-color: #263248;
 }
 
+/* Website title/'logo' */
 body>header h1 {
+	position: absolute;
+	left: 10rem;
+	top: 50%;
+	transform: translateY(-50%);
 	display: inline;
-	font-size: 2rem;
+	font: normal normal 700 2rem/2.5rem 'Open Sans', sans-serif;
 }
 
 body>header h1 a {
 	color: #fff;
-	font-weight: bold;
-	font-family: 'Noto Sans', sans-serif;
-	text-decoration: none;
 }
 
+/* Anchors inside Header */
 body>header a {
 	color: #fff;
-	text-decoration: none;
 }
 
-a:hover {
-	text-decoration: underline;
-}
-
-#wrapper_main {
-	margin: 0 auto;
-	width: 100rem;
-}
-
-/*
-	FORMS
-*/
+/* [User is logged out] Login / Signup block */
 #login_container {
-	float: right;
-	margin-top: .2rem;
+	position: absolute;
+	right: 10rem;
+	top: 50%;
+	transform: translateY(-50%);
 }
 
 #loginUser {
@@ -174,12 +175,13 @@ a:hover {
 	/*style as button*/
 }
 
+/* [User is logged in] My Page / Log out block */
 header nav {
-	float: right;
-	position: relative;
-	top: 2.5rem;
-	font-family: 'Open Sans', sans-serif;
-	font-size: 2rem;
+	position: absolute;
+	right: 10rem;
+	top: 50%;
+	transform: translateY(-50%);
+	font: normal normal 400 2rem/2.5rem 'Open Sans', sans-serif;
 
 }
 
@@ -187,6 +189,23 @@ header nav li {
 	display: inline;
 	margin-left: 3rem;
 }
+
+
+
+
+/*
+	Wrapper
+*/
+#wrapper_main {
+	margin: 0 auto;
+	width: 100rem;
+}
+
+/*
+	FORMS
+*/
+
+
 
 /* Forms generic */
 form input, textarea, form select {
