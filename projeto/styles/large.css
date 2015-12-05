@@ -236,7 +236,17 @@ input {
 
 
 .event.thumb {
-	width: 45rem;
+	width: 44.6rem;
 	margin: 0 2.5rem;
-	
+	display: inline-block;
+	border: solid 1px black;
+
+}
+.event.thumb .event_img {
+	float: left;
+	width: 40%;
+}
+.event.thumb .event_name {
+	font: normal normal 800 2rem/3rem 'Open Sans', sans-serif;
+	margin: .8rem 0;
 }
