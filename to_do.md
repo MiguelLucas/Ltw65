@@ -36,7 +36,7 @@ TO DO
 	* ~~get Events user is attending~~
 	* get Events user is Invited to 
 	* ~~get Events user is hosting~~
-* Comments: add Event ID to form
+* ~~Comments: add Event ID to form~~
 * User page:
 	* List events:
 		* ~~Attending~~
