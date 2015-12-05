@@ -20,7 +20,7 @@ function loadEvents()
         event.find(".event_date_time").text(moment(data[i].date).format('MMM D, YYYY [at] h:mm A'));
         event.find(".event_address").text(data[i].address);
         event.find(".event_type").text(data[i].type);
-        event.find(".event_more").attr("href", 'view-event.php?idEvent=' + data[i].idEvent);
+        event.find(".event_more").attr("href", 'view-event.php?idEvent=' + data[i].idEvent + '&replytocom=0');
 
         $('#events').append(event);
       }
@@ -99,7 +99,7 @@ function loadEventsCreatedByUser(idUser)
         event.find(".event_privacy").text(event_privacy);
         event.find(".event_owner").text(userFullName);
         event.find(".event_img").attr("src", 'img/events/' + data[i].eventPhoto);
-		event.find(".event_more").attr("href", 'view-event.php?idEvent=' + data[i].idEvent);
+		event.find(".event_more").attr("href", 'view-event.php?idEvent=' + data[i].idEvent + '&replytocom=0');
 		
         $('#myEvents').append(event);
       }
@@ -136,7 +136,7 @@ function loadAttendingEventsByUser(idUser)
 				event.find(".event_privacy").text(event_privacy);
 				event.find(".event_owner").text(userFullName);
 				event.find(".event_img").attr("src", 'img/events/' + data[i].eventPhoto);
-				event.find(".event_more").attr("href", 'view-event.php?idEvent=' + data[i].idEvent);
+				event.find(".event_more").attr("href", 'view-event.php?idEvent=' + data[i].idEvent + '&replytocom=0');
 				
 				$('#attendingEvents').append(event);
 			}

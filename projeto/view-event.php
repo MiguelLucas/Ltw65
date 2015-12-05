@@ -17,17 +17,6 @@
 
 <div id="wrapper_main">
 <section id="event"></section>
-<section id="comments">
-	<h2>Comments</h2>
-	<ol>
-		<form>
-			<input class="parent_comment" type="hidden" name="parentComment" value="">
-			<!-- CHANGE INPUT TO HIDDEN AFTER LOGIN -->
-			<input class="user_id" type="text" name="idUser" value="">
-			<input class="comment_content" type="text" name="content" value="" placeholder="Write a comment...">
-		</form>
-	</ol>
-</section>
 <aside>
 	<?php
 		//User is not creator
@@ -46,6 +35,22 @@
 	
 	<button class="share" type="button">Share</button>
 </aside>
+<section id="comments">
+	<h2>Comments</h2>
+	<?php
+		//if there isn't a user logged in, don't let him comment
+		if ($idUser != 0){
+			echo "<form>
+					<input id='comment_content' type='textarea' name='content' placeholder='Write a comment...'>
+					<button class='postComment' type='button'>Post Comment</button>
+				</form>
+				";
+		}
+	?>
+	<ul id='main_comment'>
+			
+	</ul>
+</section>
 </div>
 <!-- Hidden div containing the templates -->
 <div id="hidden" style="display: none;">
@@ -72,12 +77,24 @@
 	</article>
 
 	<!-- Template for Comments -->
-	<li>
+	<li class="comment_item">
 		<header>
 			<span class="author"></span>
 			<span class="publish_date"></span>
 		</header>
 		<p class="comment_text"></p>
+		
+		<ul class="nested_comment">
+		<?php
+			if ($idUser != 0){
+				echo "<form class='nested_form' style='display: none;'>
+					<input class='childCommentContent' type='textarea' placeholder='Write a comment...'>
+					<button class='postChildComment' type='button'>Post Comment</button>
+				</form>
+				";
+			}
+		?>
+		</ul>
 	</li>
 
 	<!-- Form for Event edit -->
@@ -146,7 +163,25 @@
 			}
 	
 		});
-
+		loadComments(<?php echo $_GET['idEvent']; ?>, function()
+		{
+			if (<?php echo $idUser ?> != 0){
+				if ( <?php echo $_GET['replytocom'] ?> )
+					showForm(<?php echo $_GET['replytocom'] ?>);
+			} else {
+				removeLinks();
+			}
+			
+		});
+	
+		$('.postComment').click(function() {
+			if (validateInput($('input[name="content"]').val()))
+				createComment(<?php echo $idUser ?> , <?php echo $_GET['idEvent']; ?>,0);
+  		});
+		$('.postChildComment').click(function() {
+			if (validateInput($('input[id="' + this.id + '"]').val()))
+				createComment(<?php echo $idUser ?> , <?php echo $_GET['idEvent']; ?>,this.id);
+  		});
 	});
 </script>
 </html>
