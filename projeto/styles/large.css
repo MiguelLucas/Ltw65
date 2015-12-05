@@ -130,25 +130,22 @@ body>header {
 	color: #fff;
 	background-color: #263248;
 }
-
-/* Website title/'logo' */
-body>header h1 {
-	position: absolute;
-	left: 10rem;
-	top: 50%;
-	transform: translateY(-50%);
-	display: inline;
-	font: normal normal 700 2rem/2.5rem 'Open Sans', sans-serif;
-}
-
-body>header h1 a {
-	color: #fff;
-}
-
-/* Anchors inside Header */
-body>header a {
-	color: #fff;
-}
+	/* Website title/'logo' */
+	body>header h1 {
+		position: absolute;
+		left: 10rem;
+		top: 50%;
+		transform: translateY(-50%);
+		display: inline;
+		font: normal normal 700 2rem/2.5rem 'Open Sans', sans-serif;
+	}
+		body>header h1 a {
+			color: #fff;
+		}
+	/* Anchors inside Header */
+	body>header a {
+		color: #fff;
+	}
 
 /* [User is logged out] Login / Signup block */
 #login_container {
@@ -161,37 +158,42 @@ body>header a {
 #loginUser {
 	margin-bottom: 1rem;
 }
+	#loginUser label {
+		display: inline-block;
+		margin: 0 .5rem;
+		color: #FFF;
+		font-size: 1.1rem;
+	}
+		#loginUser label:first-of-type {
+			margin-left: 0;
+		}
+	#loginUser input[type="submit"] {
+		display: inline;
+	}
 
-#loginUser label {
-	display: inline-block;
-	color: #FFF;
-}
-
-#loginUser input[type="submit"] {
-	display: inline;
-}
-
-#btn_logout {
-	/*style as button*/
-}
-
+	
 /* [User is logged in] My Page / Log out block */
 header nav {
 	position: absolute;
 	right: 10rem;
 	top: 50%;
 	transform: translateY(-50%);
+	height: 3rem;
 	font: normal normal 400 2rem/2.5rem 'Open Sans', sans-serif;
-
 }
+	header nav li {
+		display: inline;
+		margin-left: 5rem;
+	}
 
-header nav li {
-	display: inline;
-	margin-left: 3rem;
+#btn_logout {
+	background-color: #c1c1c1;
+	color: white;
+	font-size: 1.5rem;
+	font-weight: 400;
+	border-radius: 5px;
+	padding: .35rem 1.2rem;
 }
-
-
-
 
 /*
 	Wrapper
@@ -204,18 +206,13 @@ header nav li {
 /*
 	FORMS
 */
-
-
-
 /* Forms generic */
 form input, textarea, form select {
 	display: block;
 }
 
-
 form label {
 	font-family: 'Open Sans', sans-serif;
-	font-size: 1.1rem;
 	text-transform: uppercase;
 }
 
@@ -223,23 +220,23 @@ input {
 	margin: .5rem 0;
 }
 
-label {
-	margin: 0 .5rem;
-}
-
-label:first-of-type {
-	margin-left: 0;
-}
 
 /*
 	Event
 */
 .event {
 	margin: 2rem 0;
-	width: 50%;
+	/*width: 50%;*/
 }
 
 .event_name {
 	font: normal normal 800 3rem/3.2rem 'Open Sans', sans-serif;
 	margin: .8rem 0;
+}
+
+
+.event.thumb {
+	width: 45rem;
+	margin: 0 2.5rem;
+	
 }

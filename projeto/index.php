@@ -16,7 +16,7 @@
 	<!-- Hidden div containing the templates -->
 	<div id="hidden" style="display: none;">
 		<!-- Template for Event -->
-		<div class="event">
+		<div class="event thumb">
 			<a href="" class="event_more"><img class="event_img" src=""></a>
 			<h3><span class="event_name"></span></h3>
 			<p><span class="event_date_time"></span></p>
