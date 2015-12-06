@@ -8,7 +8,6 @@ function loadComments(idEventToGet, callback)
     url: "database/comment.php",
     data: { action : "comment" , idEvent: idEventToGet},
     success: function(data) {
-		// For each object, creates a div .comment and fills each field
 		for (var i = 0; i < data.length; i++) {
 			if (data[i].parentComment == 0){
 				printRootComment(data[i],idEventToGet);
@@ -43,7 +42,7 @@ function printRootComment(comment,idEvent){
 	comment_container.find(".postChildComment").attr('id',comment.idComment);
 	comment_container.find(".childCommentContent").attr('id',comment.idComment);
 	$('#main_comment').append(comment_container);
-	comment_container.find(".comment_text").append("<br><a class='link' href='view-event.php?idEvent=" + idEvent + "&replytocom=" + comment.idComment + "'>Reply</a>");
+	comment_container.find(".comment_text").append("<div class='link' id='" + comment.idComment + "'>Reply</div>");
 }
 
 function printChildComment(comment,idFather){
@@ -58,7 +57,7 @@ function printChildComment(comment,idFather){
 	
 }
   
-function createComment(newIdUser,newIdEvent,newParentComment) {
+function createComment(newIdUser,newIdEvent,newParentComment, callback) {
     $.ajax(
       {
         method: "POST",
@@ -72,8 +71,9 @@ function createComment(newIdUser,newIdEvent,newParentComment) {
 			content: (newParentComment == 0) ? $('input[name="content"]').val() : $('input[id="' + newParentComment + '"]').val()
         },
         success: function(data) {
-          //if (data.redirect !== undefined && data.redirect)
-            window.location.reload();
+            if (callback)
+            	callback();
+
         },
         error: function(data) {
           console.log(data.responseText);
@@ -82,6 +82,7 @@ function createComment(newIdUser,newIdEvent,newParentComment) {
 }
 
 function showForm(id){
+	$('.nested_form').hide();
 	$('#nest_form_' + id).attr('style','display: block');
 }
 
@@ -96,4 +97,20 @@ function validateInput(comment){
 
 function removeLinks(){
 	$('.link').remove();
+}
+
+function loadCommentsWithCallback(idEvent, idUser) {
+	loadComments(idEvent, function()
+		{
+			if (idUser != 0){
+				$('.link').click(function(){
+					console.log(this.id);
+					showForm(this.id);
+				});
+			} else {
+				removeLinks();
+			}
+			if ($("#main_comment li").length == 0)
+				$("#main_comment").append('<p>There are no comments yet :(</p>');
+		});
 }

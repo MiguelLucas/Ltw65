@@ -20,7 +20,7 @@ function loadEvents()
         event.find(".event_date_time").text(moment(data[i].date).format('MMM D, YYYY [at] h:mm A'));
         event.find(".event_address").text(data[i].address);
         event.find(".event_type").text(data[i].type);
-        event.find(".event_more").attr("href", 'view-event.php?idEvent=' + data[i].idEvent + '&replytocom=0');
+        event.find(".event_more").attr("href", 'view-event.php?idEvent=' + data[i].idEvent);
 
         $('#events').append(event);
       }
@@ -90,7 +90,7 @@ function loadPublicEvents(){
 				event.find(".event_date_time").text(moment(data[i].date).format('MMM D, YYYY [at] h:mm A'));
 				event.find(".event_address").text(data[i].address);
 				event.find(".event_type").text(data[i].type);
-				event.find(".event_more").attr("href", 'view-event.php?idEvent=' + data[i].idEvent + '&replytocom=0');
+				event.find(".event_more").attr("href", 'view-event.php?idEvent=' + data[i].idEvent);
 
 				$('#events').append(event);
       }
@@ -132,7 +132,7 @@ function loadEventsCreatedByUser(idUser)
         event.find(".event_privacy").text(event_privacy);
         event.find(".event_owner").text(userFullName);
         event.find(".EventImage").attr("src", 'img/events/' + data[i].eventPhoto);
-		event.find(".event_more").attr("href", 'view-event.php?idEvent=' + data[i].idEvent + '&replytocom=0');
+		event.find(".event_more").attr("href", 'view-event.php?idEvent=' + data[i].idEvent);
 		
         $('#myEvents').append(event);
       }
@@ -169,7 +169,7 @@ function loadAttendingEventsByUser(idUser)
 				event.find(".event_privacy").text(event_privacy);
 				event.find(".event_owner").text(userFullName);
 				event.find(".EventImage").attr("src", 'img/events/' + data[i].eventPhoto);
-				event.find(".event_more").attr("href", 'view-event.php?idEvent=' + data[i].idEvent + '&replytocom=0');
+				event.find(".event_more").attr("href", 'view-event.php?idEvent=' + data[i].idEvent);
 				
 				$('#attendingEvents').append(event);
 			}
@@ -247,7 +247,7 @@ function loadEventsByName(nameToSearch){
 			event.find(".event_date_time").text(moment(data[i].date).format('MMM D, YYYY [at] h:mm A'));
 			event.find(".event_address").text(data[i].address);
 			event.find(".event_type").text(data[i].type);
-			event.find(".event_more").attr("href", 'view-event.php?idEvent=' + data[i].idEvent + '&replytocom=0');
+			event.find(".event_more").attr("href", 'view-event.php?idEvent=' + data[i].idEvent);
 			
 			
 			$('#events').append(event);
@@ -285,7 +285,7 @@ function loadEventsByAddress(addressToSearch){
 			event.find(".event_date_time").text(moment(data[i].date).format('MMM D, YYYY [at] h:mm A'));
 			event.find(".event_address").text(data[i].address);
 			event.find(".event_type").text(data[i].type);
-			event.find(".event_more").attr("href", 'view-event.php?idEvent=' + data[i].idEvent + '&replytocom=0');
+			event.find(".event_more").attr("href", 'view-event.php?idEvent=' + data[i].idEvent);
 			
 			
 			$('#events').append(event);
@@ -323,7 +323,7 @@ function loadEventsByType(typeToSearch){
 			event.find(".event_date_time").text(moment(data[i].date).format('MMM D, YYYY [at] h:mm A'));
 			event.find(".event_address").text(data[i].address);
 			event.find(".event_type").text(data[i].type);
-			event.find(".event_more").attr("href", 'view-event.php?idEvent=' + data[i].idEvent + '&replytocom=0');
+			event.find(".event_more").attr("href", 'view-event.php?idEvent=' + data[i].idEvent);
 			
 			
 			$('#events').append(event);
@@ -362,7 +362,7 @@ function loadEventsByDate(dateToSearchBegin,dateToSearchEnd){
 			event.find(".event_date_time").text(moment(data[i].date).format('MMM D, YYYY [at] h:mm A'));
 			event.find(".event_address").text(data[i].address);
 			event.find(".event_type").text(data[i].type);
-			event.find(".event_more").attr("href", 'view-event.php?idEvent=' + data[i].idEvent + '&replytocom=0');
+			event.find(".event_more").attr("href", 'view-event.php?idEvent=' + data[i].idEvent);
 			
 			
 			$('#events').append(event);
@@ -543,7 +543,6 @@ function deleteEvent() {
       }
     },
     error: function(data) {
-		console.log('sou parvo');
       console.log(data.responseText);
     }
   });

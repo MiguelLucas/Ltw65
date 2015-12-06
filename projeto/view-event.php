@@ -30,9 +30,7 @@
 		//User is creator
 		if(userIsCreator($_GET['idEvent'], $idUser) || eventIsPublic($_GET['idEvent'])){
 			echo '<button class="invite" type="button">Invite</button>';
-			
 		}
-		
 	?>
 	
 	<button class="share" type="button">Share</button>
@@ -150,61 +148,55 @@
 <script type="text/javascript">
 	$(document).ready(function()
 	{
+		// Load this event
 		loadEvent(<?php echo $_GET['idEvent']; ?>);
-		
-		
+			
+			// Is this user the owner of this event?
 			var creator = false;
 			<?php if($idUser != 0 && userIsCreator($_GET['idEvent'], $idUser)){?>
 				creator = true;
 			<?php }?>
 		
-			
-			console.log(creator);
-		
+		// If user is owner, they can change the event's photo
 		if(creator == true){
 			document.getElementById("fileUpload").onchange = function() {
 				$('#fileUpload').submit(submitForm('Event',<?php echo $_GET['idEvent']; ?>));
-
 			};
 			
 			$('img.EventImage').mouseover(function(){
 				 $( this ).animate({
 					opacity: 0.4,
 					borderWidth: "10px"
-				} );
+				});
 				$('.changePhoto').show();
 			});
 			$('img.EventImage').mouseout(function(){
 				 $( this ).animate({
 					opacity: 1,
 					borderWidth: "10px"
-				} );
+				});
 				$('.changePhoto').hide();
 			});
-			
 			$('img.EventImage').click(function(){
 				$('.uploadPhoto').click();
-
 			});
 		}
 		
-		
-		
-		//edit event
+		// Clicking the Edit button will show a form to edit the event's data
 		$('button.edit_event').click(function(){
 			fillEditEventForm();
 		});
 		
-		//send invite
+		// Clicking Invite will launch a prompt to invite someone by email
 		$('button.invite').click(function(){
 			if ($emailUser != 0){
 				var emailUser = "<?php echo $emailUser; ?>";
 			
 				sendInviteDialog(<?php echo $idUser; ?>, emailUser , <?php echo $_GET['idEvent']; ?>);
 			}
-			
   		});
 		
+		// Button ___/___ toggles the user's attendance to this event
 		$('button.registration').click(function(){
 			if($(this).hasClass('going')){
 				cancelUserEventRegistration(<?php echo $_GET['idEvent']; ?>, <?php echo $idUser; ?>);
@@ -216,29 +208,42 @@
 				$(this).addClass('going');
 				window.location.reload();
 			}
-	
 		});
 		
-		loadComments(<?php echo $_GET['idEvent']; ?>, function()
-		{
-			if (<?php echo $idUser ?> != 0){
-					if ( <?php echo $_GET['replytocom'] ?> )
-						showForm(<?php echo $_GET['replytocom'] ?>);
-				} else {
-					removeLinks();
-				}
-			if ($("#main_comment li").length == 0)
-				$("#main_comment").append('<p>There are no comments yet :(</p>');
-		});
-		
+		// Loads comments from this event	
+		loadCommentsWithCallback(<?php echo $_GET['idEvent']; ?>, <?php echo $idUser ?>);	
+		// When posting a root comment, input is validated, comment is created, and the comment section is emptied and reloaded
 		$('.postComment').click(function() {
 			if (validateInput($('input[name="content"]').val()))
-				createComment(<?php echo $idUser ?> , <?php echo $_GET['idEvent']; ?>,0);
+				createComment(<?php echo $idUser ?> , <?php echo $_GET['idEvent']; ?>,0, function()
+					{
+						$('#main_comment').empty();
+						$('#comment_content').val('');
+
+						loadCommentsWithCallback(<?php echo $_GET['idEvent']; ?>, <?php echo $idUser ?>);
+					});
   		});
+		// When posting a child comment, input is validated, comment is created, and the comment section is emptied and reloaded
 		$('.postChildComment').click(function() {
 			if (validateInput($('input[id="' + this.id + '"]').val()))
-				createComment(<?php echo $idUser ?> , <?php echo $_GET['idEvent']; ?>,this.id);
+				createComment(<?php echo $idUser ?> , <?php echo $_GET['idEvent']; ?>, this.id, function()
+					{
+						$('#main_comment').empty();
+						$('#comment_content').val('');
+
+						loadCommentsWithCallback(<?php echo $_GET['idEvent']; ?>, <?php echo $idUser ?>);
+					});
   		});
+
+		// $('button.postChildComment').click(function(){
+		// 	console.log(this.id);
+		// });
+
+		// $('.link').click(function(){
+		// 	console.log(this.id);
+
+		// });
+
 	});
 </script>
 </html>

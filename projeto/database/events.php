@@ -206,7 +206,7 @@ function createEvent() {
 	$last_id = $db->lastInsertID();
 
 	header("Content-Type: application/json");
-	echo '{"redirect":true,"redirect_url":"view-event.php?idEvent=' . $last_id . '&replytocom=0"}';
+	echo '{"redirect":true,"redirect_url":"view-event.php?idEvent=' . $last_id . '"}';
 }
 
 /* Get event types */

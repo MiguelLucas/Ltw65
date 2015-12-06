@@ -16,7 +16,12 @@
 <div id="wrapper_main">
 <!-- IF USER IS LOGGED IN
 		SHOW CREATE EVENT ANCHOR -->
-	<a href="create-event.php" class="create_event">Create Event</a>
+	<?php 
+		if($idUser != 0){
+			echo '<a href="create-event.php" class="create_event">Create Event</a>';
+		}
+	?>
+	
 	<section id="search">
 		<input type='text' name='searchEvent' id='searchEventText' maxlength="50" style='display: block' />
 		<img src="img/index/searchIcon.png" id="searchImg">
@@ -37,11 +42,12 @@
 	<!-- Hidden div containing the templates -->
 	<div id="hidden" style="display: none;">
 		<!-- Template for Event -->
-		<div class="event">
+		<div class="event thumb">
 			<a href="" class="event_more"><img class="EventImage" src=""></a>
 			<h3><span class="event_name"></span></h3>
 			<p><span class="event_date_time"></span></p>
 			<p><span class="event_address"></span></p>
+			<p><span class="event_type"></span></p>
 			<a href="" class="event_more">View more</a>
 		</div>
 	</div>
