@@ -1,9 +1,10 @@
 <?php
-
+require_once('../libs/phpmailer/class.phpmailer.php');
 define('GUSER', 'ltw.team65@gmail.com'); // GMail username
 define('GPWD', 'inesmarianamiguel');
 
 function sendMail($email,$subject,$body){
+
 	$mail = new PHPMailer();
 	$mail->CharSet = 'UTF-8';	//UTF-8 necessary for accented characters like 'António'
 	$mail->IsSMTP();		// Activate SMTP
@@ -20,10 +21,10 @@ function sendMail($email,$subject,$body){
 	$mail->Body = $body;
 	$mail->AddAddress($email);
 	if(!$mail->Send()) {
-		echo 'Mail error: '.$mail->ErrorInfo; 
+		//echo 'Mail error: '.$mail->ErrorInfo; 
 		return false;
 	} else {
-		echo 'Mensagem enviada!';
+		//echo 'Mensagem enviada!';
 		return true;
 	}
 	

@@ -247,7 +247,7 @@ function loadEventsByName(nameToSearch){
 			event.find(".event_date_time").text(moment(data[i].date).format('MMM D, YYYY [at] h:mm A'));
 			event.find(".event_address").text(data[i].address);
 			event.find(".event_type").text(data[i].type);
-			event.find(".event_more").attr("href", 'view-event.php?idEvent=' + data[i].idEvent);
+			event.find(".event_more").attr("href", 'view-event.php?idEvent=' + data[i].idEvent );
 			
 			
 			$('#events').append(event);
@@ -323,7 +323,7 @@ function loadEventsByType(typeToSearch){
 			event.find(".event_date_time").text(moment(data[i].date).format('MMM D, YYYY [at] h:mm A'));
 			event.find(".event_address").text(data[i].address);
 			event.find(".event_type").text(data[i].type);
-			event.find(".event_more").attr("href", 'view-event.php?idEvent=' + data[i].idEvent);
+			event.find(".event_more").attr("href", 'view-event.php?idEvent=' + data[i].idEvent );
 			
 			
 			$('#events').append(event);
@@ -362,7 +362,7 @@ function loadEventsByDate(dateToSearchBegin,dateToSearchEnd){
 			event.find(".event_date_time").text(moment(data[i].date).format('MMM D, YYYY [at] h:mm A'));
 			event.find(".event_address").text(data[i].address);
 			event.find(".event_type").text(data[i].type);
-			event.find(".event_more").attr("href", 'view-event.php?idEvent=' + data[i].idEvent);
+			event.find(".event_more").attr("href", 'view-event.php?idEvent=' + data[i].idEvent );
 			
 			
 			$('#events').append(event);
@@ -605,7 +605,6 @@ function sendInvite(idUser, idEvent, inviteUserEmail, callback) {
 		success: function(data) {
 			console.log(data);
 			if(data['inviteAlreadySent'] == true){
-				console.log('sou idiota');
 				sent = false;	
 			}
 			else
@@ -623,6 +622,8 @@ function sendInvite(idUser, idEvent, inviteUserEmail, callback) {
 
 	
 }
+ 
+ 
  
 
 //AJAX request to send invite
@@ -671,10 +672,7 @@ function sendInviteDialog(idUser, emailUser, idEvent){
 			
 		});
 	
-	
 }
-
-
 
 
 

@@ -1,5 +1,6 @@
 <?php
 require_once('connection.php');
+require_once('mail.php');
 
 /* Function that fetches events from the database and returns a JSON object.
 
@@ -86,41 +87,6 @@ function deleteEvent() {
 
 
 /*
- * Sees if user created the event
-
-function userIsCreator($idEvent, $idUser){
-	global $db;
-
-	$query = "SELECT idUserCreator FROM Event WHERE idEvent =".$idEvent;
-	
-	$stmt = $db->prepare($query);
-	$stmt->execute();
-	$user = $stmt->fetchAll();
-	if($user[0]['idUserCreator'] == $idUser)
-		return true;
-	
-	return false;
-}
- */
-
-/*
- * Sees if user is registered in the event
-
-function userIsRegistered($idEvent, $idUser){
-	global $db;
-
-	$query = "SELECT * FROM Registration WHERE idUser =".$idUser." AND idEvent = ".$idEvent;
-	
-	$stmt = $db->prepare($query);
-	$stmt->execute();
-	$register = $stmt->fetchAll();
-	if($register != NULL)
-		return true;
-	return false;
-}
- */
-
-/*
  * Registration of user in event
  */
 function eventRegisterUser(){
@@ -160,23 +126,6 @@ function cancelEventRegisterUser(){
 	echo '{"redirect":true,"redirect_url":"view-event.php?idEvent=' . $last_id . '"}';
 }
 
-/*
- * Sees if event is public
-
-function eventIsPublic($idEvent){
-	global $db;
-
-	$query = "SELECT private FROM Event WHERE idEvent =".$idEvent;
-	
-	$stmt = $db->prepare($query);
-	$stmt->execute();
-	$state = $stmt->fetchAll();
-	if($state[0]['private'] == 0)
-		return true;
-	
-	return false;
-}
- */
 
 /* Event creation */
 function createEvent() {
@@ -244,9 +193,40 @@ function getAttendingEvents() {
 /*
  * Send invite to private event
  */
+ 
+ 
+function sendMailInvite($firstName, $lastName, $nameEvent, $emailInvite){
+	
+	$subject = 'You have been invited by ' . $firstName . ' ' . $lastName;
+	$body = 'Join ' . $firstName . ' ' . $lastName . ' in the event ' . $nameEvent . '. \r\n Go to blabla to attend.';
+	
+	
+	sendMail($emailInvite,$subject,$body);
+	
+}
+
 function sendInvite(){
 	
 	global $db;
+	
+	//get sender name
+	$query = "SELECT firstName, lastName FROM User WHERE active = 1 AND idUser = " . $_POST['user_id'];
+	$stmt = $db->prepare($query);
+	$stmt->execute();  
+	$sender = $stmt->fetchAll();
+	
+	$firstName = $sender[0]['firstName'];
+	$lastName = $sender[0]['lastName'];
+	
+	//get sender name
+	$query = "SELECT name FROM Event WHERE active = 1 AND idEvent = " . $_POST['id_event'];
+	$stmt = $db->prepare($query);
+	$stmt->execute();  
+	$event = $stmt->fetchAll();
+	
+	$nameEvent = $event[0]['name'];
+
+	
 	
 	//sees if invited user is registred
 	$query = "SELECT idUser FROM User WHERE active = 1 AND email = '" . $_POST['invite_user_email'] . "'";
@@ -268,7 +248,6 @@ function sendInvite(){
 		
 		//Invite already exists
 		if($invite != NULL){
-			//echo 'nononononononono\n';
 			$response = array('inviteAlreadySent'=> true);
 			header("Content-Type: application/json");
 			echo json_encode($response);
@@ -278,17 +257,38 @@ function sendInvite(){
 		$query = "INSERT INTO Invite (idSender, idReceiver, idEvent) VALUES (" . $_POST['user_id'] . "," .  $invitedUserId . "," .  $_POST['id_event'] . ")";	
 		$stmt = $db->prepare($query);
 		$stmt->execute();
-	
+		
+		//send email
+		sendMailInvite($firstName, $lastName, $nameEvent, $_POST['invite_user_email']);
+		
 		$response = array('success'=> true);
 		header("Content-Type: application/json");
 		//echo json_encode($response);
 		echo json_encode($response);
 
 		
+	}else{
+		
+		$query = "INSERT INTO PendingInvite (idSender, emailReceiver, idEvent) VALUES (" . $_POST['user_id'] . ",'" .   $_POST['invite_user_email'] . "'," .  $_POST['id_event'] . ")";	
+		$stmt = $db->prepare($query);
+		$stmt->execute();
+		
+		//send email
+		sendMailInvite($firstName, $lastName, $nameEvent, $_POST['invite_user_email']);
+		
+		$response = array('pending invite'=> true);
+		header("Content-Type: application/json");
+		//echo json_encode($response);
+		echo json_encode($response);
+		
+	
 	}
 	
 }
 
+/*
+ * Funtions to get and delete pending invites when user registers
+ */
 
 function getPendingInvites($email) {
 	global $db;
@@ -314,6 +314,7 @@ function deletePendingInvites($email){
 
 
 }
+
 
 /* Depending on the type of request (GET, POST, PUT, DELETE), execute the corresponding function */
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {

@@ -30,7 +30,9 @@
 		//User is creator
 		if(userIsCreator($_GET['idEvent'], $idUser) || eventIsPublic($_GET['idEvent'])){
 			echo '<button class="invite" type="button">Invite</button>';
+			
 		}
+		
 	?>
 	
 	<button class="share" type="button">Share</button>
@@ -148,55 +150,61 @@
 <script type="text/javascript">
 	$(document).ready(function()
 	{
-		// Load this event
 		loadEvent(<?php echo $_GET['idEvent']; ?>);
-			
-			// Is this user the owner of this event?
+		
+		
 			var creator = false;
 			<?php if($idUser != 0 && userIsCreator($_GET['idEvent'], $idUser)){?>
 				creator = true;
 			<?php }?>
 		
-		// If user is owner, they can change the event's photo
+			
+			console.log(creator);
+		
 		if(creator == true){
 			document.getElementById("fileUpload").onchange = function() {
 				$('#fileUpload').submit(submitForm('Event',<?php echo $_GET['idEvent']; ?>));
+
 			};
 			
 			$('img.EventImage').mouseover(function(){
 				 $( this ).animate({
 					opacity: 0.4,
 					borderWidth: "10px"
-				});
+				} );
 				$('.changePhoto').show();
 			});
 			$('img.EventImage').mouseout(function(){
 				 $( this ).animate({
 					opacity: 1,
 					borderWidth: "10px"
-				});
+				} );
 				$('.changePhoto').hide();
 			});
+			
 			$('img.EventImage').click(function(){
 				$('.uploadPhoto').click();
+
 			});
 		}
 		
-		// Clicking the Edit button will show a form to edit the event's data
+		
+		
+		//edit event
 		$('button.edit_event').click(function(){
 			fillEditEventForm();
 		});
-		
-		// Clicking Invite will launch a prompt to invite someone by email
+		console.log('<?php echo $emailUser; ?>');
+		//send invite
 		$('button.invite').click(function(){
-			if ($emailUser != 0){
-				var emailUser = "<?php echo $emailUser; ?>";
-			
-				sendInviteDialog(<?php echo $idUser; ?>, emailUser , <?php echo $_GET['idEvent']; ?>);
+			if ('<?php echo $emailUser ?>' != 0 ){
+				var emailUser = '<?php echo $emailUser; ?>';
+				sendInviteDialog('<?php echo $idUser; ?>', emailUser , <?php echo $_GET['idEvent']; ?>);
+				//sendTeste();
 			}
+			
   		});
 		
-		// Button ___/___ toggles the user's attendance to this event
 		$('button.registration').click(function(){
 			if($(this).hasClass('going')){
 				cancelUserEventRegistration(<?php echo $_GET['idEvent']; ?>, <?php echo $idUser; ?>);
@@ -208,7 +216,9 @@
 				$(this).addClass('going');
 				window.location.reload();
 			}
+	
 		});
+		
 		
 		// Loads comments from this event	
 		loadCommentsWithCallback(<?php echo $_GET['idEvent']; ?>, <?php echo $idUser ?>);	
@@ -234,16 +244,8 @@
 						loadCommentsWithCallback(<?php echo $_GET['idEvent']; ?>, <?php echo $idUser ?>);
 					});
   		});
-
-		// $('button.postChildComment').click(function(){
-		// 	console.log(this.id);
-		// });
-
-		// $('.link').click(function(){
-		// 	console.log(this.id);
-
-		// });
-
+		
+		
 	});
 </script>
 </html>

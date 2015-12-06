@@ -43,7 +43,7 @@
 	<div id="hidden" style="display: none;">
 		<!-- Template for Event -->
 		<div class="event thumb">
-			<a href="" class="event_more"><img class="EventImage" src=""></a>
+			<div class = "eventphoto" ><a href="" class="event_more"><img class="EventImage" src=""></a></div>
 			<h3><span class="event_name"></span></h3>
 			<p><span class="event_date_time"></span></p>
 			<p><span class="event_address"></span></p>
