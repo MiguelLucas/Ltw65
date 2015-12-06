@@ -16,6 +16,14 @@ function getEvent() {
 		$query .= " AND name LIKE '%" . $_GET['name'] . "%'";
 	if (isset($_GET['type']))
 		$query .= " AND type = " . $_GET['type'];
+	if (isset($_GET['address']))
+		$query .= " AND address LIKE '%" . $_GET['address'] . "%'";
+	if (isset($_GET['private_event']))
+		$query .= " AND private = " . $_GET['private_event'];
+	if (isset($_GET['type_name']))
+		$query .= " AND EventType.type LIKE '%" . $_GET['type_name'] . "%'";
+	if (isset($_GET['dateBegin']))
+		$query .= " AND date >= '" . $_GET['dateBegin'] . "' AND date <= '" . $_GET['dateEnd'] . "'";
 	if (isset($_GET['idUserCreator']))
 		$query .= " AND idUserCreator = " . $_GET['idUserCreator'];
 

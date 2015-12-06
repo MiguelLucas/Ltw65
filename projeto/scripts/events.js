@@ -69,7 +69,37 @@ function loadEvent(id)
   });
 }
 
+function loadPublicEvents(){
+	$.ajax(
+	{
+		method: "GET",
+		dataType: "json",
+		url: "database/events.php",
+		data: { action : "event" ,
+				private_event : "0"},
+				// If the event is private, do not show it
+		success: function(data) {
 
+      // For each object, creates a div .event and fills each field
+		for (var i = 0; i < data.length; i++) {
+			
+				var event = $('#hidden .event').clone(true);
+				event.find(".event_img").attr("src", 'img/events/' + data[i].eventPhoto);
+				event.find(".event_name").text(data[i].name);
+				event.find(".event_date_time").text(moment(data[i].date).format('MMM D, YYYY [at] h:mm A'));
+				event.find(".event_address").text(data[i].address);
+				event.find(".event_type").text(data[i].type);
+				event.find(".event_more").attr("href", 'view-event.php?idEvent=' + data[i].idEvent + '&replytocom=0');
+
+				$('#events').append(event);
+      }
+    },
+      error: function(data)
+      {
+        console.log(data.responseText);
+      }
+  });
+}
 
 // AJAX request to get Events by id that loads event to page
 function loadEventsCreatedByUser(idUser)
@@ -144,6 +174,159 @@ function loadAttendingEventsByUser(idUser)
 	});
 }
 
+function loadEventsByName(nameToSearch){
+	$.ajax(
+	  {
+		method: "GET",
+		url: "database/events.php",
+		data: { action : "event" ,
+				private_event : "0" ,
+				name : nameToSearch},
+		success: function(data) {
+
+		if (data.length == 0){
+			swal("There were no results regarding your search!", "Please try again with another query", "error");
+			return false;
+		}
+		//empty all previous searches
+		$('#events').empty();
+		  // For each object, creates a div .event and fills each field
+		  for (var i = 0; i < data.length; i++) {
+			
+			var event = $('#hidden .event').clone(true);
+			event.find(".event_img").attr("src", 'img/events/' + data[i].eventPhoto);
+			event.find(".event_name").text(data[i].name);
+			event.find(".event_date_time").text(moment(data[i].date).format('MMM D, YYYY [at] h:mm A'));
+			event.find(".event_address").text(data[i].address);
+			event.find(".event_type").text(data[i].type);
+			event.find(".event_more").attr("href", 'view-event.php?idEvent=' + data[i].idEvent + '&replytocom=0');
+			
+			
+			$('#events').append(event);
+		  }
+		},
+		  error: function(data)
+		  {
+			console.log(data.responseText);
+		  }
+	  });
+}
+
+function loadEventsByAddress(addressToSearch){
+	$.ajax(
+	  {
+		method: "GET",
+		url: "database/events.php",
+		data: { action : "event" ,
+				private_event : "0" ,
+				address : addressToSearch},
+		success: function(data) {
+
+		if (data.length == 0){
+			swal("There were no results regarding your search!", "Please try again with another query", "error");
+			return false;
+		}
+		//empty all previous searches
+		$('#events').empty();
+		  // For each object, creates a div .event and fills each field
+		  for (var i = 0; i < data.length; i++) {
+			
+			var event = $('#hidden .event').clone(true);
+			event.find(".event_img").attr("src", 'img/events/' + data[i].eventPhoto);
+			event.find(".event_name").text(data[i].name);
+			event.find(".event_date_time").text(moment(data[i].date).format('MMM D, YYYY [at] h:mm A'));
+			event.find(".event_address").text(data[i].address);
+			event.find(".event_type").text(data[i].type);
+			event.find(".event_more").attr("href", 'view-event.php?idEvent=' + data[i].idEvent + '&replytocom=0');
+			
+			
+			$('#events').append(event);
+		  }
+		},
+		  error: function(data)
+		  {
+			console.log(data.responseText);
+		  }
+	  });
+}
+
+function loadEventsByType(typeToSearch){
+	$.ajax(
+	  {
+		method: "GET",
+		url: "database/events.php",
+		data: { action : "event" ,
+				private_event : "0" ,
+				type_name : typeToSearch},
+		success: function(data) {
+
+		if (data.length == 0){
+			swal("There were no results regarding your search!", "Please try again with another query", "error");
+			return false;
+		}
+		//empty all previous searches
+		$('#events').empty();
+		  // For each object, creates a div .event and fills each field
+		  for (var i = 0; i < data.length; i++) {
+			
+			var event = $('#hidden .event').clone(true);
+			event.find(".event_img").attr("src", 'img/events/' + data[i].eventPhoto);
+			event.find(".event_name").text(data[i].name);
+			event.find(".event_date_time").text(moment(data[i].date).format('MMM D, YYYY [at] h:mm A'));
+			event.find(".event_address").text(data[i].address);
+			event.find(".event_type").text(data[i].type);
+			event.find(".event_more").attr("href", 'view-event.php?idEvent=' + data[i].idEvent + '&replytocom=0');
+			
+			
+			$('#events').append(event);
+		  }
+		},
+		  error: function(data)
+		  {
+			console.log(data.responseText);
+		  }
+	  });
+}
+
+function loadEventsByDate(dateToSearchBegin,dateToSearchEnd){
+	$.ajax(
+	  {
+		method: "GET",
+		url: "database/events.php",
+		data: { action : "event" ,
+				private_event : "0" ,
+				dateBegin : dateToSearchBegin,
+				dateEnd : dateToSearchEnd},
+		success: function(data) {
+
+		if (data.length == 0){
+			swal("There were no results regarding your search!", "Please try again with another query", "error");
+			return false;
+		}
+		//empty all previous searches
+		$('#events').empty();
+		  // For each object, creates a div .event and fills each field
+		  for (var i = 0; i < data.length; i++) {
+			
+			var event = $('#hidden .event').clone(true);
+			event.find(".event_img").attr("src", 'img/events/' + data[i].eventPhoto);
+			event.find(".event_name").text(data[i].name);
+			event.find(".event_date_time").text(moment(data[i].date).format('MMM D, YYYY [at] h:mm A'));
+			event.find(".event_address").text(data[i].address);
+			event.find(".event_type").text(data[i].type);
+			event.find(".event_more").attr("href", 'view-event.php?idEvent=' + data[i].idEvent + '&replytocom=0');
+			
+			
+			$('#events').append(event);
+		  }
+		},
+		  error: function(data)
+		  {
+			console.log(data.responseText);
+		  }
+	  });
+}
+
 /*
  * Register user in event
 */
@@ -194,7 +377,39 @@ function cancelUserEventRegistration(idEvent, idUser){
 	});
 }
 
+function searchEvents(toSearch,toSearchSecond,type){
+	if (type == 'name'){
+		loadEventsByName(toSearch);
+	}
+	if (type == 'type'){
+		loadEventsByType(toSearch);
+	}
+	if (type == 'city'){
+		loadEventsByAddress(toSearch);
+	}	 
+	if (type == 'date'){
+		if (validateDates(toSearch,toSearchSecond))
+			loadEventsByDate(toSearch,toSearchSecond);
+	}	
+}
 
+function validateDates(dateBegin,dateEnd){
+	var d1 = new Date(dateBegin);
+	var d2 = new Date(dateEnd);
+	if (d1 > d2){
+		swal("Your final date is before the initial date!", "Please introduce valid dates", "error");
+		return false;
+	}
+	if (!moment(d1).isValid()) {
+		swal("Your initial date is wrong!", "Please introduce valid dates", "error");
+		return false;
+	}
+	if (!moment(d2).isValid()) {
+		swal("Your final date is wrong!", "Please introduce valid dates", "error");
+		return false;
+	}
+	return true;
+}
 
 /*
     FUNCTIONS RELATED TO EVENT EDITION

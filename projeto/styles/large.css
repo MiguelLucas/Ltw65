@@ -250,3 +250,23 @@ input {
 	font: normal normal 800 2rem/3rem 'Open Sans', sans-serif;
 	margin: .8rem 0;
 }
+/* Os 3 seguintes servem apenas para colocar a lupa na caixa de search */
+
+#search {
+	position:relative; 
+	padding:0;
+	margin:0;
+}
+
+#searchEventByName {
+	height:20px; 
+	margin:0;
+}
+
+#searchImg {
+	position:absolute;
+	bottom:37px;
+	left:150px;
+	width:20px;
+	height:20px;
+}

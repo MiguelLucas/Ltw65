@@ -9,11 +9,10 @@
 	<form id="register" action="database/registration.php" method="post">
 	<fieldset>
 		<legend>Register</legend>
-		<input type='hidden' name='submitted' id='submitted' value='1'/>
-		<label for='name' >First Name: </label>
+		<label for='firstName' >First Name: </label>
 		<input type='text' name='firstName' id='firstName' maxlength="50" onchange='detectFirstName(this.value)' />
 		<div id="firstNameErr" style="display: none"></div>
-		<label for='name' >Last Name: </label>
+		<label for='lastName' >Last Name: </label>
 		<input type='text' name='lastName' id='lastName' maxlength="50" onchange='detectLastName(this.value)' />
 		<div id="lastNameErr" style="display: none"></div>
 		<label for='email' >Email Address:</label>
