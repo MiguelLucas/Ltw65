@@ -2,7 +2,6 @@
 	session_start();
 	if(isset($_SESSION["emailUser"]))
 		header( "Location: index.php" );
-		die;
 	require_once('templates/head.php');
 ?>
 <div id="wrapper_main">
@@ -54,4 +53,17 @@
 	</form>
 </div>
 </body>
+<script>
+	$(document).ready(function()
+	{
+		<?php if (isset($_GET['action'])) {?>
+			if ( '<?php echo $_GET['action'] ?>' == 'no' ){
+				swal("There has been an error while registering!","Please try again!","error");
+			}
+			if ( '<?php echo $_GET['action'] ?>' == 'email' ){
+				swal("This email already exists!","Please try again with a different email.","error");
+			}
+		<?php }?>
+	});
+</script>
 </html>

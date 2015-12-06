@@ -1,27 +1,22 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Registration</title>
-	<meta charset='UTF-8'>
-	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-	<script type="text/javascript" src="scripts/registration.js"></script>
-	<script type="text/javascript" src="libs/swal/sweetalert.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="libs/swal/sweetalert.css">
-</head>
-<body>
-</body>
-</html>
-
 <?php
-
+require_once('../templates/head.php');
 require_once('connection.php');
 require_once('user.php');
 require_once('../libs/phpmailer/class.phpmailer.php');
 
+function is_leap_year($year)
+{
+	return ((($year % 4) == 0) && ((($year % 100) != 0) || (($year %400) == 0)));
+}
+
 function createUser() {
 	global $db;
 
-	if(isset($_POST['register'])){
+	if (isset($_POST['canceled'])){
+		header("location:../index.php?action=no");
+		return false;
+	} else {
+		if(isset($_POST['register'])){
 		$first_name = $_POST['firstName'];
 		$last_name = $_POST['lastName'];
 		$birth_day = $_POST['day'];
@@ -31,11 +26,82 @@ function createUser() {
 		$email = $_POST['email'];
 		$password = $_POST['password'];
 		
-		if(isRegisted($email)){
-			echo "<script>swal('Error!', 'The user already exists!', 'error');</script>";
-			header("location:../registration.html?action=no");
+		
+		
+		if (!validate_name($first_name)){
+			header("location:../signup.php?action=no");
 			return false;
 		}
+		if (!validate_name($last_name)){
+			header("location:../signup.php?action=no");
+			return false;
+		}
+		
+		
+		/*
+		* verificação se já existe email na DB
+		*/
+		
+		if(isRegisted($email)){
+			header("location:../signup.php?action=email");
+			return false;
+		}
+		
+		/*
+		* Verificação de data
+		*/
+		
+		$birth_date = $birth_year . "-" . $birth_month . "-" . $birth_day;
+		strtotime($birth_date);
+		$today = date("Y-m-d");
+		
+		//verifica se data introduzida é superior à data de hoje
+		if($birth_date > $today){
+			header("location:../signup.php?action=no");
+			return false;
+		}
+		
+		//verifica se data introduzida está correta
+		if (is_leap_year($birth_year)){
+			if ($birth_month == 02){
+				if ($birth_day > 29){
+					header("location:../signup.php?action=no");
+					return false;
+				}
+			}
+		}else{
+			if ($birth_month == 02){
+				if ($birth_day > 28){
+					header("location:../signup.php?action=no");
+					return false;
+				}
+			}
+		}
+		if ($birth_month == 02 or $birth_month == 04 or $birth_month == 06 or $birth_month == 09 or $birth_month == 11){
+			if ($birth_day > 30){
+				header("location:../signup.php?action=no");
+				return false;
+			}
+		}
+		
+		/*
+		* Verificação de email
+		*/
+		
+		if (!validate_email($email)){
+			header("location:../signup.php?action=no");
+			return false;
+		}
+		
+		/*
+		* Verificação de password
+		*/
+		
+		if (!validate_password($password)){
+			header("location:../signup.php?action=no");
+			return false;
+		}
+		
 		
 		$password_hashed = sha1($password);
 		
@@ -51,19 +117,53 @@ function createUser() {
 				header("location:../index.php?action=yes");
 			} else {
 				echo "<script>swal('There was an error sending you an email.', 'But you are already registed!');</script>";
-				header("location:../index.php?action=yes");
+				header("location:../index.php?action=yesemail");
 			}
 				
         } else {
 			//houve algum erro
-            header("location:../registration.html?action=no");
+            header("location:../signup.php.html?action=no");
         }
-	} else if (isset($_POST['canceled'])){
-		header("location:../index.php?action=no");
+	} 
+	}
+	
+}
+
+function validate_name($name){
+	
+	if (preg_match("([0-9]*)", $name)) {
+		
+	  return true;
+	} else {
+		var_dump($name);
+		die;
+		return false;
 	}
 }
 
+function validate_email($email){
+	if (preg_match("(\S+@\S+\.\S+)", $email)){
+		return true;
+	} else {
+		var_dump($email);
+		die;
+		return false;
+	}
+}
 
+function validate_password($password){
+	if (strlen($password) < 6){
+		return false;
+	} else {
+		if (preg_match("(\d)",$password)){
+			if (preg_match('/[a-zA-Z]/',$password)) {
+				return true;
+			} 
+		}
+	}		
+	return false;
+		
+}
 define('GUSER', 'ltw.team65@gmail.com'); // GMail username
 define('GPWD', 'inesmarianamiguel');
 
@@ -99,3 +199,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 
 ?>
+</body>
+</html>

@@ -5,10 +5,12 @@
 	$PATH_OVERRIDE = 'database/';
 	require_once('templates/head.php');
 	require_once('database/user.php');
-	require_once('database/eventsUser.php');
+	require_once('database/events.php');
 	
-	if(!isset($_SESSION["emailUser"]))
+	if(!isset($_SESSION["emailUser"])){
 		$idUser = 0;
+		$emailUser = 0;
+	}
 	else
 		list ($idUser, $emailUser) = getUserInfo();
 	
@@ -155,8 +157,12 @@
 		
 		//send invite
 		$('button.invite').click(function(){
-			var emailUser = "<?php echo $emailUser; ?>";
-			sendInviteDialog(<?php echo $idUser; ?>, emailUser , <?php echo $_GET['idEvent']; ?>);
+			if ($emailUser != 0){
+				var emailUser = "<?php echo $emailUser; ?>";
+			
+				sendInviteDialog(<?php echo $idUser; ?>, emailUser , <?php echo $_GET['idEvent']; ?>);
+			}
+			
   		});
 		
 		$('button.registration').click(function(){
@@ -172,15 +178,15 @@
 			}
 	
 		});
+		
 		loadComments(<?php echo $_GET['idEvent']; ?>, function()
 		{
 			if (<?php echo $idUser ?> != 0){
-				if ( <?php echo $_GET['replytocom'] ?> )
-					showForm(<?php echo $_GET['replytocom'] ?>);
-			} else {
-				removeLinks();
-			}
-			
+					if ( <?php echo $_GET['replytocom'] ?> )
+						showForm(<?php echo $_GET['replytocom'] ?>);
+					} else {
+						removeLinks();
+					}
 		});
 	
 		$('.postComment').click(function() {
