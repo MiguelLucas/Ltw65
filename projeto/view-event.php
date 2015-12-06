@@ -185,11 +185,13 @@
 			if (<?php echo $idUser ?> != 0){
 					if ( <?php echo $_GET['replytocom'] ?> )
 						showForm(<?php echo $_GET['replytocom'] ?>);
-					} else {
-						removeLinks();
-					}
+				} else {
+					removeLinks();
+				}
+			if ($("#main_comment li").length == 0)
+				$("#main_comment").append('<p>There are no comments yet :(</p>');
 		});
-	
+		
 		$('.postComment').click(function() {
 			if (validateInput($('input[name="content"]').val()))
 				createComment(<?php echo $idUser ?> , <?php echo $_GET['idEvent']; ?>,0);
