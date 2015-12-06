@@ -9,7 +9,7 @@ TO DO
 	* __Guest user__:
 		* ~~Sign up~~
 		* ~~Log in~~
-		* Search, Browse and View Public Events
+		* ~~Search, Browse and View Public Events~~
 	* __Logged user__:
 		* ~~Create Event~~
 		* Share Event IF Public
@@ -45,8 +45,8 @@ TO DO
 * ~~Registration in Event~~
 	* ~~User Attends event~~
 	* ~~User decides not to attend anymore~~
-* Index: list all Public Events
-* Search (requests are handled by events.php, functions at events.js) [NOTE: only returns Public Events]
+* ~~Index: list all Public Events~~
+* ~~Search (requests are handled by events.php, functions at events.js) [NOTE: only returns Public Events]~~
 * Add Event / User Photo
 * Security:
 	* XSS
