@@ -6,6 +6,7 @@
 	require_once('templates/head.php');
 	require_once('database/user.php');
 	require_once('database/events.php');
+	require_once('database/eventsUser.php');
 	
 	if(!isset($_SESSION["emailUser"])){
 		$idUser = 0;
