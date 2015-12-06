@@ -36,7 +36,6 @@ function getEvent() {
 	header("Content-Type: application/json");
 	echo json_encode($events);
 }
-
 /* Event Edition */
 function editEvent() {
 	global $db;
@@ -71,8 +70,8 @@ function deleteEvent() {
 	global $db;
 
 	parse_str(file_get_contents("php://input"), $deleteVars);
-	echo 'delete';
-	echo $deleteVars['idEvent'];
+	//echo 'delete';
+	//echo $deleteVars['idEvent'];
 	
 	$query = "UPDATE Event SET active = 0";
 
@@ -88,7 +87,7 @@ function deleteEvent() {
 
 /*
  * Sees if user created the event
- */
+
 function userIsCreator($idEvent, $idUser){
 	global $db;
 
@@ -102,10 +101,11 @@ function userIsCreator($idEvent, $idUser){
 	
 	return false;
 }
+ */
 
 /*
  * Sees if user is registered in the event
- */
+
 function userIsRegistered($idEvent, $idUser){
 	global $db;
 
@@ -118,6 +118,7 @@ function userIsRegistered($idEvent, $idUser){
 		return true;
 	return false;
 }
+ */
 
 /*
  * Registration of user in event
@@ -149,7 +150,7 @@ function cancelEventRegisterUser(){
 	global $db;
 
 	$query = "DELETE FROM Registration WHERE idUser =".$_POST['user_id']." AND idEvent = ".$_POST['event_id'];
-	echo $query;
+	//echo $query;
 	$stmt = $db->prepare($query);
 	$stmt->execute();
 
@@ -161,7 +162,7 @@ function cancelEventRegisterUser(){
 
 /*
  * Sees if event is public
- */
+
 function eventIsPublic($idEvent){
 	global $db;
 
@@ -175,7 +176,7 @@ function eventIsPublic($idEvent){
 	
 	return false;
 }
- 
+ */
 
 /* Event creation */
 function createEvent() {
@@ -205,7 +206,7 @@ function createEvent() {
 	$last_id = $db->lastInsertID();
 
 	header("Content-Type: application/json");
-	echo '{"redirect":true,"redirect_url":"view-event.php?idEvent=' . $last_id . '"}';
+	echo '{"redirect":true,"redirect_url":"view-event.php?idEvent=' . $last_id . '&replytocom=0"}';
 }
 
 /* Get event types */
@@ -267,8 +268,8 @@ function sendInvite(){
 		
 		//Invite already exists
 		if($invite != NULL){
-			echo 'nononononononono\n';
-			$response = array('error'=> true);
+			//echo 'nononononononono\n';
+			$response = array('inviteAlreadySent'=> true);
 			header("Content-Type: application/json");
 			echo json_encode($response);
 			die();
@@ -281,7 +282,7 @@ function sendInvite(){
 		$response = array('success'=> true);
 		header("Content-Type: application/json");
 		//echo json_encode($response);
-		echo json_encode('success');
+		echo json_encode($response);
 
 		
 	}
@@ -315,7 +316,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-	var_dump($_POST);
+	
 	if (!array_key_exists("action", $_POST)) {
 		echo "An error has occurred";
 	} else {

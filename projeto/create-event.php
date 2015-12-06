@@ -12,7 +12,6 @@
 	list ($idUser) = getUserInfo();
 
 ?>
-<div id="wrapper_main">
 <section id="event">
 	<!-- Form for Event creation -->
 	<div class="event_form">
@@ -59,7 +58,7 @@
 		<input class="event_photo" type="file" name="eventPhoto">
 	</form>
 </div>
-</div>
+
 </body>
 <script type="text/javascript">
 	$(document).ready(function()

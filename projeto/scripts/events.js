@@ -69,6 +69,7 @@ function loadEvent(id)
   });
 }
 
+
 function loadPublicEvents(){
 	$.ajax(
 	{
@@ -100,6 +101,8 @@ function loadPublicEvents(){
       }
   });
 }
+
+
 
 // AJAX request to get Events by id that loads event to page
 function loadEventsCreatedByUser(idUser)
@@ -173,6 +176,51 @@ function loadAttendingEventsByUser(idUser)
 		}
 	});
 }
+
+
+/*
+ * Funtions to search
+ */
+ 
+ 
+ function searchEvents(toSearch,toSearchSecond,type){
+	if (type == 'name'){
+		loadEventsByName(toSearch);
+	}
+	if (type == 'type'){
+		loadEventsByType(toSearch);
+	}
+	if (type == 'city'){
+		loadEventsByAddress(toSearch);
+	}	 
+	if (type == 'date'){
+		if (validateDates(toSearch,toSearchSecond))
+			loadEventsByDate(toSearch,toSearchSecond);
+	}	
+}
+
+function validateDates(dateBegin,dateEnd){
+	var d1 = new Date(dateBegin);
+	var d2 = new Date(dateEnd);
+	if (d1 > d2){
+		swal("Your final date is before the initial date!", "Please introduce valid dates", "error");
+		return false;
+	}
+	if (!moment(d1).isValid()) {
+		swal("Your initial date is wrong!", "Please introduce valid dates", "error");
+		return false;
+	}
+	if (!moment(d2).isValid()) {
+		swal("Your final date is wrong!", "Please introduce valid dates", "error");
+		return false;
+	}
+	return true;
+}
+
+ 
+ 
+ 
+ 
 
 function loadEventsByName(nameToSearch){
 	$.ajax(
@@ -327,6 +375,11 @@ function loadEventsByDate(dateToSearchBegin,dateToSearchEnd){
 	  });
 }
 
+
+
+
+
+
 /*
  * Register user in event
 */
@@ -377,39 +430,7 @@ function cancelUserEventRegistration(idEvent, idUser){
 	});
 }
 
-function searchEvents(toSearch,toSearchSecond,type){
-	if (type == 'name'){
-		loadEventsByName(toSearch);
-	}
-	if (type == 'type'){
-		loadEventsByType(toSearch);
-	}
-	if (type == 'city'){
-		loadEventsByAddress(toSearch);
-	}	 
-	if (type == 'date'){
-		if (validateDates(toSearch,toSearchSecond))
-			loadEventsByDate(toSearch,toSearchSecond);
-	}	
-}
 
-function validateDates(dateBegin,dateEnd){
-	var d1 = new Date(dateBegin);
-	var d2 = new Date(dateEnd);
-	if (d1 > d2){
-		swal("Your final date is before the initial date!", "Please introduce valid dates", "error");
-		return false;
-	}
-	if (!moment(d1).isValid()) {
-		swal("Your initial date is wrong!", "Please introduce valid dates", "error");
-		return false;
-	}
-	if (!moment(d2).isValid()) {
-		swal("Your final date is wrong!", "Please introduce valid dates", "error");
-		return false;
-	}
-	return true;
-}
 
 /*
     FUNCTIONS RELATED TO EVENT EDITION
@@ -556,12 +577,54 @@ function createEvent() {
 	},
 	
 	error: function(jqXHR, textStatus, errorThrown) {
-	
-	  console.log(errorThrown);
+		console.log(errorThrown);
 	}
 	});
 }
 
+
+/*
+ *  FUNCTIONS RELATED TO INVITE USER TO EVENT
+ */
+ 
+ 
+ 
+ // AJAX request to send Event
+var sent = null;
+function sendInvite(idUser, idEvent, inviteUserEmail, callback) {
+	
+	$.ajax({
+		method: "POST",
+		dataType: "json",
+		url: "database/events.php",
+		data: {
+		  action: "send_invite",
+		  user_id: idUser,
+		  id_event: idEvent,
+		  invite_user_email: inviteUserEmail
+		},
+		success: function(data) {
+			console.log(data);
+			if(data['inviteAlreadySent'] == true){
+				console.log('sou idiota');
+				sent = false;	
+			}
+			else
+				sent = true;
+			if(callback)
+				callback();
+		
+		},
+		error: function(data) {
+			console.log(data);
+			sent = false;
+		}
+		
+	});
+
+	
+}
+ 
 
 //AJAX request to send invite
 function sendInviteDialog(idUser, emailUser, idEvent){
@@ -595,14 +658,18 @@ function sendInviteDialog(idUser, emailUser, idEvent){
 
 				return false   
 			}
+			sendInvite(idUser, idEvent, inputValue, function(){
+				console.log(sent);
 			
-			if(!sendInvite(idUser, idEvent, inputValue)){
-				swal.showInputError("This person is already invited");     
+				if(sent == false){
+					swal.showInputError("This person is already invited");     
 
-				return false  
-			}
+					return false  
+				}
 			
-			swal("Invite sent to", " " + inputValue);
+				swal("Invite sent to", " " + inputValue);
+			});
+			
 		});
 	
 	
@@ -610,32 +677,7 @@ function sendInviteDialog(idUser, emailUser, idEvent){
 
 
 
-// AJAX request to create Event
-function sendInvite(idUser, idEvent, inviteUserEmail) {
-	$.ajax({
-		method: "POST",
-		dataType: "json",
-		url: "database/events.php",
-		data: {
-		  action: "send_invite",
-		  user_id: idUser,
-		  id_event: idEvent,
-		  invite_user_email: "ines.sousacaldas@gmail.com"//inviteUserEmail
-		},
-		success: function(data) {
-			console.log('sou idiota');
-			console.log(data);
-			return true;
-		},
-		error: function(jqXHR, textStatus, errorThrown) {
-			console.log(textStatus);
-			console.log(jqXHR);
-			console.log(errorThrown);
-			console.log('sou super idiota');
-			return false;
-		}
-	});
-}
+
 
 
 /*

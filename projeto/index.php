@@ -13,7 +13,7 @@
 	<a href="create-event.php" class="create_event">Create Event</a>
 	<section id="search">
 		<input type='text' name='searchEvent' id='searchEventText' maxlength="50" style='display: block' />
-		<img src="img/index/searchIcon.png" id="searchImg">
+		<img src="img/icons/search.png" id="searchImg">
 		<label for='searchEventByDateBegin' class='labels' style='display: none'>Initial date: </label>
 		<input type='date' id='searchEventByDateBegin' style='display: none' value="<?php echo date("Y-m-d");?>" />
 		<label for='searchEventByDateEnd' class='labels' style='display: none'>Final date: </label>

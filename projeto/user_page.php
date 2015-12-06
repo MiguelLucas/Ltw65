@@ -14,7 +14,10 @@
 	$photoURL = getUserPhoto();
   
 ?>
+
+<body>
 <div id="wrapper_main">
+
 <aside id="userAside">
 	
 	<section id="userInfo">
@@ -60,6 +63,18 @@
 		<p><span class="event_address"></span></p>
 		<a href="" class="event_more">View more</a>
 	</div>
+	
+	<!-- Form for Upload photos -->
+
+	<form method="post" id="fileUpload" name="fileUpload" onsubmit = "<?php echo "return submitForm('User',$idUser)";?>"  >
+        <input  class="uploadPhoto" type="file" name="file" required />
+        <input id="submitButtonFile" type="submit" value="Upload" />
+    </form>
+	
+	
+	
+</form>
+
 </div>
 
 <content id= "userContent">
@@ -75,9 +90,22 @@
 		<h3>My Invites</h3>
 	</section>
 </content>
+
 <script type="text/javascript">
 	$(document).ready(function()
 	{
+		document.getElementById("fileUpload").onchange = function() {
+			$('#submitButtonFile').click();
+
+		};
+		
+		$('#fileUpload').on('submit',function (){
+			
+		});
+		
+		
+		
+		
 		loadEventsCreatedByUser(<?php echo $idUser ?>);
 		loadAttendingEventsByUser(<?php echo $idUser ?>);
 		
@@ -87,8 +115,6 @@
 				borderWidth: "10px"
 			} );
 			$('.changePhoto').show();
-			console.log('sou completamente parvo');
-			$(this).toggleClass("hover");
 		});
 		$('img.userImage').mouseout(function(){
 			 $( this ).animate({
@@ -96,13 +122,15 @@
 				borderWidth: "10px"
 			} );
 			$('.changePhoto').hide();
-			console.log('sou completamente parvo');
-			$(this).toggleClass("hover");
+		});
+		
+		$('img.userImage').click(function(){
+			$('.uploadPhoto').click();
+			
+			//changeUserImage(<?php echo $idUser ?>);
 		});
 
 	});
-	
-	
 	
 	$(function(){
 		$('#userMenu ul li.userPagetab a').on('click', function(e){
@@ -120,7 +148,10 @@
 
 
 		});
+		
+		
 	});
+	
 </script>
 </div>
 </body>

@@ -16,6 +16,7 @@
 	<script type="text/javascript" src="scripts/registration.js"></script>
 	<script type="text/javascript" src="scripts/profile.js"></script>
 	<script type="text/javascript" src="scripts/comment.js"></script>
+	<script type="text/javascript" src="scripts/imageUpload.js"></script>
 	<link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
