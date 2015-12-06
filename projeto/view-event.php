@@ -5,7 +5,6 @@
 	$PATH_OVERRIDE = 'database/';
 	require_once('templates/head.php');
 	require_once('database/user.php');
-	require_once('database/events.php');
 	require_once('database/eventsUser.php');
 	
 	if(!isset($_SESSION["emailUser"])){
@@ -70,10 +69,12 @@
 		<p><span class="event_date_time"></span></p>
 		<p><span class="event_address"></span></p>
 	</header>
-		<div>
-			<img class="event_img" src="">
-			<button class="change_photo" type="button">Change Photo</button>
+		<div id="eventphoto">
+			<img class = 'EventImage' src="" alt="Event image">
+			<div class = 'changePhoto' style="display: none;"> Change Photo </div>
 		</div>
+		
+		
 		<p><span class="event_type"></span></p>
 		<p><span class="event_privacy"></span> hosted by <span class="event_owner"></span>.</p>
 		<p><span class="event_desc"></span></p>
@@ -139,8 +140,8 @@
 	</div>
 
 	<!-- Form for Event's photo edit -->
-	<form>
-		<input class="event_photo" type="file" name="eventPhoto">
+	<form method="post" id="fileUpload" name="fileUpload"  >
+		<input  class="uploadPhoto" type="file" name="file" required />
 	</form>
 </div>
 
@@ -150,6 +151,44 @@
 	$(document).ready(function()
 	{
 		loadEvent(<?php echo $_GET['idEvent']; ?>);
+		
+		
+			var creator = false;
+			<?php if($idUser != 0 && userIsCreator($_GET['idEvent'], $idUser)){?>
+				creator = true;
+			<?php }?>
+		
+			
+			console.log(creator);
+		
+		if(creator == true){
+			document.getElementById("fileUpload").onchange = function() {
+				$('#fileUpload').submit(submitForm('Event',<?php echo $_GET['idEvent']; ?>));
+
+			};
+			
+			$('img.EventImage').mouseover(function(){
+				 $( this ).animate({
+					opacity: 0.4,
+					borderWidth: "10px"
+				} );
+				$('.changePhoto').show();
+			});
+			$('img.EventImage').mouseout(function(){
+				 $( this ).animate({
+					opacity: 1,
+					borderWidth: "10px"
+				} );
+				$('.changePhoto').hide();
+			});
+			
+			$('img.EventImage').click(function(){
+				$('.uploadPhoto').click();
+
+			});
+		}
+		
+		
 		
 		//edit event
 		$('button.edit_event').click(function(){

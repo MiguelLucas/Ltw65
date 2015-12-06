@@ -23,7 +23,7 @@
 	<section id="userInfo">
 		
 		<div id="userphoto">
-			<img class = 'userImage' src="<?php echo $photoURL; ?>" alt="User profile image" height="128" width="128">
+			<img class = 'UserImage' src="<?php echo $photoURL; ?>" alt="User profile image" height="128" width="128">
 			<div class = 'changePhoto' style="display: none;"> Change Photo </div>
 		</div>
 
@@ -57,7 +57,7 @@
 <div id="hidden" style="display: none;">
 	<!-- Template for Event -->
 	<div class="event">
-		<a href="" class="event_more"><img class="event_img" src=""></a>
+		<a href="" class="event_more"><img class="EventImage" src=""></a>
 		<p><span class="event_name"></span></p>
 		<p><span class="event_date_time"></span></p>
 		<p><span class="event_address"></span></p>
@@ -66,15 +66,10 @@
 	
 	<!-- Form for Upload photos -->
 
-	<form method="post" id="fileUpload" name="fileUpload" onsubmit = "<?php echo "return submitForm('User',$idUser)";?>"  >
-        <input  class="uploadPhoto" type="file" name="file" required />
-        <input id="submitButtonFile" type="submit" value="Upload" />
-    </form>
+	<form method="post" id="fileUpload" name="fileUpload"  >
+		<input  class="uploadPhoto" type="file" name="file" required />
+	</form>
 	
-	
-	
-</form>
-
 </div>
 
 <content id= "userContent">
@@ -95,28 +90,22 @@
 	$(document).ready(function()
 	{
 		document.getElementById("fileUpload").onchange = function() {
-			$('#submitButtonFile').click();
+			$('#fileUpload').submit(submitForm('User',<?php echo $idUser; ?>));
 
 		};
-		
-		$('#fileUpload').on('submit',function (){
-			
-		});
-		
-		
-		
+				
 		
 		loadEventsCreatedByUser(<?php echo $idUser ?>);
 		loadAttendingEventsByUser(<?php echo $idUser ?>);
 		
-		$('img.userImage').mouseover(function(){
+		$('img.UserImage').mouseover(function(){
 			 $( this ).animate({
 				opacity: 0.4,
 				borderWidth: "10px"
 			} );
 			$('.changePhoto').show();
 		});
-		$('img.userImage').mouseout(function(){
+		$('img.UserImage').mouseout(function(){
 			 $( this ).animate({
 				opacity: 1,
 				borderWidth: "10px"
@@ -124,10 +113,9 @@
 			$('.changePhoto').hide();
 		});
 		
-		$('img.userImage').click(function(){
+		$('img.UserImage').click(function(){
 			$('.uploadPhoto').click();
-			
-			//changeUserImage(<?php echo $idUser ?>);
+
 		});
 
 	});

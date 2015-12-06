@@ -49,11 +49,7 @@
 				} else {
 					$timeStamp = time();
 					$filename = $timeStamp.$label.$id.$_FILES["file"]["name"];
-					//echo "Upload: " . $_FILES["file"]["name"] . "<br>";
-					//echo "Type: " . $_FILES["file"]["type"] . "<br>";
-					//echo "Size: " . ($_FILES["file"]["size"] / 1024) . " kB<br>";
-					//echo "Temp file: " . $_FILES["file"]["tmp_name"] . "<br>";
-
+					
 					if (file_exists("../img/users/" . $filename)) {
 						echo $filename . " already exists. ";
 					} else {
@@ -63,11 +59,9 @@
 						$query = "UPDATE User SET profilePhoto = '" . $filename . "' WHERE idUser = " . $id;
 						$stmt = $db->prepare($query);
 						$stmt->execute();
-						
-						$result[] = array('src' => '../img/users/' . $filename);
-						
-						
-						echo json_encode($result);
+												
+					
+						echo json_encode(array('src' => '../img/users/' . $filename));
 						
 					}
 				}
@@ -79,7 +73,8 @@
 	
 	
 	function imageUploadEvent(){
-		
+		header("Content-Type: application/json");
+		global $db;
 		
 		if ($_POST["label"]) {
 			$label = $_POST["label"];
@@ -104,24 +99,26 @@
 				} else {
 					$timeStamp = time();
 					$filename = $timeStamp.$label.$id.$_FILES["file"]["name"];
-					echo "Upload: " . $_FILES["file"]["name"] . "<br>";
-					echo "Type: " . $_FILES["file"]["type"] . "<br>";
-					echo "Size: " . ($_FILES["file"]["size"] / 1024) . " kB<br>";
-					echo "Temp file: " . $_FILES["file"]["tmp_name"] . "<br>";
-
+					
 					if (file_exists("../img/events/" . $filename)) {
 						echo $filename . " already exists. ";
 					} else {
 						move_uploaded_file($_FILES["file"]["tmp_name"],
 						"../img/events/" . $filename);
-						echo "Stored in: " . "../img/events/" . $filename;
+						
+						$query = "UPDATE Event SET eventPhoto = '" . $filename . "' WHERE idEvent = " . $id;
+						$stmt = $db->prepare($query);
+						$stmt->execute();
+												
+					
+						echo json_encode(array('src' => '../img/events/' . $filename));
+						
 					}
 				}
 		} else {
 			echo "Invalid file";
 		}
-	}	
-
+	}
 	
 	
 

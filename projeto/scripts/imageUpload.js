@@ -1,42 +1,53 @@
+var src;
+
 function submitForm(type, id) {
+	console.log(type,id);
+	event.preventDefault();
+	uploadFile(type, id, function(){
+		var imageClass = '.' + type + 'Image';
+		var img = $(imageClass);
+		src = src.replace('../','');
+		img.attr('src', src);
+		
+	});
 	
-	console.log('entrei');
-	console.log(type);
+	return true;
+
+}
+
+function uploadFile(type, id, callback){
+	
 	var fd = new FormData(document.getElementById("fileUpload"));
 	fd.append("label", type);
 	fd.append("id", id);
 
 	console.log(fd);
-	/*if(type == "Event")
-		fd.append("label", "events/");
-	else if(type == "User")
-		fd.append("label", "users/");
-	else return false;*/
+	
 	$.ajax({
 	  url: "database/imageUpload.php",
 	  type: "POST",
-	  dataType: "JSON",
+	  dataType: "json",
 	  data: fd,
 	  enctype: 'multipart/form-data',
 	  processData: false,  // tell jQuery not to process the data
 	  contentType: false,   // tell jQuery not to set contentType
 	  success: (function( data ) {
-		console.log("PHP Output:");
-		var img = $('.userImage');
+		console.log('a');
+		src = data['src'];
+		console.log(src);
+		if(callback){
+			callback();
+		}
+			
+		}),
+		error: (function (response, textStatus, jqXHR){
+			console.log(jqXHR);
+			console.log('b');
+			console.log('error image upload');
 		
-		
-
-		console.log(data);
-		//var src = '<?php echo getUserPhoto(); ?>';
-
-		//console.log(src);
-		//img.attr('src', src);
-	}),
-	error: (function (response, textStatus, jqXHR){
-		console.log(jqXHR);
-		
-	})
+		})
 	
 	})
-	return false;
+	
 }
+	

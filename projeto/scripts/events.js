@@ -15,7 +15,7 @@ function loadEvents()
       // For each object, creates a div .event and fills each field
       for (var i = 0; i < data.length; i++) {
         var event = $('#hidden .event').clone(true);
-        event.find(".event_img").attr("src", 'img/events/' + data[i].eventPhoto);
+        event.find(".EventImage").attr("src", 'img/events/' + data[i].eventPhoto);
         event.find(".event_name").text(data[i].name);
         event.find(".event_date_time").text(moment(data[i].date).format('MMM D, YYYY [at] h:mm A'));
         event.find(".event_address").text(data[i].address);
@@ -61,7 +61,7 @@ function loadEvent(id)
         event.find(".event_type").text(data[i].type);
         event.find(".event_privacy").text(event_privacy);
         event.find(".event_owner").text(userFullName);
-        event.find(".event_img").attr("src", 'img/events/' + data[i].eventPhoto);
+        event.find(".EventImage").attr("src", 'img/events/' + data[i].eventPhoto);
 
         $('#event').append(event);
       }
@@ -85,7 +85,7 @@ function loadPublicEvents(){
 		for (var i = 0; i < data.length; i++) {
 			
 				var event = $('#hidden .event').clone(true);
-				event.find(".event_img").attr("src", 'img/events/' + data[i].eventPhoto);
+				event.find(".EventImage").attr("src", 'img/events/' + data[i].eventPhoto);
 				event.find(".event_name").text(data[i].name);
 				event.find(".event_date_time").text(moment(data[i].date).format('MMM D, YYYY [at] h:mm A'));
 				event.find(".event_address").text(data[i].address);
@@ -131,7 +131,7 @@ function loadEventsCreatedByUser(idUser)
         event.find(".event_type").text(data[i].type);
         event.find(".event_privacy").text(event_privacy);
         event.find(".event_owner").text(userFullName);
-        event.find(".event_img").attr("src", 'img/events/' + data[i].eventPhoto);
+        event.find(".EventImage").attr("src", 'img/events/' + data[i].eventPhoto);
 		event.find(".event_more").attr("href", 'view-event.php?idEvent=' + data[i].idEvent + '&replytocom=0');
 		
         $('#myEvents').append(event);
@@ -168,7 +168,7 @@ function loadAttendingEventsByUser(idUser)
 				event.find(".event_type").text(data[i].type);
 				event.find(".event_privacy").text(event_privacy);
 				event.find(".event_owner").text(userFullName);
-				event.find(".event_img").attr("src", 'img/events/' + data[i].eventPhoto);
+				event.find(".EventImage").attr("src", 'img/events/' + data[i].eventPhoto);
 				event.find(".event_more").attr("href", 'view-event.php?idEvent=' + data[i].idEvent + '&replytocom=0');
 				
 				$('#attendingEvents').append(event);
@@ -242,7 +242,7 @@ function loadEventsByName(nameToSearch){
 		  for (var i = 0; i < data.length; i++) {
 			
 			var event = $('#hidden .event').clone(true);
-			event.find(".event_img").attr("src", 'img/events/' + data[i].eventPhoto);
+			event.find(".EventImage").attr("src", 'img/events/' + data[i].eventPhoto);
 			event.find(".event_name").text(data[i].name);
 			event.find(".event_date_time").text(moment(data[i].date).format('MMM D, YYYY [at] h:mm A'));
 			event.find(".event_address").text(data[i].address);
@@ -280,7 +280,7 @@ function loadEventsByAddress(addressToSearch){
 		  for (var i = 0; i < data.length; i++) {
 			
 			var event = $('#hidden .event').clone(true);
-			event.find(".event_img").attr("src", 'img/events/' + data[i].eventPhoto);
+			event.find(".EventImage").attr("src", 'img/events/' + data[i].eventPhoto);
 			event.find(".event_name").text(data[i].name);
 			event.find(".event_date_time").text(moment(data[i].date).format('MMM D, YYYY [at] h:mm A'));
 			event.find(".event_address").text(data[i].address);
@@ -318,7 +318,7 @@ function loadEventsByType(typeToSearch){
 		  for (var i = 0; i < data.length; i++) {
 			
 			var event = $('#hidden .event').clone(true);
-			event.find(".event_img").attr("src", 'img/events/' + data[i].eventPhoto);
+			event.find(".EventImage").attr("src", 'img/events/' + data[i].eventPhoto);
 			event.find(".event_name").text(data[i].name);
 			event.find(".event_date_time").text(moment(data[i].date).format('MMM D, YYYY [at] h:mm A'));
 			event.find(".event_address").text(data[i].address);
@@ -357,7 +357,7 @@ function loadEventsByDate(dateToSearchBegin,dateToSearchEnd){
 		  for (var i = 0; i < data.length; i++) {
 			
 			var event = $('#hidden .event').clone(true);
-			event.find(".event_img").attr("src", 'img/events/' + data[i].eventPhoto);
+			event.find(".EventImage").attr("src", 'img/events/' + data[i].eventPhoto);
 			event.find(".event_name").text(data[i].name);
 			event.find(".event_date_time").text(moment(data[i].date).format('MMM D, YYYY [at] h:mm A'));
 			event.find(".event_address").text(data[i].address);
