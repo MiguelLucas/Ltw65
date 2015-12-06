@@ -2,6 +2,8 @@
 require_once('../templates/head.php');
 require_once('connection.php');
 require_once('user.php');
+require_once('events.php');
+require_once('mail.php');
 require_once('../libs/phpmailer/class.phpmailer.php');
 
 function is_leap_year($year)
@@ -111,12 +113,28 @@ function createUser() {
 		$stmt = $db->prepare($query);
 		$result = $stmt->execute();  
 		
+		$last_id = $db->lastInsertID();
+		
+		/*
+		* Verificação de pending invites
+		*/
+		
+		$pendingInvites = getPendingInvites($email);
+		for ($i = 0;$i<count($pendingInvites);$i++){
+			$queryInvite = "INSERT INTO Invite (idSender, idReceiver, idEvent) 
+			VALUES (" . $pendingInvites[$i]['idSender'] . "," . $last_id . "," . $pendingInvites[$i]['idEvent'] . ")";
+		}
+		
+		$new_stmt = $db->prepare($queryInvite);
+		$new_stmt->execute();  
+		
+		deletePendingInvites($email);
+		
 		if ($result){
-			if (sendMail($first_name,$last_name,$email)){
-				echo "<script>swal('Congratulations!', 'You have been successfully registered.', 'success');</script>";
+			if (sendMail($email,'Congratulations on registering!',
+			'Hello ' . $first_name . ' ' . $last_name . '!' . "\r\n" . "\r\n" . 'You have just registered on the most beautiful event management website in the world :)')){
 				header("location:../index.php?action=yes");
 			} else {
-				echo "<script>swal('There was an error sending you an email.', 'But you are already registed!');</script>";
 				header("location:../index.php?action=yesemail");
 			}
 				
@@ -132,11 +150,8 @@ function createUser() {
 function validate_name($name){
 	
 	if (preg_match("([0-9]*)", $name)) {
-		
 	  return true;
 	} else {
-		var_dump($name);
-		die;
 		return false;
 	}
 }
@@ -145,8 +160,6 @@ function validate_email($email){
 	if (preg_match("(\S+@\S+\.\S+)", $email)){
 		return true;
 	} else {
-		var_dump($email);
-		die;
 		return false;
 	}
 }
@@ -164,34 +177,8 @@ function validate_password($password){
 	return false;
 		
 }
-define('GUSER', 'ltw.team65@gmail.com'); // GMail username
-define('GPWD', 'inesmarianamiguel');
 
-function sendMail($first_name,$last_name,$email){
-	$mail = new PHPMailer();
-	$mail->CharSet = 'UTF-8';	//UTF-8 necessary for accented characters like 'António'
-	$mail->IsSMTP();		// Activate SMTP
-	$mail->SMTPDebug = 0;		// debugging: 1 = errors and messages, 2 = only messages
-	$mail->SMTPAuth = true;		// authentication activated
-	$mail->SMTPSecure = 'ssl';	// SSL required by Gmail
-	$mail->Host = 'smtp.gmail.com';	// SMTP used
-	$mail->Port = 465;  		// Port 465 must be opened for SSL
-	$mail->Username = GUSER;
-	$mail->Password = GPWD;
-	$mail->From = 'ltw.team65@gmail.com';
-	$mail->FromName = 'LTW - Team 65';
-	$mail->Subject = 'Congratulations on registering!';
-	$mail->Body = 'Hello ' . $first_name . ' ' . $last_name . '!' . "\r\n" . "\r\n" . 'You have just registered on the most beautiful event management website in the world :)';
-	$mail->AddAddress($email);
-	if(!$mail->Send()) {
-		echo 'Mail error: '.$mail->ErrorInfo; 
-		return false;
-	} else {
-		echo 'Mensagem enviada!';
-		return true;
-	}
-	
-}
+
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	
