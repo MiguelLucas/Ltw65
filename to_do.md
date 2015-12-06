@@ -23,11 +23,11 @@ TO DO
 			* Decline Invitation
 			* Comment
 		* __User Registered to Private Event__:
-			* 'DeRegister from Event' (decide not to go to event)
+			* 'DeRegister from Event' (decide not to go to event) -> set invite to active again
 		* __Event Owner__:
 			* ~~Edit~~
 			* ~~Delete~~
-			* Invite people
+			* ~~Invite people~~
 * ~~Event Create / Edit: add User ID to hidden form~~
 * Events.PHP:
 	* ~~only return active items~~ ---> conferir
@@ -47,18 +47,17 @@ TO DO
 	* ~~User decides not to attend anymore~~
 * ~~Index: list all Public Events~~
 * ~~Search (requests are handled by events.php, functions at events.js) [NOTE: only returns Public Events]~~
-* Add Event / User Photo
+* ~~Add Event / User Photo~~
 * Security:
 	* XSS
 	* CSRF
-	* Validate all inputs in PHP (at least one form)
+	* ~~Validate all inputs in PHP (at least one form)~~
 * CSS
 
 # Medium-high priority
-* Invite user X to Event by email [NOTE: Really should be done, but last-case-scenario we ditch private events]
-	* if User X exists, update Invite
-	* if User X doesn't exist, send email asking to sign up
-		* once ANY user registers, if email exists in PendingInvite, update Invite when creating account
+* ~~Invite user X to Event by email [NOTE: Really should be done, but last-case-scenario we ditch private events]~~
+	* ~~if User X exists, create Invite~~
+	* ~~if User X doesn't exist, Pending Invite, after signup, Invite~~
 
 # Medium Priority
 * Index:
