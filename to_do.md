@@ -12,10 +12,8 @@ TO DO
 		* ~~Search, Browse and View Public Events~~
 	* __Logged user__:
 		* ~~Create Event~~
-		* Share Event IF Public
 		* ~~Comment on Public Event~~
-		* Share Public Event
-		* __ User NOT registered in event__:
+		* ~~__ User NOT registered in event__:~~
 			* ~~Register to Public Event~~
 		* ~~__User Invited to Private Event__, but hasn't accepted ):~~
 			* ~~View~~
@@ -29,16 +27,16 @@ TO DO
 			* ~~Delete~~
 			* ~~Invite people~~
 * ~~Event Create / Edit: add User ID to hidden form~~
-* Events.PHP:
+* ~~Events.PHP:~~
 	* ~~only return active items~~ ---> conferir
 	* ~~Delete: set bool active to 0~~
 	* ~~add User ID (from session or wherever it's stored)~~
 	* ~~get Events user is attending~~
-	* get Events user is Invited to 
+	* ~~get Events user is Invited to ~~
 	* ~~get Events user is hosting~~
 * ~~Comments: add Event ID to form~~
-* User page:
-	* List events:
+* ~~User page:~~
+	* ~~List events:~~
 		* ~~Attending~~
 		* ~~Invites~~
 		* ~~Hosting~~
