@@ -17,13 +17,13 @@ TO DO
 		* Share Public Event
 		* __ User NOT registered in event__:
 			* ~~Register to Public Event~~
-		* __User Invited to Private Event__, but hasn't accepted ):
-			* View
-			* Accept Invitation (Register to Event)
-			* Decline Invitation
-			* Comment
-		* __User Registered to Private Event__:
-			* 'DeRegister from Event' (decide not to go to event) -> set invite to active again
+		* ~~__User Invited to Private Event__, but hasn't accepted ):~~
+			* ~~View~~
+			* ~~Accept Invitation (Register to Event)~~
+			* ~~Decline Invitation~~
+			* ~~Comment~~
+		* ~~__User Registered to Private Event__:~~
+			* ~~'DeRegister from Event' (decide not to go to event) -> set invite to active again~~
 		* __Event Owner__:
 			* ~~Edit~~
 			* ~~Delete~~
