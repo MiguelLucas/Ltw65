@@ -23,7 +23,7 @@
 <header>
 	<h1><a href="index.php">Event Ranger</a></h1>
 	<?php
-		if(!isset($_SESSION["emailUser"])) {
+		if(!isset($_SESSION["idUser"])) {
 			include('header_notloggedin.php'); // will include header_notloggedin.php
 		} else {
 			include('header_loggedin.php'); // will include header_loggedin.php

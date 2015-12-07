@@ -7,7 +7,7 @@
 	require_once('database/user.php');
 	require_once('database/eventsUser.php');
 	
-	if(!isset($_SESSION["emailUser"])){
+	if(!isset($_SESSION["idUser"])){
 		$idUser = 0;
 		$emailUser = 0;
 	}

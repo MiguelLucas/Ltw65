@@ -43,13 +43,13 @@
 	
 	function getUserInfo(){
 		global $db;
-		if(isset($_SESSION["emailUser"])){
-			$emailUser = $_SESSION["emailUser"];
-			$query = "SELECT * FROM User WHERE email='$emailUser'";
+		if(isset($_SESSION["idUser"])){
+			$idUser = $_SESSION["idUser"];
+			$query = "SELECT * FROM User WHERE idUser='$idUser'";
 			$stmt = $db->prepare($query);
 			$stmt->execute();  
 			$result = $stmt->fetchAll();
-			$idUser = $result[0]["idUser"];
+			$emailUser = $result[0]["email"];
 			$firstName = $result[0]["firstName"];
 			$lastName = $result[0]["lastName"];
 			$birthDate = $result[0]["birthDate"];
@@ -62,9 +62,9 @@
 	
 	function getUserPhoto(){
 		global $db;
-		if(isset($_SESSION["emailUser"])){
-			$emailUser = $_SESSION["emailUser"];
-			$query = "SELECT profilePhoto FROM User WHERE email='$emailUser'";
+		if(isset($_SESSION["idUser"])){
+			$idUser = $_SESSION["idUser"];
+			$query = "SELECT profilePhoto FROM User WHERE idUser='$idUser'";
 			$stmt = $db->prepare($query);
 			$stmt->execute();  
 			$result = $stmt->fetchAll();

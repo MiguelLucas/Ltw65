@@ -7,10 +7,10 @@
 	require_once('database/user.php');
 	require_once('templates/head.php');
 	
-	if(!isset($_SESSION["emailUser"]))
+	if(!isset($_SESSION["idUser"]))
 		$idUser = 0;
 	else
-		list ($idUser) = getUserInfo();
+		list ($idUser, $emailUser) = getUserInfo();
 ?>
 
 <div id="wrapper_main">

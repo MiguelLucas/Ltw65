@@ -2,52 +2,48 @@
 session_start();
 require_once('connection.php');
 
-function loginUser()
-{
-    if(empty($_POST['email']))
-        return false;
+function loginUser(){
+	
+    if(empty($_POST['email'])){
+		header("location:../index.php?action=fail");
+		return false;
+	}
+        
 
-    if(empty($_POST['password']))
-        return false;
-
+    if(empty($_POST['password'])){
+		header("location:../index.php?action=fail");
+		return false;
+	}
+        
+	global $db;
      
 	$emailUser = $_POST['email'];
 	$password = $_POST['password'];
-     
-    if(!CheckLoginInDB($emailUser,$password))
-    {
-        header("location:../index.php?action=no");
-        return false;
-    }
-     $_SESSION['emailUser'] = $emailUser;
-    
-	if( isset($_SESSION['emailUser']) ){
-		header("location:../user_page.php?action=yes");
-	}
-
-		
-    return true;
-}
-
-
-
-function CheckLoginInDB($emailUser, $password) {
-	global $db;
-
+	
 	$password_hashed = sha1($password);
 
-	$query = "SELECT * FROM User WHERE email='$emailUser' and password = '$password_hashed'";
+	$query = "SELECT idUser FROM User WHERE email='$emailUser' and password = '$password_hashed'";
 	$stmt = $db->prepare($query);
 	$stmt->execute();  
 	$result = $stmt->fetchAll();
 	
 	$numRows = count ($result);
-	if ( $numRows == 1){
-		return true;
+	if ( $numRows != 1){
+		header("location:../index.php?action=fail");
+        return false;
 
-	} else {
-		return false;
 	}
+
+	
+    $idUser = $result[0]["idUser"];
+    $_SESSION["idUser"] = $idUser;
+    
+	if( isset($_SESSION['idUser']) ){
+		header("location:../user_page.php?action=yes");
+	}
+
+		
+    return true;	
 }
 
 
