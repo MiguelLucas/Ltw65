@@ -2,6 +2,47 @@
 require_once('connection.php');
 require_once('mail.php');
 
+
+function getUsersAttendingEvent(){
+
+	global $db;
+
+	$query = "SELECT idEvent, name, date, description, EventType.type, address, private, eventPhoto, idUserCreator, firstName AS userFirstName, lastName AS userLastName FROM Event, EventType, User WHERE Event.type = idEventType AND idUserCreator = idUser AND Event.active = 1";
+	if (isset($_GET['idEvent']))
+		$query .= " AND idEvent = " . $_GET['idEvent'];
+	if (isset($_GET['name']))
+		$query .= " AND name LIKE '%" . $_GET['name'] . "%'";
+	if (isset($_GET['type']))
+		$query .= " AND type = " . $_GET['type'];
+	if (isset($_GET['address']))
+		$query .= " AND address LIKE '%" . $_GET['address'] . "%'";
+	if (isset($_GET['private_event']))
+		$query .= " AND private = " . $_GET['private_event'];
+	if (isset($_GET['type_name']))
+		$query .= " AND EventType.type LIKE '%" . $_GET['type_name'] . "%'";
+	if (isset($_GET['dateBegin']))
+		$query .= " AND date >= '" . $_GET['dateBegin'] . "' AND date <= '" . $_GET['dateEnd'] . "'";
+	if (isset($_GET['idUserCreator']))
+		$query .= " AND idUserCreator = " . $_GET['idUserCreator'];
+
+				
+	$stmt = $db->prepare($query);
+	$stmt->execute();  
+	$events = $stmt->fetchAll();
+
+	
+	$query = "SELECT firstName, lastName FROM User WHERE active = 1 AND idUser IN(SELECT idUser FROM Registration WHERE idEvent = ". $_GET['idEvent'].")";
+	$stmt = $db->prepare($query);
+	$stmt->execute();  
+	$users = $stmt->fetchAll();
+	
+	header("Content-Type: application/json");
+	echo json_encode(array($events, $users));
+}
+
+	
+
+
 /* Function that fetches events from the database and returns a JSON object.
 
 The query is built according to parameters given:
@@ -32,7 +73,7 @@ function getEvent() {
 	$stmt = $db->prepare($query);
 	$stmt->execute();  
 	$events = $stmt->fetchAll();
-
+	
 	/* Content-Type must be defined, otherwise the output is seen as plain text */
 	header("Content-Type: application/json");
 	echo json_encode($events);
@@ -381,6 +422,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 		switch ($_GET['action']) {
 			case 'event':
 				getEvent();
+				break;
+			case 'usersAttendingEvent':
+				getUsersAttendingEvent();
 				break;
 			case 'event_types':
 				getEventTypes();

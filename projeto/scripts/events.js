@@ -42,31 +42,39 @@ function loadEvent(id)
     method: "GET",
     dataType: "json",
     url: "database/events.php",
-    data: { action : "event" , idEvent : id },
+    data: { action : "usersAttendingEvent" , idEvent : id },
     success: function(data) {
-
+		
       $('#event').empty();
       // Saves event on lastEvent var for future use
       // Fills in each field
-      for (var i = 0; i < data.length; i++) {
+      for (var i = 0; i < data[0].length; i++) {
         lastEvent = data[i];
-
-        var event_privacy = (data[i].private == "1") ? "Private event" : "Public event";
-        var userFullName = data[i].userFirstName + ' ' + data[i].userLastName;
+        var event_privacy = (data[0][i].private == "1") ? "Private event" : "Public event";
+        var userFullName = data[0][i].userFirstName + ' ' + data[0][i].userLastName;
         var event = $('#hidden .event').clone(true);
-        event.find(".event_name").text(data[i].name);
-        event.find(".event_desc").text(data[i].description);
-        event.find(".event_address").text(data[i].address);
-        event.find(".event_date_time").text(moment(data[i].date).format('dddd, MMMM Do, YYYY [at] h:mm A'));
-        event.find(".event_type").text(data[i].type);
+        event.find(".event_name").text(data[0][i].name);
+        event.find(".event_desc").text(data[0][i].description);
+        event.find(".event_address").text(data[0][i].address);
+        event.find(".event_date_time").text(moment(data[0][i].date).format('dddd, MMMM Do, YYYY [at] h:mm A'));
+        event.find(".event_type").text(data[0][i].type);
         event.find(".event_privacy").text(event_privacy);
         event.find(".event_owner").text(userFullName);
-        event.find(".EventImage").attr("src", 'img/events/' + data[i].eventPhoto);
-
+        event.find(".EventImage").attr("src", 'img/events/' + data[0][i].eventPhoto);
+		for(var j = 0; j < data[1].length; j++){
+			 var user = $('.userInEvent').clone(true);
+			 console.log(user);
+			 var attendingUserFullName = data[1][j].firstName + ' ' + data[1][j].lastName;
+			 console.log(attendingUserFullName);
+			 user.text(attendingUserFullName);
+			 event.find('.attendingUsers').append(user);
+			
+		}
         $('#event').append(event);
       }
     }
   });
+ 
 }
 
 

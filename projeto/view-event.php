@@ -59,6 +59,10 @@
 </div>
 <!-- Hidden div containing the templates -->
 <div id="hidden" style="display: none;">
+
+	<!-- Template to list users attending event -->
+	<li class="userInEvent"></li>
+	
 	<!-- Template for Event -->
 	<article class="event">
 	<header>
@@ -81,6 +85,9 @@
 		<p><span class="event_type"></span></p>
 		<p><span class="event_privacy"></span> hosted by <span class="event_owner"></span>.</p>
 		<p><span class="event_desc"></span></p>
+		<ul class="attendingUsers">
+			</span> Attending Users <span class="attending_users">
+		</ul>
 	</article>
 
 	<!-- Template for Comments -->
