@@ -1,7 +1,6 @@
 <?php
 
 	session_start();
-	
 	if(!isset($_SESSION["idUser"])){
 		header( "Location: index.php" );
 	}
@@ -65,8 +64,9 @@
 		<a href="" class="event_more">View more</a>
 	</div>
 	
+
+	<!-- Template for Event -->
 	
-		<!-- Template for Event -->
 	<div class="invite">
 		<a href="" class="event_more"><img class="EventImage" src=""></a>
 		<p><span class="event_name"></span></p>
@@ -76,7 +76,7 @@
 		<button class="decline" type="button">Decline</button>
 		<a href="" class="event_more">View more</a>
 	</div>
-	
+
 	<!-- Form for Upload photos -->
 
 	<form method="post" id="fileUpload" name="fileUpload"  >
@@ -131,8 +131,6 @@
 			loadInvitesOfUser(<?php echo $idUser ?>);
 				
   		});
-		
-		
 		
 		$('img.UserImage').mouseover(function(){
 			 $( this ).animate({

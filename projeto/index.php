@@ -2,6 +2,7 @@
 
 	session_start();
 	
+	
 	$PATH_OVERRIDE = 'database/';
 	require_once('database/user.php');
 	require_once('templates/head.php');
@@ -22,8 +23,7 @@
 	?>
 	
 	<section id="search">
-		<input type='text' name='searchEvent' id='searchEventText' maxlength="50" />
-		<img src="img/index/searchIcon.png" id="searchImg">
+		<input type='text' name='searchEvent' id='searchEventText' maxlength="50" placeholder="Search Events..." />
 		<label for='searchEventByDateBegin' class='labels hidden'>Initial date: </label>
 		<input type='date' id='searchEventByDateBegin' class="hidden" value="<?php echo date("Y-m-d");?>" />
 		<label for='searchEventByDateEnd' class='labels hidden'>Final date: </label>
@@ -70,7 +70,7 @@
 			}
 		<?php }?>
 		loadPublicEvents();
-		
+
 		$('#searchEventText').keypress(function(e){
 			if(e.keyCode==13){
 				$('.beginSearch').click();
@@ -90,16 +90,13 @@
 				$('#searchEventText').addClass('hidden');
 				$('#searchEventByDateBegin').removeClass('hidden');
 				$('#searchEventByDateEnd').removeClass('hidden');
-				$('#searchImg').addClass('hidden');
 				$('.labels').removeClass('hidden');
 			} else {
 				$('#searchEventText').removeClass('hidden');
 				$('#searchEventByDateBegin').addClass('hidden');
 				$('#searchEventByDateEnd').addClass('hidden');
-				$('#searchImg').removeClass('hidden');
 				$('.labels').addClass('hidden');
 			}
-			
 		})
 	});
 </script>
