@@ -6,7 +6,7 @@ TO DO
 	* ~~add default value to userPhoto (default.png)~~
 * Add/verify session_start() on all pages 
 * Permission checks on all pages (User X CAN do Y)
-	* __Guest user__:
+	* ~~__Guest user__:~~
 		* ~~Sign up~~
 		* ~~Log in~~
 		* ~~Search, Browse and View Public Events~~
