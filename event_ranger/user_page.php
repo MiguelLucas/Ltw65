@@ -57,18 +57,18 @@
 <div id="hidden" style="display: none;">
 	<!-- Template for Event -->
 	<div class="event">
-		<a href="" class="event_more"><img class="EventImage" src=""></a>
+		<div class="eventphoto"><a href="" class="event_more"><img class="EventImage" src=""></a></div>
 		<p><span class="event_name"></span></p>
 		<p><span class="event_date_time"></span></p>
 		<p><span class="event_address"></span></p>
-		<a href="" class="event_more">View more</a>
+		<a href="" class="event_more btn">View more</a>
 	</div>
 	
 
 	<!-- Template for Event -->
-	
+
 	<div class="invite">
-		<a href="" class="event_more"><img class="EventImage" src=""></a>
+		<div class="eventphoto"><a href="" class="event_more"><img class="EventImage" src=""></a></div>
 		<p><span class="event_name"></span></p>
 		<p><span class="event_date_time"></span></p>
 		<div class="hidden idEvent"></div>

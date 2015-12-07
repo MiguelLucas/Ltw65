@@ -49,7 +49,7 @@ function loadEvent(id)
       // Saves event on lastEvent var for future use
       // Fills in each field
       for (var i = 0; i < data[0].length; i++) {
-        lastEvent = data[i];
+        lastEvent = data[0][i];
         var event_privacy = (data[0][i].private == "1") ? "Private event" : "Public event";
         var userFullName = data[0][i].userFirstName + ' ' + data[0][i].userLastName;
         var event = $('#hidden .event').clone(true);

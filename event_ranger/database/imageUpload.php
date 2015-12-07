@@ -42,7 +42,7 @@
 			|| ($_FILES["file"]["type"] == "image/x-png")
 			|| ($_FILES["file"]["type"] == "image/png"))
 			&& ($_FILES["file"]["size"] < 200000)
-			&& in_array($extension, $allowedExts)) {
+			&& in_array(strtolower($extension), $allowedExts)) {
 		
 				if ($_FILES["file"]["error"] > 0) {
 					echo "Return Code: " . $_FILES["file"]["error"] . "<br>";
@@ -92,7 +92,7 @@
 			|| ($_FILES["file"]["type"] == "image/x-png")
 			|| ($_FILES["file"]["type"] == "image/png"))
 			&& ($_FILES["file"]["size"] < 200000)
-			&& in_array($extension, $allowedExts)) {
+			&& in_array(strtolower($extension), $allowedExts)) {
 		
 				if ($_FILES["file"]["error"] > 0) {
 					echo "Return Code: " . $_FILES["file"]["error"] . "<br>";
