@@ -21,7 +21,6 @@
 </head>
 <body>
 <header>
-<div>
 	<h1><a href="index.php">Event Ranger</a></h1>
 	<?php
 		if(!isset($_SESSION["idUser"])) {
@@ -30,5 +29,4 @@
 			include('header_loggedin.php'); // will include header_loggedin.php
 		}
 	?>
-</div>
 </header>

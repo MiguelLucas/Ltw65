@@ -17,7 +17,6 @@
 		<label for='email' >Email Address:</label>
 		<input type='text' name='email' id='email' maxlength="50" onchange='detectEmail(this.value)' />
 		<div id="emailErr" style="display: none"></div>
-		<fieldset>
 		<label for='birthDate' name='birthDate' id='birthDate'>Birth Date:</label>
 		<select name="day" id="day">
 			<option>Day</option>
@@ -42,15 +41,14 @@
 			<option>Year</option>
 			<script>listYears();</script>
 		</select>
-		</fieldset>
 		<!--<input type='date' name='birthDate' id='birthDate' /> serve para selecionar a partir do calendario-->
 		<label for='password' >Password:</label>
 		<input type='password' name='password' id='password' maxlength="50" onchange='detectPassword(this.value)' />
 		<div id="passwordErr" style="display: none"></div>
-		<input type='submit' name='canceled' value='Cancel' />
 		<input type='button' value='Register' onclick='validateNewUser(this.form,this.form.firstName.value,this.form.lastName.value,this.form.email.value,
 		this.form.day.value,this.form.month.value,this.form.year.value,this.form.password.value)' />
 		<input type='hidden' name='register' />
+		<input type='submit' name='canceled' value='Cancel' />
 	</fieldset>
 	</form>
 </div>
