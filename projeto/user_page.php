@@ -23,7 +23,7 @@
 	<section id="userInfo">
 		
 		<div id="userphoto">
-			<img class = 'UserImage' src="<?php echo $photoURL; ?>" alt="User profile image" height="128" width="128">
+			<img class = 'UserImage' src="<?php echo $photoURL; ?>" alt="User profile image">
 			<div class = 'changePhoto' style="display: none;"> Change Photo </div>
 		</div>
 

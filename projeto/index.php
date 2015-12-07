@@ -23,12 +23,11 @@
 	?>
 	
 	<section id="search">
-		<input type='text' name='searchEvent' id='searchEventText' maxlength="50" style='display: block' />
-		<img src="img/index/searchIcon.png" id="searchImg">
-		<label for='searchEventByDateBegin' class='labels' style='display: none'>Initial date: </label>
-		<input type='date' id='searchEventByDateBegin' style='display: none' value="<?php echo date("Y-m-d");?>" />
-		<label for='searchEventByDateEnd' class='labels' style='display: none'>Final date: </label>
-		<input type='date' id='searchEventByDateEnd' style='display: none' value="<?php echo date("Y-m-d",time() + 86400);?>" />
+		<input type='text' name='searchEvent' id='searchEventText' maxlength="50" placeholder="Search Events..." />
+		<label for='searchEventByDateBegin' class='labels hidden'>Initial date: </label>
+		<input type='date' id='searchEventByDateBegin' class="hidden" value="<?php echo date("Y-m-d");?>" />
+		<label for='searchEventByDateEnd' class='labels hidden'>Final date: </label>
+		<input type='date' id='searchEventByDateEnd' class="hidden" value="<?php echo date("Y-m-d",time() + 86400);?>" />
 		<select name="search" id="searchType" >
 			<option value="name">Name</option>
 			<option value="type">Type</option>
@@ -43,12 +42,12 @@
 	<div id="hidden" style="display: none;">
 		<!-- Template for Event -->
 		<div class="event thumb">
-			<a href="" class="event_more"><img class="EventImage" src=""></a>
+			<div class="eventphoto"><a href="" class="event_more"><img class="EventImage" src=""></a></div>
 			<h3><span class="event_name"></span></h3>
 			<p><span class="event_date_time"></span></p>
 			<p><span class="event_address"></span></p>
 			<p><span class="event_type"></span></p>
-			<a href="" class="event_more">View more</a>
+			<a href="" class="event_more btn">View more</a>
 		</div>
 	</div>
 </div>
@@ -77,19 +76,16 @@
 		})
 		$('#searchType').on('change',function(){
 			if ($(this).val() == 'date'){
-				$('#searchEventText').attr('style','display: none');
-				$('#searchEventByDateBegin').attr('style','display: block');
-				$('#searchEventByDateEnd').attr('style','display: block');
-				$('#searchImg').attr('style','display: none');
-				$('.labels').attr('style','display: block');
+				$('#searchEventText').addClass('hidden');
+				$('#searchEventByDateBegin').removeClass('hidden');
+				$('#searchEventByDateEnd').removeClass('hidden');
+				$('.labels').removeClass('hidden');
 			} else {
-				$('#searchEventText').attr('style','display: block');
-				$('#searchEventByDateBegin').attr('style','display: none');
-				$('#searchEventByDateEnd').attr('style','display: none');
-				$('#searchImg').attr('style','display: block');
-				$('.labels').attr('style','display: none');
+				$('#searchEventText').removeClass('hidden');
+				$('#searchEventByDateBegin').addClass('hidden');
+				$('#searchEventByDateEnd').addClass('hidden');
+				$('.labels').addClass('hidden');
 			}
-			
 		})
 	});
 </script>

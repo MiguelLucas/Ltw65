@@ -113,6 +113,7 @@ html { font-size: 62.5%; }
 
 body {
 	font-size: 1.4rem;
+	font-family: 'Open Sans', sans-serif;
 }
 
 a {		
@@ -125,9 +126,8 @@ a {
 /* General */
 body>header {
 	position: relative;
-	height: 8rem;
 	color: #fff;
-	background-color: #263248;
+	background-color: #2A426E;
 }
 
 /* Website title/'logo' */
@@ -145,7 +145,7 @@ body>header h1 {
 	/* Anchors inside Header */		
 	body>header a {		
 		color: #fff;		
-	}		
+	}
 		
 /* [User is logged out] Login / Signup block */		
 #login_container {		
@@ -167,7 +167,11 @@ body>header h1 {
 		#loginUser label:first-of-type {		
 			margin-left: 0;		
 		}		
+	#loginUser input {
+		height: 2.2rem;
+	}
 	#loginUser input[type="submit"] {		
+		height: 2.8rem;
 		display: inline;		
 	}
 
@@ -186,88 +190,266 @@ header nav li {
 		margin-left: 5rem;		
 }
 
-#btn_logout {
-	background-color: #c1c1c1;
+
+
+
+
+/*
+	BUTTONS
+*/
+
+/* Submit buttons */
+
+#login_container input[value="Login"], form[id="register"] input[type="button"] {
+	width: auto;
+	font: normal normal 400 1.6rem/2.4rem 'Open Sans', sans-serif;
+	margin: .5rem;
+	margin-left: 5rem;
+	background-color: #8CD4F5;
 	color: white;
-	font-size: 1.5rem;
-	font-weight: 400;
-	border-radius: 5px;
-	padding: .35rem 1.2rem;
- }
+	border: none;
+	box-shadow: none;
+	padding: .5rem 2.5rem;
+	cursor: pointer;
+}
+	#login_container input[value="Login"]:hover, form[id="register"] input[type="button"]:hover {
+		background-color: #7ecff4;
+	}
+	#login_container input[value="Login"]:active, form[id="register"] input[type="button"]:active {
+		background-color: #5dc2f1;
+	}
+
+#login_container input[value="Login"] {
+	padding: .2rem 1rem;
+	margin-left: 1rem;
+}
+
+
+
+/* Cancel buttons */
+#btn_logout, form[id="register"] input[type="submit"] {
+	width: auto;
+	font: normal normal 400 1.6rem/2.4rem 'Open Sans', sans-serif;
+	margin: .5rem;
+	margin-left: 5rem;
+	background-color: #C1C1C1;
+	color: white;
+	border: none;
+	box-shadow: none;
+	padding: .5rem 2.5rem;
+	cursor: pointer;
+}
+	#btn_logout:hover, form[id="register"] input[type="submit"]:hover {
+		background-color: #b9b9b9;
+	}
+	#btn_logout:active, form[id="register"] input[type="submit"]:active {
+		background-color: #a8a8a8;
+	}
+
+
+
 
 /*
 	Wrapper
 */
-#wrapper_main {
+#wrapper_main, header div:first-child {
 	margin: 0 auto;
-	max-width: 150rem;
-	padding: 10rem;
+	max-width: 160rem;
+	padding: 5rem 10rem;
 }
 
 /*
 	FORMS
 */
 /* Forms generic */
-form input, textarea, form select {
+body>header form input, textarea, form select {
 	display: block;
 }
 
-form label {
+body>header form label {
 	font-family: 'Open Sans', sans-serif;
 	text-transform: uppercase;
 }
 
-input {
+body>header input {
 	margin: .5rem 0;
+}
+
+/* Form register */
+legend {
+	font: normal normal 800 3rem/3.2rem 'Open Sans', sans-serif;
+}
+form label {
+	font: normal normal 400 1.5rem/2.5rem 'Open Sans', sans-serif;
+	margin: 1.8rem 0 .8rem 0;
+	display: block;
+}
+form select {
+	display: inline;
+	height: 2.5rem;
+	width: 32.8%;
+}
+	form input {
+		height: 2.5rem;
+		width: 99%;
+	}
+	form[id="register"] input[type="button"], form[id="register"] input[type="submit"] {
+		height: 3.2rem;
+		margin-left: 0;
+		margin-right: 2rem;
+		margin-top: 2rem;
+	}
+#register {
+	width: 50rem;
+	margin: 0 auto;
+	padding: 1rem;
+	background-color: rgba(171, 200, 213, 0.2);
 }
 
 
 /*
 	Event
 */
-.event {
-	margin: 2rem 0;
+#events {
+	margin: 5rem auto;
+	/*display: inline-table;*/
 }
-
-.event_name {
-	font: normal normal 800 3rem/3.2rem 'Open Sans', sans-serif;
-	margin: .8rem 0;
-}
-
-.event.thumb {
-	width: 44.6rem;
-	height: 20rem;
-	margin: 0 2.5rem;
-	display: inline-block;
-	border: solid 1px black;
-}
-	.event.thumb .EventImage {
-		float: left;
-		width: 40%;
-	}		
-	.event.thumb .event_name {		
-		font: normal normal 800 2rem/3rem 'Open Sans', sans-serif;
+	.event_name {
+		font: normal normal 800 3rem/3.2rem 'Open Sans', sans-serif;
 		margin: .8rem 0;
 	}
 
-/* Os 3 seguintes servem apenas para colocar a lupa na caixa de search */
+	.event.thumb {
+		background-color: rgba(171, 200, 213, 0.2);
+		position: relative;
+		padding-right: 1rem;
+		display: inline-block;
+		vertical-align: middle;
+		width: 50rem;
+		height: 20rem;
+		margin: 1rem 1rem;
+	}
+		.event.thumb .eventphoto {
+			height: 20rem;
+			width: 20rem;
+			overflow: hidden;
+			float: left;
+			margin-right: 1rem;
+		}
+			.event.thumb .EventImage {
+				min-width: 100%;
+				height: 100%;
+				transform: translateZ(50%);
+			}
+		.event.thumb h3 {
+			margin: .4rem 0 1rem 0;
+			max-height: 8.4rem;
+			overflow: hidden;
+		}
+			.event.thumb .event_name {		
+				font: normal normal 800 2.2rem/2.8rem 'Open Sans', sans-serif;
+			}
+		.event.thumb p, .event.thumb a.event_more.btn {
+			font: normal normal 400 1.6rem/2.4rem 'Open Sans', sans-serif;
+		}
+		.event.thumb a.event_more.btn {
+			position: absolute;
+			float: right;
+			bottom: 1rem;
+			right: 1rem;
+			color: white;
+			background-color: #7E8AA2;
+			padding: .2rem 1rem;
+		}
+		.event.thumb .event_type {
+			position: absolute;
+			bottom: 1rem;
+			left: 21rem;
+		}
 
+/*
+	SEARCH BAR
+*/
 #search {
-	position:relative; 
-	padding:0;
-	margin:0;
+	margin: 0 1rem 5rem 1rem;
 }
+#search, #search input, #search select, #search option {
+	padding: 0;
+	font: normal normal 400 1.6rem/2.4rem 'Open Sans', sans-serif;
+	margin-right: .4rem;
 
-#searchEventByName {
-	height:20px; 
-	margin:0;
 }
+	#search input, #search select {
+		height: 3rem;
+	}
+	#search select {
+		height: 3.4rem;
+	}
+	#search input[type="date"] {
+		width: 15rem;
+	}
+	#search input[type="text"] {
+		width: 40rem;
+		/*margin-right: .2rem;*/
+	}
+	#search input[value="Search"] {
+		height: 3.4rem;
+		background-color: #8CD4F5;
+		color: white;
+		border: none;
+		box-shadow: none;
+		padding: 0 2.5rem;
+		cursor: pointer;
+	}
+		#search input[value="Search"]:hover {
+			background-color: #7ecff4;
+		}
+		#search input[value="Search"]:active {
+			background-color: #5dc2f1;
+		}
 
-#searchImg {
-	position:absolute;
-	bottom:37px;
-	left:150px;
-	width:20px;
-	height:20px;
+a.create_event {
+	font: normal normal 400 1.6rem/2.4rem 'Open Sans', sans-serif;
+	float: right;
+	margin: .5rem;
+	margin-left: .4rem;
+	background-color: #8CD4F5;
+	color: white;
+	border: none;
+	box-shadow: none;
+	padding: .5rem 2.5rem;
+	cursor: pointer;
 }
+	a.create_event:hover {
+		background-color: #7ecff4;
+	}
+	a.create_event:active {
+		background-color: #5dc2f1;
+	}
 
+
+/*
+	USER PAGE
+*/
+/* User Data */
+#userAside {
+	background-color: red;
+	max-width: 30rem;
+	display: inline-block;
+	padding: 1rem;
+}
+#userContent {
+	background-color: yellow;
+	max-width: 70rem;
+	/*display: inline-block;*/
+	float: right;
+}
+#userphoto {
+	width: 20rem;
+	height: 20rem;
+	overflow: hidden;
+}
+	#userphoto .UserImage {
+		transform: translateZ(-50%);
+		transform: translateY(-50%);
+	}
