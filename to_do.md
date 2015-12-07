@@ -24,7 +24,7 @@ TO DO
 			* ~~Comment~~
 		* ~~__User Registered to Private Event__:~~
 			* ~~'DeRegister from Event' (decide not to go to event) -> set invite to active again~~
-		* __Event Owner__:
+		* ~~__Event Owner__:~~
 			* ~~Edit~~
 			* ~~Delete~~
 			* ~~Invite people~~
@@ -40,7 +40,7 @@ TO DO
 * User page:
 	* List events:
 		* ~~Attending~~
-		* Invites
+		* ~~Invites~~
 		* ~~Hosting~~
 * ~~Registration in Event~~
 	* ~~User Attends event~~
