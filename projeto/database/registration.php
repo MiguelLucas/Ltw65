@@ -4,7 +4,7 @@ require_once('connection.php');
 require_once('user.php');
 require_once('events.php');
 require_once('mail.php');
-require_once('../libs/phpmailer/class.phpmailer.php');
+
 
 function is_leap_year($year)
 {

@@ -1,7 +1,7 @@
 <?php
 
 	session_start();
-	if(!isset($_SESSION["emailUser"])){
+	if(!isset($_SESSION["idUser"])){
 		header( "Location: index.php" );
 	}
 
@@ -64,6 +64,18 @@
 		<a href="" class="event_more">View more</a>
 	</div>
 	
+	
+		<!-- Template for Event -->
+	<div class="invite">
+		<a href="" class="event_more"><img class="EventImage" src=""></a>
+		<p><span class="event_name"></span></p>
+		<p><span class="event_date_time"></span></p>
+		<div class="hidden idEvent"></div>
+		<button class="accept" type="button">Accept</button>
+		<button class="decline" type="button">Decline</button>
+		<a href="" class="event_more">View more</a>
+	</div>
+	
 	<!-- Form for Upload photos -->
 
 	<form method="post" id="fileUpload" name="fileUpload"  >
@@ -97,6 +109,29 @@
 		
 		loadEventsCreatedByUser(<?php echo $idUser ?>);
 		loadAttendingEventsByUser(<?php echo $idUser ?>);
+		loadInvitesOfUser(<?php echo $idUser ?>);
+		
+		
+
+		$('button.accept').click(function(){
+			var idEvent = $(this).siblings('.idEvent').text();
+			acceptInvite(<?php echo $idUser ?>, idEvent);
+			$( "#myInvites" ).empty();
+			loadInvitesOfUser(<?php echo $idUser ?>);
+			
+			
+  		});
+		
+		
+		$('button.decline').click(function(){
+			var idEvent = $(this).siblings('.idEvent').text();
+			declineInvite(<?php echo $idUser ?>, idEvent);
+			$( "#myInvites" ).empty();
+			loadInvitesOfUser(<?php echo $idUser ?>);
+				
+  		});
+		
+		
 		
 		$('img.UserImage').mouseover(function(){
 			 $( this ).animate({

@@ -7,10 +7,10 @@
 	require_once('database/user.php');
 	require_once('templates/head.php');
 	
-	if(!isset($_SESSION["emailUser"]))
+	if(!isset($_SESSION["idUser"]))
 		$idUser = 0;
 	else
-		list ($idUser) = getUserInfo();
+		list ($idUser, $emailUser) = getUserInfo();
 ?>
 
 <div id="wrapper_main">
@@ -24,6 +24,7 @@
 	
 	<section id="search">
 		<input type='text' name='searchEvent' id='searchEventText' maxlength="50" placeholder="Search Events..." />
+
 		<label for='searchEventByDateBegin' class='labels hidden'>Initial date: </label>
 		<input type='date' id='searchEventByDateBegin' class="hidden" value="<?php echo date("Y-m-d");?>" />
 		<label for='searchEventByDateEnd' class='labels hidden'>Final date: </label>
