@@ -13,6 +13,10 @@
 	}
 	else
 		list ($idUser, $emailUser) = getUserInfo();
+	if(!hasAccess($_GET['idEvent'], $idUser)){
+		header( "Location: index.php" );
+	}
+		
 	
 
 ?>
@@ -24,8 +28,8 @@
 		//User is not creator
 		if($idUser != 0 && !userIsCreator($_GET['idEvent'], $idUser)){  
 			if(!userIsRegistered($_GET['idEvent'], $idUser))
-				echo '<button class="registration" type="button">Going</button>';
-			else echo '<button class="registration going" type="button">Cancel</button>';
+				echo '<button class="registration" type="button">Attend Event</button>';
+			else echo '<button class="registration going" type="button">Cancel Registration</button>';
 		}
 		//User is creator
 		if(userIsCreator($_GET['idEvent'], $idUser) || eventIsPublic($_GET['idEvent'])){
@@ -35,7 +39,6 @@
 		
 	?>
 	
-	<button class="share" type="button">Share</button>
 </aside>
 <section id="comments">
 	<h2>Comments</h2>
@@ -158,8 +161,7 @@
 				creator = true;
 			<?php }?>
 		
-			
-			console.log(creator);
+
 		
 		if(creator == true){
 			document.getElementById("fileUpload").onchange = function() {
@@ -188,7 +190,7 @@
 			});
 		}
 		
-		
+	
 		
 		//edit event
 		$('button.edit_event').click(function(){
@@ -209,12 +211,14 @@
 			if($(this).hasClass('going')){
 				cancelUserEventRegistration(<?php echo $_GET['idEvent']; ?>, <?php echo $idUser; ?>);
 				$(this).removeClass('going');
-				window.location.reload();
+				$(this).text('Attend Event');
+				//window.location.reload();
 			}
 			else{
 				registerUserEvent(<?php echo $_GET['idEvent']; ?>, <?php echo $idUser; ?>);
 				$(this).addClass('going');
-				window.location.reload();
+				$(this).text('Cancel Registration');
+				//window.location.reload();
 			}
 	
 		});
@@ -244,6 +248,7 @@
 						loadCommentsWithCallback(<?php echo $_GET['idEvent']; ?>, <?php echo $idUser ?>);
 					});
   		});
+		
 		
 		
 	});

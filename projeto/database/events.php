@@ -106,7 +106,7 @@ function eventRegisterUser(){
 	$last_id = $db->lastInsertID();
 
 	header("Content-Type: application/json");
-	echo '{"redirect":true,"redirect_url":"view-event.php?idEvent=' . $last_id . '"}';
+	//echo '{"redirect":true,"redirect_url":"view-event.php?idEvent=' . $last_id . '"}';
 }
 
 /*
@@ -116,14 +116,23 @@ function cancelEventRegisterUser(){
 	global $db;
 
 	$query = "DELETE FROM Registration WHERE idUser =".$_POST['user_id']." AND idEvent = ".$_POST['event_id'];
-	//echo $query;
+
 	$stmt = $db->prepare($query);
 	$stmt->execute();
 
 	$last_id = $_POST['event_id'];
+	
+	$query = "UPDATE Invite SET active = 1 WHERE ";
+	if (isset($_POST['user_id']))
+		$query .= " idReceiver = " . $_POST['user_id'];
+	if (isset($_POST['event_id']))
+		$query .= " AND idEvent = " . $_POST['event_id'];
+	
+	$stmt = $db->prepare($query);
+	$stmt->execute();
 
 	header("Content-Type: application/json");
-	echo '{"redirect":true,"redirect_url":"view-event.php?idEvent=' . $last_id . '"}';
+	//echo '{"redirect":true,"redirect_url":"view-event.php?idEvent=' . $last_id . '"}';
 }
 
 
@@ -176,8 +185,6 @@ function getEventTypes() {
 /* Get events attend by a user */
 function getAttendingEvents() {
 	global $db;
-	
-	//FALTA CONFIRMAR SE ESTA ISSET ************************************************************************************************
 	
 	$query = "SELECT * FROM Event WHERE active = 1 AND idEvent IN(SELECT idEvent FROM Registration WHERE idUser = ". $_GET['idAttendingUser'].")";
 
@@ -316,6 +323,55 @@ function deletePendingInvites($email){
 }
 
 
+function getInvitesUser(){
+	global $db;
+
+	$query = "SELECT * FROM Event WHERE active = 1 AND idEvent IN(SELECT idEvent FROM Invite WHERE active = 1 AND idReceiver = ". $_GET['id_user'].")";
+
+	$stmt = $db->prepare($query);
+	$stmt->execute();  
+	$events = $stmt->fetchAll();
+	/* Content-Type must be defined, otherwise the output is seen as plain text */
+	header("Content-Type: application/json");
+	echo json_encode($events);
+	
+}
+
+
+function acceptUserInvite(){
+	global $db;
+	
+	$query = "UPDATE Invite SET active = 0 WHERE ";
+	if (isset($_POST['user_id']))
+		$query .= " idReceiver = " . $_POST['user_id'];
+	if (isset($_POST['event_id']))
+		$query .= " AND idEvent = " . $_POST['event_id'];
+	
+	$stmt = $db->prepare($query);
+	$stmt->execute();
+	
+	eventRegisterUser();
+	
+	
+}
+
+function declineUserInvite(){
+	global $db;
+	
+	$query = "UPDATE Invite SET active = 0 WHERE ";
+	if (isset($_POST['user_id']))
+		$query .= " idReceiver = " . $_POST['user_id'];
+	if (isset($_POST['event_id']))
+		$query .= " AND idEvent = " . $_POST['event_id'];
+	
+	$stmt = $db->prepare($query);
+	$stmt->execute();
+	
+}
+
+
+
+
 /* Depending on the type of request (GET, POST, PUT, DELETE), execute the corresponding function */
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 	/* According to the value of var action, a different function is called */
@@ -332,6 +388,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 			case 'attending':
 				getAttendingEvents();
 				break;
+			case 'invitesUser':
+				getInvitesUser();
+				break;	
+				
 			default:
 				echo "Unexpected action";
 				break;
@@ -358,6 +418,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				break;	
 			case 'send_invite':
 				sendInvite();
+				break;
+			case 'acceptInvite':
+				acceptUserInvite();
+				break;
+				
+			case 'declineInvite':
+				declineUserInvite();
 				break;	
 				
 			default:

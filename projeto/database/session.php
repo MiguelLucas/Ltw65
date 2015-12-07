@@ -5,16 +5,11 @@ require_once('connection.php');
 function loginUser()
 {
     if(empty($_POST['email']))
-    {
-        $this->HandleError("Email is empty!");
         return false;
-    }
-     
+
     if(empty($_POST['password']))
-    {
-        $this->HandleError("Password is empty!");
         return false;
-    }
+
      
 	$emailUser = $_POST['email'];
 	$password = $_POST['password'];
@@ -61,47 +56,52 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	loginUser();
 }
 
+if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
-switch ( $_GET['action'] ) {
-	case "logout":
-		session_destroy();
-		header("location:../index.php");
-	break;
-	case "no":
-		echo '<h2>You <strong>NOT</strong> loged in.</h2>';
-	break;
-	case "yes":
-		if(!isset($_SESSION['username'])){
-			header("location:../index.php");
+	if (!array_key_exists("action", $_GET)) {
+		echo "An error has occurred";
+	} else {
+		switch ( $_GET['action'] ) {
+			case "logout":
+				session_destroy();
+				header("location:../index.php");
+			break;
+			case "no":
+				echo '<h2>You <strong>NOT</strong> loged in.</h2>';
+			break;
+			case "yes":
+				if(!isset($_SESSION['username'])){
+					header("location:../index.php");
+				}
+				echo '<h2>You <strong>ARE</strong> loged in.</h2>';
+			break;
+			case "check":
+				$username=$_POST['username'];
+				$password=$_POST['password'];
+				
+				$clean_username = strip_tags(stripslashes(mysql_real_escape_string($username)));
+				$clean_password = sha1(strip_tags(stripslashes(mysql_real_escape_string($password))));
+				
+				$sql="SELECT * FROM members WHERE username='$clean_username' and password='$clean_password'";
+				$rs = mysql_query($sql) or die ("Query failed");
+				
+				$numofrows = mysql_num_rows($rs);
+				
+				if($numofrows==1){
+					session_register("username");
+					header("location:../index.php?action=yes");
+				}
+				else {
+					header("location:../index.php?action=no");
+				}
+			default:
+				if(isset($_SESSION['username'])){
+					header("location:../index.php?action=yes");
+				}
+			break;
 		}
-		echo '<h2>You <strong>ARE</strong> loged in.</h2>';
-	break;
-	case "check":
-		$username=$_POST['username'];
-		$password=$_POST['password'];
-		
-		$clean_username = strip_tags(stripslashes(mysql_real_escape_string($username)));
-		$clean_password = sha1(strip_tags(stripslashes(mysql_real_escape_string($password))));
-		
-		$sql="SELECT * FROM members WHERE username='$clean_username' and password='$clean_password'";
-		$rs = mysql_query($sql) or die ("Query failed");
-		
-		$numofrows = mysql_num_rows($rs);
-		
-		if($numofrows==1){
-			session_register("username");
-			header("location:../index.php?action=yes");
-		}
-		else {
-			header("location:../index.php?action=no");
-		}
-	default:
-		if(isset($_SESSION['username'])){
-			header("location:../index.php?action=yes");
-		}
-	break;
+	}
 }
-
 
 
 ?>

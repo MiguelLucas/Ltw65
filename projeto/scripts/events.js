@@ -151,10 +151,7 @@ function loadAttendingEventsByUser(idUser)
 		url: "database/events.php",
 		data: { action : "attending" , idAttendingUser : idUser },
 		success: function(data) {
-			console.log(data);
-			//  $('#event').empty();
-			// Saves event on lastEvent var for future use
-			// Fills in each field
+
 			for (var i = 0; i < data.length; i++) {
 				lastEvent = data[i];
 
@@ -176,6 +173,91 @@ function loadAttendingEventsByUser(idUser)
 		}
 	});
 }
+
+
+// AJAX request to get Invites sent to User
+function loadInvitesOfUser(idUser)
+	{
+
+	$.ajax({
+
+		method: "GET",
+		dataType: "json",
+		url: "database/events.php",
+		data: { action : "invitesUser" , id_user : idUser },
+		success: function(data) {
+	
+			for (var i = 0; i < data.length; i++) {
+				lastEvent = data[i];
+				
+				var event_privacy = (data[i].private == "1") ? "Private event" : "Public event";
+				var invite = $('#hidden .invite').clone(true);
+				invite.find(".event_name").text(data[i].name);
+				invite.find(".event_date_time").text(moment(data[i].date).format('dddd, MMMM Do, YYYY [at] h:mm A'));
+				invite.find(".EventImage").attr("src", 'img/events/' + data[i].eventPhoto);
+				invite.find(".event_more").attr("href", 'view-event.php?idEvent=' + data[i].idEvent);
+				invite.find(".idEvent").text(data[i].idEvent);
+				
+				$('#myInvites').append(invite);
+			}
+		},
+		error: function(data)
+      {
+        console.log(data.responseText);
+      }
+
+	});
+}
+
+
+function acceptInvite(idUser, idEvent){
+	
+	$.ajax({
+
+		method: "POST",
+		dataType: "json",
+		url: "database/events.php",
+		data: { action : "acceptInvite" , user_id : idUser, event_id : idEvent  },
+		success: function(data) {
+	
+			console.log(data);
+		},
+		error: function(data)
+      {
+        console.log(data.responseText);
+      }
+
+	});
+	
+}
+
+function declineInvite(idUser, idEvent){
+	console.log('dec');
+	$.ajax({
+
+		method: "POST",
+		dataType: "json",
+		url: "database/events.php",
+		data: { action : "declineInvite" , user_id : idUser, event_id : idEvent  },
+		success: function(data) {
+	
+			console.log(data);
+		},
+		error: function(data)
+      {
+        console.log(data.responseText);
+      }
+
+	});
+	
+}
+
+
+
+
+
+
+
 
 
 /*
