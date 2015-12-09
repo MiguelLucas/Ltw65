@@ -15,7 +15,7 @@
 
 ?>
 
-  <body>
+<div id="wrapper_main">
 
 
     <section id="core">
@@ -59,6 +59,7 @@
 				
 			</div>
 		</section>
+		</div>
   </body>
   <script>
 	  $(document).ready(function(){

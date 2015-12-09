@@ -15,7 +15,7 @@
   
 ?>
 
-<body>
+
 <div id="wrapper_main">
 
 <aside id="userAside">
