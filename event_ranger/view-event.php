@@ -38,6 +38,9 @@
 		}
 		
 	?>
+	<ul class="attendingUsers">
+		<span> Attending Users </span class="attending_users">
+	</ul>
 	
 </aside>
 <section id="comments">
@@ -85,9 +88,9 @@
 		<p><span class="event_type"></span></p>
 		<p><span class="event_privacy"></span> hosted by <span class="event_owner"></span>.</p>
 		<p><span class="event_desc"></span></p>
-		<ul class="attendingUsers">
+		<!-- <ul class="attendingUsers">
 			</span> Attending Users <span class="attending_users">
-		</ul>
+		</ul> -->
 	</article>
 
 	<!-- Template for Comments -->

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Event Ranger</title>
+	<title>Ranger</title>
 	<meta charset='UTF-8'>
 	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 	<!-- Sweet Alert library (available at: https://t4t5.github.io/sweetalert/) -->
@@ -22,7 +22,7 @@
 <body>
 <header>
 <div>
-	<h1><a href="index.php">Event Ranger</a></h1>
+	<h1><a href="index.php">Ranger</a></h1>
 	<?php
 		if(!isset($_SESSION["idUser"])) {
 			include('header_notloggedin.php'); // will include header_notloggedin.php

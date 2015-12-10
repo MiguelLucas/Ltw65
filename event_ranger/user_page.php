@@ -119,6 +119,8 @@
 			acceptInvite(<?php echo $idUser ?>, idEvent);
 			$( "#myInvites" ).empty();
 			loadInvitesOfUser(<?php echo $idUser ?>);
+			$( "#attendingEvents" ).empty();
+			loadAttendingEventsByUser(<?php echo $idUser ?>);
 			
 			
   		});

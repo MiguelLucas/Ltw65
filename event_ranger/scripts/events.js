@@ -62,12 +62,12 @@ function loadEvent(id)
         event.find(".event_owner").text(userFullName);
         event.find(".EventImage").attr("src", 'img/events/' + data[0][i].eventPhoto);
 		for(var j = 0; j < data[1].length; j++){
-			 var user = $('.userInEvent').clone(true);
+			 var user = $('#hidden .userInEvent').clone(true);
 			 console.log(user);
 			 var attendingUserFullName = data[1][j].firstName + ' ' + data[1][j].lastName;
 			 console.log(attendingUserFullName);
 			 user.text(attendingUserFullName);
-			 event.find('.attendingUsers').append(user);
+			 $('.attendingUsers').append(user);
 			
 		}
         $('#event').append(event);

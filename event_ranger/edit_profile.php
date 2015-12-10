@@ -16,7 +16,7 @@
 ?>
 
 <div id="wrapper_main">
-    <section id="core">
+    <section id="userProfile">
 			<div class="profileinfo">
 				<h2>Edit your Profile</h2>
 				
