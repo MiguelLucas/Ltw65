@@ -200,7 +200,7 @@ header nav li {
 
 /* Submit buttons */
 
-#login_container input[value="Login"], form[id="register"] input[type="button"], #userAside button[type="submit"], #event .event_form button.save_button, #event .event_form button.delete_event, #event .event_form a.cancel, button.postComment, button.postChildComment, #event button.edit_event, button.invite {
+#login_container input[value="Login"], form[id="register"] input[type="button"], #userAside button[type="submit"], #event .event_form button.save_button, #event .event_form button.delete_event, #event .event_form a.cancel, button.postComment, button.postChildComment, #event button.edit_event, button.invite, button.registration {
 	width: auto;
 	font: normal normal 400 1.6rem/2.4rem 'Open Sans', sans-serif;
 	margin: .5rem;
@@ -212,10 +212,10 @@ header nav li {
 	padding: .5rem 2.5rem;
 	cursor: pointer;
 }
-	#login_container input[value="Login"]:hover, form[id="register"] input[type="button"]:hover, #userAside button[type="submit"]:hover, #event .event_form button.save_button:hover, #event .event_form a.cancel:hover, button.postComment:hover, button.postChildComment:hover, #event button.edit_event:hover, button.invite:hover {
+	#login_container input[value="Login"]:hover, form[id="register"] input[type="button"]:hover, #userAside button[type="submit"]:hover, #event .event_form button.save_button:hover, #event .event_form a.cancel:hover, button.postComment:hover, button.postChildComment:hover, #event button.edit_event:hover, button.invite:hover, button.registration:hover {
 		background-color: #7ecff4;
 	}
-	#login_container input[value="Login"]:active, form[id="register"] input[type="button"]:active, #userAside button[type="submit"]:active, #event .event_form button.save_button:active, #event .event_form a.cancel:active, button.postComment:active, button.postChildComment:active, #event button.edit_event:active, button.invite:active {
+	#login_container input[value="Login"]:active, form[id="register"] input[type="button"]:active, #userAside button[type="submit"]:active, #event .event_form button.save_button:active, #event .event_form a.cancel:active, button.postComment:active, button.postChildComment:active, #event button.edit_event:active, button.invite:active button.registration:active {
 		background-color: #5dc2f1;
 	}
 
@@ -255,7 +255,9 @@ button.invite {
 	margin-left: 0;
 	float: right;
 }
-
+button.registration {
+	margin-left: 0;
+}
 
 
 #login_container input[value="Login"], #userAside a.create_event {
