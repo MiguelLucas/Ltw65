@@ -15,9 +15,9 @@
 
 ?>
 
+  <body>
+
 <div id="wrapper_main">
-
-
     <section id="core">
 			<div class="profileinfo">
 				<h2>Update your Profile Info &rarr;</h2>
@@ -101,8 +101,28 @@
 			var dataset = elink.prev(".datainfo");
 			
 			var child 	= dataset.children();
-			var newval 	= $('#newPassword').val();
 			var newDataType   = dataset.attr("id");
+			var newval;
+			if (newDataType == 'password'){
+				newval = $('#newPassword').val();
+				if (newval && newval != ""){
+					if (detectPassword(newval)){
+						var curPassword = $('#currentPassword').val();
+						$('#emailUser').val('<?php echo $emailUser ?>');
+						$('#get_password').submit();
+						return true;
+					}
+					else
+						return false;
+				}
+				else{
+					swal("Watch out!", "The input field is empty!", "error");
+					return false;
+				}
+					
+			} else {
+				newval = child.val();
+			}
 			
 			if (newval && newval != ""){
 				if (newDataType == 'firstName' || newDataType == 'lastName'){
@@ -115,15 +135,11 @@
 						return false;
 					}
 				}
-				var curPassword = $('#currentPassword').val();
-				if (newDataType == 'password'){
-					$('#emailUser').val('<?php echo $emailUser ?>');
-					$('#get_password').submit();
-				}
-					
-				
-			} else
+			} else {
+				swal("Watch out!", "The input field is empty!", "error");
 				return false;
+			}
+				
 			
 			//id,firstname,lastname,email,date,password
 			if (newDataType == 'email'){
@@ -142,6 +158,8 @@
 			
 			elink.css("display", "block");
 		});
+		
+		//edição datas
 		$(".editdatelink").on("click", function(e){
 		  e.preventDefault();
 			var dataset = $(this).prev(".datainfo");
@@ -170,6 +188,7 @@
 			if (newval && newval != ""){
 				if (newDataType == 'date'){
 					if(!moment(newval).isValid()){
+						swal("Hum...", "Are you sure that is your birthdate?", "error");
 						return false;
 					}
 				}
