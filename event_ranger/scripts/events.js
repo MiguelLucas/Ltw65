@@ -529,6 +529,7 @@ function cancelUserEventRegistration(idEvent, idUser){
 /* Loads event edit form and sets the inputs' default values to the event's current values */
 function fillEditEventForm() {
   $('#comments').hide();
+  $('aside').hide();
   $('#event').empty();
   var edit_event = $('#hidden .event_form').clone(true);
 
@@ -575,6 +576,7 @@ function editEvent() {
     success: function() {
       loadEvent(lastEvent.idEvent);
       $('#comments').show();
+      $('aside').show();
     },
     error: function(data) {
       console.log(data.responseText);

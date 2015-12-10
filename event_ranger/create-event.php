@@ -46,8 +46,8 @@
 					<option value="0">Public</option>
 				</select>
 			</label>
-			<button class="save_button" type="button">Create</button>
 			<a class="cancel" href="">Cancel</a>
+			<button class="save_button" type="button">Create</button>
 		</form>
 	</div>
 </section>

@@ -200,7 +200,7 @@ header nav li {
 
 /* Submit buttons */
 
-#login_container input[value="Login"], form[id="register"] input[type="button"], #userAside button[type="submit"] {
+#login_container input[value="Login"], form[id="register"] input[type="button"], #userAside button[type="submit"], #event .event_form button.save_button, #event .event_form button.delete_event, #event .event_form a.cancel, button.postComment {
 	width: auto;
 	font: normal normal 400 1.6rem/2.4rem 'Open Sans', sans-serif;
 	margin: .5rem;
@@ -212,12 +212,42 @@ header nav li {
 	padding: .5rem 2.5rem;
 	cursor: pointer;
 }
-	#login_container input[value="Login"]:hover, form[id="register"] input[type="button"]:hover, #userAside button[type="submit"]:hover {
+	#login_container input[value="Login"]:hover, form[id="register"] input[type="button"]:hover, #userAside button[type="submit"]:hover, #event .event_form button.save_button:hover, #event .event_form a.cancel:hover, button.postComment:hover {
 		background-color: #7ecff4;
 	}
-	#login_container input[value="Login"]:active, form[id="register"] input[type="button"]:active, #userAside button[type="submit"]:active {
+	#login_container input[value="Login"]:active, form[id="register"] input[type="button"]:active, #userAside button[type="submit"]:active, #event .event_form button.save_button:active, #event .event_form a.cancel:active, button.postComment:active {
 		background-color: #5dc2f1;
 	}
+
+#event .event_form button.delete_event {
+	background-color: rgb(221, 107, 85);
+	margin-left: 0;
+	margin-top: 2rem;
+}
+	#event .event_form button.delete_event:hover {
+		background-color: rgb(212, 103, 82);
+	}
+	#event .event_form button.delete_event:active {
+	background-color: rgb(190, 92, 73);
+	}
+
+#event .event_form a.cancel {
+	background-color: #C1C1C1;
+	margin: 0;
+}
+	#event .event_form a.cancel:hover {
+		background-color: #b9b9b9;
+	}
+	#event .event_form a.cancel:active {
+		background-color: #a8a8a8;
+	}
+
+button.postComment {
+	margin: 0;
+	margin-left: .6rem; 
+	padding: .25rem 1rem;
+
+}
 
 #login_container input[value="Login"], #userAside a.create_event {
 	padding: .2rem 1rem;
@@ -227,6 +257,48 @@ header nav li {
 	margin: 0;
 }
 
+
+#event {
+	width: 70rem;
+}
+#event #eventphoto img {
+	width: 100%;
+}
+
+.attendingUsers {
+	float: right;
+	width: 40rem;
+	list-style-type: none;
+}
+/*
+	CHANGE PHOTO
+*/
+
+#event #eventphoto {
+	position: relative;
+}
+#event .changePhoto {
+	font-size: 2.5rem;
+	font-weight: 600;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translateY(-50%);
+	transform: translateX(-50%);
+}
+
+#userAside #userphoto {
+	position: relative;
+}
+#userAside .changePhoto {
+	font-size: 2.5rem;
+	font-weight: 600;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translateY(-50%);
+	transform: translateX(-50%);
+}
 
 /* Cancel buttons */
 #btn_logout, form[id="register"] input[type="submit"] {
@@ -248,7 +320,9 @@ header nav li {
 		background-color: #a8a8a8;
 	}
 
-
+#event .event_form button.save_button {
+	margin-left: 2rem;
+}
 
 
 /*
@@ -371,6 +445,76 @@ form select {
 			bottom: 1rem;
 			left: 21rem;
 		}
+/*
+	EVENT FORMS
+*/
+#event .event_form {
+	width: 50rem;
+	margin: 0 auto;
+	padding: 1rem;
+	background-color: rgba(171, 200, 213, 0.2);
+}
+	#event .event_form .event_name {
+		font: normal normal 400 1.4rem/2.5rem 'Open Sans', sans-serif;
+	}
+	#event .event_form textarea {
+		width: 99%;
+		height: 10rem;
+		font: normal normal 400 1.4rem/2.5rem 'Open Sans', sans-serif;
+	}
+
+/*
+	COMMENTS
+*/
+
+#comments {
+	position: relative;
+	overflow: hidden;
+	width: 70rem;
+	margin: 3rem 0;
+	padding: 1rem;
+	background-color: rgba(171, 200, 213, 0.2);
+}
+	#comments h2 {
+		font: normal normal 400 2rem/3rem 'Open Sans', sans-serif;
+	}
+	#comments ul {
+		list-style-type: none;
+		line-height: 2.5rem;
+	}
+	#main_comment {
+		margin-top: 1.5rem;
+	}
+	.comment_item {
+		margin-bottom: 1rem;
+	}
+	#comments li {
+		min-height: 5rem;
+	}
+	#comments .nested_comment {
+		position: relative;
+		left: 3rem;
+	}
+	#comments li header .author {
+		font-weight: 600;
+	}
+	#comments .link {
+		color: #2A426E;
+		font-weight: 600;
+		padding: .2rem 0;
+		margin: .5rem 0;
+	}
+	#comments .link:hover {
+		color: #8CD4F5;
+	}
+
+	#comments form {
+		display: inline;
+	}
+		#comments input {
+			width: 55rem;
+		}
+
 
 /*
 	SEARCH BAR
