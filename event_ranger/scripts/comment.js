@@ -90,7 +90,8 @@ function validateInput(comment){
 	if (comment)
 		return true;
 	else{
-		swal("Watch out!", "You didn't write anything!", "warning");
+		//swal("Watch out!", "You didn't write anything!", "warning");
+		swal("You can't leave comments empty.", "Not even Ranger does that.", "warning");
 		return false;
 	}
 }

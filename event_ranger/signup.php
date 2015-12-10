@@ -60,10 +60,12 @@
 	{
 		<?php if (isset($_GET['action'])) {?>
 			if ( '<?php echo $_GET['action'] ?>' == 'no' ){
-				swal("There has been an error while registering!","Please try again!","error");
+				//swal("There has been an error while registering!","Please try again!","error");
+				swal("You have commited an error while registering!","Ranger is merciful gives you one more chance to try.","error");
 			}
 			if ( '<?php echo $_GET['action'] ?>' == 'email' ){
-				swal("This email already exists!","Please try again with a different email.","error");
+				//swal("This email already exists.","Please try again with a different email.","error");
+				swal("This email already exists.","Do not try to fool Ranger.","error");
 			}
 		<?php }?>
 	});

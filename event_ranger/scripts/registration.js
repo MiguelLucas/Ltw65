@@ -47,6 +47,7 @@ function is_leap_year(year){
 function detectDate(day,month,year){
 	if (day == "Day" || month == "Month" || year == "Year"){
 		swal("Error!", "Insert a valid date!", "error");
+		swal("Error!", "Insert a valid date!", "error");
 		return false;
 	}
 		
@@ -58,7 +59,8 @@ function detectDate(day,month,year){
 	
 	//First, it compares the inputed date with today's date
 	if (birth_date > today){
-		swal("Error!", "We don't accept people from the future!", "error");
+		//swal("Error!", "We don't accept people from the future!", "error");
+		swal("Ranger does not accept people from the future.", "You are not Doctor Who.", "error");
 		return false;
 	}
 	
@@ -66,21 +68,23 @@ function detectDate(day,month,year){
 	if (is_leap_year(year)){
 		if (month == 2){
 			if (day > 29){
-				swal("Error!", "The date is wrongly introduced!", "error");
+				swal("Ranger sees everything.", "And now he sees the date is wrongly introduced.", "error");
 				return false;
 			}
 		}
 	} else {
 		if (month == 2){
 			if (day > 28){
-				swal("Error!", "The date is wrongly introduced!", "error");
+				//swal("Error!", "The date is wrongly introduced!", "error");
+				swal("Ranger sees everything.", "And now he sees the date is wrongly introduced.", "error");
 				return false;
 			}
 		}
 	}
 	if (month == 4 || month == 6 || month == 9 || month == 11){
 		if (day > 28){
-			swal("Error!", "The date is wrongly introduced!", "error");
+			//swal("Error!", "The date is wrongly introduced!", "error");
+			swal("Ranger sees everything.", "And now he sees the date is wrongly introduced.", "error");
 			return false;
 		}
 	}
@@ -114,22 +118,26 @@ function validateNewUser(form,firstName,lastName,email,day,month,year,password){
 	}
 	
 	if (!detectFirstName(firstName)){
-		swal("Error!", "The first name is wrongly introduced!", "error");
+		swal("Really? You don't know how to write your first name?", "Ranger does not admit this.", "error");
+		//swal("Error!", "The first name is wrongly introduced!", "error");
 		return false;
 	}
 	if (!detectLastName(lastName)){
-		swal("Error!", "The last name is wrongly introduced!", "error");
+		swal("Really? You don't know how to write your last name?", "Ranger does not admit this.", "error");
+		//swal("Error!", "The last name is wrongly introduced!", "error");
 		return false;
 	}
 	if (!detectEmail(email)){
-		swal("Error!", "The email is wrongly introduced!", "error");
+		swal("Ranger sees everything.", "And now, Ranger sees the email is incorrect.", "error");
+		//swal("Error!", "The email is wrongly introduced!", "error");
 		return false;
 	}
 	if (!detectDate(day,month,year)){
 		return false;
 	}
 	if (!detectPassword(password)){
-		swal("Error!", "The password is not according to security parameters!", "error");
+		swal("Ranger does not admit short passwords.", "Your password must be like Ranger's one. Epic.", "error");
+		//swal("Ranger does not admit weak passwords.", "Your password is not according to Ranger's security parameters", "error");
 		return false;
 	}
 	form.submit();

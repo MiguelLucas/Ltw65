@@ -245,8 +245,8 @@ function getAttendingEvents() {
  
 function sendMailInvite($firstName, $lastName, $nameEvent, $emailInvite){
 	
-	$subject = 'You have been invited by ' . $firstName . ' ' . $lastName;
-	$body = 'Join ' . $firstName . ' ' . $lastName . ' in the event ' . $nameEvent . '. \r\n Go to blabla to attend.';
+	$subject = 'Ranger has invited you';
+	$body = 'Join ' . $firstName . ' ' . $lastName . ' in the event ' . $nameEvent . "\r\n" . 'Go back to Ranger to attend.';
 	
 	
 	sendMail($emailInvite,$subject,$body);

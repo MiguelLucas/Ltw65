@@ -16,7 +16,7 @@
 ?>
 
 <div id="wrapper_main">
-    <section id="userProfile">
+    <section id="core">
 			<div class="profileinfo">
 				<h2>Edit your Profile</h2>
 				
@@ -63,10 +63,12 @@
 	  $(document).ready(function(){
 		  <?php if (isset($_GET['action'])) {?>
 			if ('<?php echo $_GET['action']; ?>' == 'yes') {
-				 swal("Your password was successfully edited", ":)", "success");
+				 //swal("Your password was successfully edited", ":)", "success");
+				 swal("You cannot change your password. Ranger changes your password.", "And already did it. Successfully.", "success");
 			}
 			if ('<?php echo $_GET['action']; ?>' == 'no') {
-				 swal("The passwords didn't match!", "Please try again", "error");
+				 //swal("The passwords didn't match!", "Please try again", "error");
+				 swal("Ranger sees that the passwords don't match.", "Do not try to fool Ranger.", "error");
 			}
 		  <?php } ?>
 		  
@@ -114,7 +116,8 @@
 						return false;
 				}
 				else{
-					swal("Watch out!", "The input field is empty!", "error");
+					//swal("Watch out!", "The input field is empty!", "error");
+					swal("You can't leave fields empty.", "Not even Ranger does that.", "error");
 					return false;
 				}
 					
@@ -134,7 +137,8 @@
 					}
 				}
 			} else {
-				swal("Watch out!", "The input field is empty!", "error");
+				//swal("Watch out!", "The input field is empty!", "error");
+				swal("You can't leave fields empty.", "Not even Ranger does that.", "error");
 				return false;
 			}
 				
@@ -186,7 +190,8 @@
 			if (newval && newval != ""){
 				if (newDataType == 'date'){
 					if(!moment(newval).isValid()){
-						swal("Hum...", "Are you sure that is your birthdate?", "error");
+						//swal("Hum...", "Are you sure that is your birthdate?", "error");
+						swal("Ranger is pretty sure that is not your birthday.", "Do not try to fool Ranger.", "error");
 						return false;
 					}
 				}

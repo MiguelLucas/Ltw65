@@ -118,8 +118,8 @@
 			var idEvent = $(this).siblings('.idEvent').text();
 			acceptInvite(<?php echo $idUser ?>, idEvent);
 			$( "#myInvites" ).empty();
-			loadInvitesOfUser(<?php echo $idUser ?>);
 			$( "#attendingEvents" ).empty();
+			loadInvitesOfUser(<?php echo $idUser ?>);
 			loadAttendingEventsByUser(<?php echo $idUser ?>);
 			
 			

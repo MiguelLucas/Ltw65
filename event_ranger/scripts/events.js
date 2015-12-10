@@ -62,12 +62,12 @@ function loadEvent(id)
         event.find(".event_owner").text(userFullName);
         event.find(".EventImage").attr("src", 'img/events/' + data[0][i].eventPhoto);
 		for(var j = 0; j < data[1].length; j++){
-			 var user = $('#hidden .userInEvent').clone(true);
+			 var user = $('.userInEvent').clone(true);
 			 console.log(user);
 			 var attendingUserFullName = data[1][j].firstName + ' ' + data[1][j].lastName;
 			 console.log(attendingUserFullName);
 			 user.text(attendingUserFullName);
-			 $('.attendingUsers').append(user);
+			 event.find('.attendingUsers').append(user);
 			
 		}
         $('#event').append(event);
@@ -293,15 +293,18 @@ function validateDates(dateBegin,dateEnd){
 	var d1 = new Date(dateBegin);
 	var d2 = new Date(dateEnd);
 	if (d1 > d2){
-		swal("Your final date is before the initial date!", "Please introduce valid dates", "error");
+		swal("Ranger says: Learn to math.", "Your final date is earlier than the initial date.", "error");
+		//swal("Your final date is before the initial date!", "Please introduce valid dates", "error");
 		return false;
 	}
 	if (!moment(d1).isValid()) {
-		swal("Your initial date is wrong!", "Please introduce valid dates", "error");
+		//swal("Your initial date is wrong!", "Please introduce valid dates", "error");
+		swal("Ranger says: Learn to math.", "Your initial date is wrong.", "error");
 		return false;
 	}
 	if (!moment(d2).isValid()) {
-		swal("Your final date is wrong!", "Please introduce valid dates", "error");
+		swal("Ranger says: Learn to math.", "Your final date is wrong.", "error");
+		//swal("Your final date is wrong!", "Please introduce valid dates", "error");
 		return false;
 	}
 	return true;
@@ -323,7 +326,8 @@ function loadEventsByName(nameToSearch){
 		success: function(data) {
 
 		if (data.length == 0){
-			swal("There were no results regarding your search!", "Please try again with another query", "error");
+			//swal("There were no results regarding your search!", "Please try again with another query", "error");
+			swal("You are searching for something that doesn't exist in Ranger.", "Therefore, it doesn't exist.", "error");
 			return false;
 		}
 		//empty all previous searches
@@ -361,7 +365,8 @@ function loadEventsByAddress(addressToSearch){
 		success: function(data) {
 
 		if (data.length == 0){
-			swal("There were no results regarding your search!", "Please try again with another query", "error");
+			swal("You are searching for something that doesn't exist in Ranger.", "Therefore, it doesn't exist.", "error");
+			//swal("There were no results regarding your search!", "Please try again with another query", "error");
 			return false;
 		}
 		//empty all previous searches
@@ -399,7 +404,8 @@ function loadEventsByType(typeToSearch){
 		success: function(data) {
 
 		if (data.length == 0){
-			swal("There were no results regarding your search!", "Please try again with another query", "error");
+			//swal("There were no results regarding your search!", "Please try again with another query", "error");
+			swal("You are searching for something that doesn't exist in Ranger.", "Therefore, it doesn't exist.", "error");
 			return false;
 		}
 		//empty all previous searches
@@ -438,7 +444,8 @@ function loadEventsByDate(dateToSearchBegin,dateToSearchEnd){
 		success: function(data) {
 
 		if (data.length == 0){
-			swal("There were no results regarding your search!", "Please try again with another query", "error");
+			swal("You are searching for something that doesn't exist in Ranger.", "Therefore, it doesn't exist.", "error");
+			//swal("There were no results regarding your search!", "Please try again with another query", "error");
 			return false;
 		}
 		//empty all previous searches
@@ -592,7 +599,8 @@ function editEvent() {
 function deleteEventDialog() {
     swal({
     title: null,
-    text: "Are you sure you want to delete this event?",
+	text: "Ranger asks you one last time: Are you sure you want to delete this event?",
+    //text: "Are you sure you want to delete this event?",
     type: "warning",
     showCancelButton: true,
     confirmButtonColor: "#DD6B55",
@@ -604,7 +612,8 @@ function deleteEventDialog() {
       deleteEvent();
       swal({
         title: null,
-        text: "Your event has been deleted.",
+		text: "What is done cannot be undone. Ranger has deleted your event.",
+        //text: "Your event has been deleted.",
         type: "success",
         html: true,
         allowEscapeKey: false,
@@ -738,15 +747,15 @@ function sendInviteDialog(idUser, emailUser, idEvent){
 			//email not valid
 			if ( !(/\S+@\S+\.\S+/.test(inputValue))){     
 
-				swal.showInputError("Please enter valid email");     
-
+				//swal.showInputError("Please enter valid email");     
+				swal.showInputError("Do not fool Ranger. Enter a valid email."); 
 				return false   
 			}
 			
 			//cannot invite self
 			if ( inputValue == emailUser ){     
-
-				swal.showInputError("You cannot invite yourself");     
+				swal.showInputError("Do not fool Ranger. You cannot invite yourself."); 
+				//swal.showInputError("You cannot invite yourself");     
 
 				return false   
 			}
@@ -754,12 +763,12 @@ function sendInviteDialog(idUser, emailUser, idEvent){
 				console.log(sent);
 			
 				if(sent == false){
-					swal.showInputError("This person is already invited");     
-
+					//swal.showInputError("This person is already invited");     
+					swal.showInputError("You cannot invite someone who is already invited.");
 					return false  
 				}
 			
-				swal("Invite sent to", " " + inputValue);
+				swal("Ranger sent Invite to", " " + inputValue);
 			});
 			
 		});

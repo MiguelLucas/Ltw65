@@ -57,16 +57,19 @@
 	{
 		<?php if (isset($_GET['action'])) {?>
 			if ('<?php echo $_GET['action']; ?>' == 'yes') {
-				swal("Congratulations!", "You have changed your life by registering in the most beautiful website in the world :)", "success");
+				//swal("Congratulations!", "You have changed your life by registering in the most beautiful website in the world :)", "success");
+				swal("Congratulations!", "Ranger has let you register :)", "success");
 			}
 			if ('<?php echo $_GET['action']; ?>' == 'no') {
-				swal("Why would you cancel the registration?",":( :( :(");
+				//swal("Why would you cancel the registration?",":( :( :(");
+				swal("You have canceled the registration.","You are not worthy of Ranger.");
 			}
 			if ('<?php echo $_GET['action']; ?>' == 'yesemail') {
-				swal('There was an error sending you an email.', 'But you are already registed!','warning');
+				swal('Ranger was not able to send you an email.', 'But Ranger thinks you are worthy, and has let you register.','warning');
+				//swal('There was an error sending you an email.', 'But you are already registed!','warning');
 			}
 			if ('<?php echo $_GET['action']; ?>' == 'fail') {
-				swal("Unable to login","Go see a doctor. You're having memory problems!", "error");
+				swal("Unable to login. Do not fool Ranger.","Go see a doctor. You're having memory problems!", "error");
 			}
 		<?php }?>
 		loadPublicEvents();
