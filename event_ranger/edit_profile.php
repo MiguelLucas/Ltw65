@@ -15,12 +15,10 @@
 
 ?>
 
-  <body>
-
 <div id="wrapper_main">
     <section id="core">
 			<div class="profileinfo">
-				<h2>Update your Profile Info &rarr;</h2>
+				<h2>Edit your Profile</h2>
 				
 				<div class="gear">
 					<label>E-Mail:</label>
